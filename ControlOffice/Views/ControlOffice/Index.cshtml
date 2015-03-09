@@ -1,0 +1,74 @@
+﻿@model Usuarios
+@{
+    ViewBag.Title = "Control Office";
+    Layout = null;
+    /*Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";*/
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Iniciar sesion | Control office</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body style="background-color:#eee">
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-2">
+      <img src="~/Assets/Iconos/Libreta.png" class="img-responsive" alt=" " width="200" height="200">
+    </div>
+    <div class="col-md-5">
+      </br>
+      <h1 style="color:#444">Control office</h1>
+      <p style="color:#555">Mantenga un inventario eficiente del material y documentos de su oficina.</p>
+    </div>
+    <div class="col-md-4">      
+          @using(Html.BeginForm("","",FormMethod.Post , new {@class="form-horizontal" }))
+          {
+            <div class="form-group">
+              <label for="TB-correo" class="col-sm-2 control-label" >  </label>
+              <div class="col-sm-10">
+                @Html.ValidationMessageFor(model => model.Usuario,"",new {style ="font-style:italic;"})
+                @Html.TextBoxFor(model => model.Usuario, new {@class="form-control", placeholder="Usuario", type="email" , maxlength="20" })                
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="TB-password" class="col-sm-2 control-label">  </label>
+              <div class="col-sm-10">
+                  @Html.ValidationMessageFor(model => model.Pass,"",new {style ="font-style:italic;"})
+                  @Html.PasswordFor(model => model.Pass, new {@class="form-control", placeholder="Password", type="password", maxlength="20" })                
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Recordarme en este equipo
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+              </div>
+            </div>
+          }
+    </div>
+  </div>
+</div>
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+</html>

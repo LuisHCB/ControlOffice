@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Menu | Control office </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:#eee">
+<!--  ----------------------------- Inicio de Barra de herramientas  -->
+<nav class="navbar navbar-default">  
+  <div class="container-fluid">
+    <div class="navbar-header">  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Header de la barra -->
+	  <!-- Boton de colapso -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#BARRA-herramientas">
+        <span class="sr-only">[Navegacion]</span>
+        <span class="icon-bar"></span>  <!-- Dibuja una de las tres rayitas que forman el icono! -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>      
+	  <!-- Boton: Inicio -->
+      <a class="navbar-brand" href="MENU-principal.html">
+        <strong> Control office </strong>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="BARRA-herramientas">  <!-- ::::::::::::::::::::::::::::::::::::::: Contenido de la barra -->
+      <ul class="nav navbar-nav navbar-right">  <!-- Barra: lado derecho -->	    		
+		<li>    <!-- [ Ayuda ] -->
+	      <a href="#" 
+		   data-toggle="collapse"
+		   data-target="#V-ayuda"
+		   aria-expanded="false"
+		   aria-controls="V-ayuda"
+		  >
+		    <span class="glyphicon glyphicon-question-sign"></span>
+            <strong>Ayuda</strong>
+          </a>
+		</li>
+        <li class="dropdown">  <!-- [ Acerca de ] -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-asterisk"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">
+              Acerca de Control office
+            </a></li>
+            <li><a href="#">
+              Contacto
+            </a></li>
+          </ul>		  
+        </li>
+        <li class="dropdown">  <!-- [ "Usuario" ] -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-user"></span>
+            <strong> Usuario </strong> 
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">
+              Agregar o quitar usuarios 
+            </a></li>
+            <li class="divider"></li>
+            <li><a href="#">
+              Editar mi perfil
+            </a></li>
+            <li><a href="#">
+			  <span class="glyphicon glyphicon-off"></span>
+              Cerrar sesion
+            </a></li>
+          </ul>
+        </li>
+      </ul> 
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--  -------------------------------- Fin de Barra de herramientas  -->
+<div class="jumbotron" style="background-color:black">
+  <div class="row">
+    <div class="col-xs-6 col-md-3">
+      <a href="REGISTRAR-documentos.html" class="thumbnail"  style="background-color:rgb(0,174,239)">
+        <img src="~/Assets/Iconos/Documentos.png" class="img-responsive" alt="Documentos" width="256" height="256">
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="REGISTRAR-consumibles.html" class="thumbnail"  style="background-color:rgb(228,193,0)">
+        <img src="~/Assets/Iconos/Consumibles.png" class="img-responsive" alt="Consumibles" width="256" height="256">
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="REGISTRAR-mobiliario.html" class="thumbnail"  style="background-color:rgb(199,64,0)">
+        <img src="~/Assets/Iconos/Mobiliario.png" class="img-responsive" alt="Mobiliario" width="256" height="256">
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="REGISTRAR-electronicos.html" class="thumbnail"  style="background-color:rgb(0,169,236)">
+        <img src="~/Assets/Iconos/Electronicos.png" class="img-responsive" alt="Electronicos" width="256" height="256">
+      </a>
+    </div>
+  </div>
+</div> <!-- Fin Jumbotron -->
+</body>
+</html>

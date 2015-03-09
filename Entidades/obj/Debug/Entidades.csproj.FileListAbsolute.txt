@@ -1,0 +1,4 @@
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.dll
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.dll
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.pdb

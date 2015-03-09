@@ -1,0 +1,4 @@
+D:\Codigos\Proyectos C#\ControlOffice\Modelo\bin\Debug\Modelo.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelo\bin\Debug\Modelo.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Modelo\obj\Debug\Modelo.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelo\obj\Debug\Modelo.pdb
