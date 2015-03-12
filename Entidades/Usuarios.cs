@@ -29,7 +29,7 @@ namespace Entidades
         [StringLength(20)]
         public string Pass { get; set; }
 
-        [StringLength(255)]
+        [StringLength(255)]        
         public string Nombre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

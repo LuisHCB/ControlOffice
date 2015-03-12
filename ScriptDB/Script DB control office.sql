@@ -211,3 +211,8 @@ create table Solicitudes
   
  )
  go
+ 
+ /* Inserta datos de prueba */
+ insert into dbo.Usuarios (Usuario, Pass, Nombre) values('admin@gmail.com','1111','Administrador'),
+ ('demo@gmail.com','demo','Usuario demo')
+ go

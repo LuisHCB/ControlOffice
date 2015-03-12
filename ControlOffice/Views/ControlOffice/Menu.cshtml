@@ -11,6 +11,16 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="~/Assets/js/util.js"></script>
+  <script>
+      function baseUrl(url) {
+          return '@(Url.Content("~/"))' + url;
+      }
+
+      function redirect(href) {
+          window.location.href = '@(Url.Content("~/"))' + href;
+      }
+  </script>
 </head>
 <body style="background-color:#eee">
 <!--  ----------------------------- Inicio de Barra de herramientas  -->
@@ -25,7 +35,7 @@
         <span class="icon-bar"></span>
       </button>      
 	  <!-- Boton: Inicio -->
-      <a class="navbar-brand" href="MENU-principal.html">
+      <a class="navbar-brand" >
         <strong> Control office </strong>
       </a>
     </div>
@@ -59,7 +69,7 @@
         <li class="dropdown">  <!-- [ "Usuario" ] -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="glyphicon glyphicon-user"></span>
-            <strong> Usuario </strong> 
+            <strong> @ViewBag.NombreUsuario </strong> 
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
@@ -70,7 +80,7 @@
             <li><a href="#">
               Editar mi perfil
             </a></li>
-            <li><a href="#">
+            <li><a href="/controlOffice/cerrarsesion">
 			  <span class="glyphicon glyphicon-off"></span>
               Cerrar sesion
             </a></li>
@@ -83,23 +93,23 @@
 <!--  -------------------------------- Fin de Barra de herramientas  -->
 <div class="jumbotron" style="background-color:black">
   <div class="row">
-    <div class="col-xs-6 col-md-3">
-      <a href="REGISTRAR-documentos.html" class="thumbnail"  style="background-color:rgb(0,174,239)">
-        <img src="~/Assets/Iconos/Documentos.png" class="img-responsive" alt="Documentos" width="256" height="256">
+    <div class="col-xs-6 col-md-3  ">
+      <a href="/documentos" class="thumbnail "  style="background-color:rgb(0,174,239)">
+        <img  src="~/Assets/Iconos/Documentos.png" class="img-responsive" alt="Documentos" width="256" height="256">
       </a>
     </div>
     <div class="col-xs-6 col-md-3">
-      <a href="REGISTRAR-consumibles.html" class="thumbnail"  style="background-color:rgb(228,193,0)">
+      <a href="/consumibles" class="thumbnail"  style="background-color:rgb(228,193,0)">
         <img src="~/Assets/Iconos/Consumibles.png" class="img-responsive" alt="Consumibles" width="256" height="256">
       </a>
     </div>
     <div class="col-xs-6 col-md-3">
-      <a href="REGISTRAR-mobiliario.html" class="thumbnail"  style="background-color:rgb(199,64,0)">
+      <a href="/mobiliario" class="thumbnail"  style="background-color:rgb(199,64,0)">
         <img src="~/Assets/Iconos/Mobiliario.png" class="img-responsive" alt="Mobiliario" width="256" height="256">
       </a>
     </div>
     <div class="col-xs-6 col-md-3">
-      <a href="REGISTRAR-electronicos.html" class="thumbnail"  style="background-color:rgb(0,169,236)">
+      <a href="/electronicos" class="thumbnail"  style="background-color:rgb(0,169,236)">
         <img src="~/Assets/Iconos/Electronicos.png" class="img-responsive" alt="Electronicos" width="256" height="256">
       </a>
     </div>

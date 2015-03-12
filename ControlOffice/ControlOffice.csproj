@@ -118,6 +118,7 @@
     <Compile Include="Controllers\ElectronicosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MobiliarioController.cs" />
+    <Compile Include="CustomAttributes\CustomAttributes.cs" />
     <Compile Include="DBContolOficceContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -128,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Assets\css\formato.css" />
     <Content Include="Assets\Iconos\Apagar.png" />
     <Content Include="Assets\Iconos\Caja.png" />
     <Content Include="Assets\Iconos\Calculadora.png" />
@@ -157,6 +159,8 @@
     <Content Include="Assets\Iconos\Usuarios.png" />
     <Content Include="Assets\Iconos\UsuariosXX.png" />
     <Content Include="Assets\Iconos\Varios_rectangulosAzules.png" />
+    <Content Include="Assets\js\util.js" />
+    <Content Include="Assets\js\jquery.form.js" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />

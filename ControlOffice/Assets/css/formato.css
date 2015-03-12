@@ -1,0 +1,38 @@
+﻿body {
+}
+
+.pantallaCompleta
+{
+    height:100%; width:100%;
+    position:absolute; 
+    margin:0;
+    padding:0;
+}
+
+
+
+/*=================================================================================*/
+/*                               Animaciones                                       */
+/*=================================================================================*/
+
+.efectoBoton img
+{
+	-webkit-transition: 0.8s all ease !important; /* aplica transicion enun tiempo dado*/
+	-moz-transition: 0.8s all ease !important;
+	-o-transition: 0.8s all ease !important;
+	transition: 0.8s all ease !important;
+	opacity:0.2 !important;
+	border-radius:50% !important; /*140px;*/
+}
+
+.efectoBoton img :hover
+{
+    -webkit-transform:scale(1.2) !important; /* transicion para chrome*/
+	-moz-transform:scale(1.2) !important; /* transicion para mozila*/
+	-o-transform:scale(1.2) !important; /* transicion para opera*/
+	-ms-transform:scale(1.2) !important; /* transicion para microsoft*/
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.8) !important; 
+	opacity:1 !important;
+	/*-webkit-transform:rotate(360deg);*/ /* transicion para chrome, no deben haber espacios*/
+	
+}

@@ -15,6 +15,19 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="~/Assets/js/util.js"></script>
+  <script>
+      function baseUrl(url)
+      {
+          return '@(Url.Content("~/"))' + url;
+      }
+
+      function redirect(href)
+      {
+          window.location.href = '@(Url.Content("~/"))' + href;
+      }
+  </script>
+
 
 
 </head>
@@ -27,12 +40,12 @@
       <img src="~/Assets/Iconos/Libreta.png" class="img-responsive" alt=" " width="200" height="200">
     </div>
     <div class="col-md-5">
-      </br>
+      <br/>
       <h1 style="color:#444">Control office</h1>
       <p style="color:#555">Mantenga un inventario eficiente del material y documentos de su oficina.</p>
     </div>
     <div class="col-md-4">      
-          @using(Html.BeginForm("","",FormMethod.Post , new {@class="form-horizontal" }))
+          @using(Html.BeginForm("Acceder","ControlOffice",FormMethod.Post , new {@class="form-horizontal" }))
           {
             <div class="form-group">
               <label for="TB-correo" class="col-sm-2 control-label" >  </label>
@@ -59,7 +72,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                <button data-ajax="true" type="submit" data-reset="false" class="btn btn-primary">Iniciar sesion</button>
               </div>
             </div>
           }
@@ -69,6 +82,8 @@
 
     <script src="~/Assets/js/jquery.validate.min.js"></script>
     <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Assets/js/jquery.form.js"></script>
+
 </body>
 
 </html>
