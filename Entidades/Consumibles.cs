@@ -5,7 +5,7 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
+    [Table("Consumibles")]
     public partial class Consumibles
     {
         [Key]

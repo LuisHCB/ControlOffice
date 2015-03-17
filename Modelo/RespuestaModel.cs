@@ -14,6 +14,7 @@ namespace Modelo
         public string mensaje { get; set; }
         public string funcion { get; set; }
         public string href { get; set; }
+        public string alerta { get; set; }
 
         /// <summary>
         /// constructor

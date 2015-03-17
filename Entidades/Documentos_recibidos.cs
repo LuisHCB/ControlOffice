@@ -4,8 +4,8 @@ namespace Entidades
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-  
 
+    [Table("Documentos_recibidos")]
     public partial class Documentos_recibidos
     {
         [Key]

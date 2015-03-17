@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Modelo;
+using Modelos;
 using Entidades;
 using Util;
 using ControlOffice.CustomAttributes;

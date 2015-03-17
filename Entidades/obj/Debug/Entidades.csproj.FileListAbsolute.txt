@@ -1,8 +1,8 @@
-D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.dll
-D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.pdb
-D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.dll
-D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.pdb
 I:\Codigos C#\ControlOffice\Entidades\bin\Debug\Entidades.dll
 I:\Codigos C#\ControlOffice\Entidades\bin\Debug\Entidades.pdb
 I:\Codigos C#\ControlOffice\Entidades\obj\Debug\Entidades.dll
 I:\Codigos C#\ControlOffice\Entidades\obj\Debug\Entidades.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.dll
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\bin\Debug\Entidades.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.dll
+D:\Codigos\Proyectos C#\ControlOffice\Entidades\obj\Debug\Entidades.pdb

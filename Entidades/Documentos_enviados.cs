@@ -5,6 +5,7 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Documentos_enviados")]
     public partial class Documentos_enviados
     {
         [Key]

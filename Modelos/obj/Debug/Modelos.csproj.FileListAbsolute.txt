@@ -1,0 +1,14 @@
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Modelos.dll.config
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Modelos.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Modelos.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Entidades.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\EntityFramework.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\EntityFramework.SqlServer.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Util.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Entidades.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\Util.pdb
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\EntityFramework.xml
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\bin\Debug\EntityFramework.SqlServer.xml
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\obj\Debug\Modelos.csprojResolveAssemblyReference.cache
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\obj\Debug\Modelos.dll
+D:\Codigos\Proyectos C#\ControlOffice\Modelos\obj\Debug\Modelos.pdb

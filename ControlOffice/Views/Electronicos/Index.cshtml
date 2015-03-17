@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Electronicos | Control office";
-    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";    
 }
+
 
 <!-- Nuevo cuadro horizontal: Botones principales  -->
 
@@ -12,10 +13,10 @@
       
 	<!--<div style="margin:3%;  "> -->
         <div class="form-group">
- 	        <a class="btn btn-primary btn-lg btn-block" href="#" role="button">
-	          <span class="glyphicon glyphicon-search"></span>
-              <strong> Ver inventario </strong>
-	        </a>
+            <a class="btn btn-primary btn-lg btn-block" href="#" role="button">
+                <span class="glyphicon glyphicon-search"></span>
+                <strong>Ver inventario </strong>
+            </a>
         </div>
   
         <div class="form-group">
@@ -70,7 +71,7 @@
 		    >
             <input type="radio" name="aparato" id="V-registrar_RB-aparato" autocomplete="off"> 
 			  <span class="glyphicon glyphicon-hdd"></span>
-			  </br>
+			  <br/>
               <strong> Aparato </strong>
             </label>
 			
@@ -84,7 +85,7 @@
 		    >
 			<input type="radio" name="solicitud" id="V-registrar_RB-solicitud" autocomplete="off"> 
 		      <span class="glyphicon glyphicon-file"></span>
-			  </br>
+			  <br/>
 			  <strong> Solicitud </strong>
 		    </label>
 			
@@ -104,16 +105,15 @@
 			 style="background-color:#5cb85c; border-color:#5cb85c"
 			>
 		      
-			  </br>
+			  <br/>
 			  
               <div class="collapse" id="V-registrar_GV-formularios_V-aparato">   <!-- Ventana colapsable de formulario 1: Aparato -->
 			   
 			    <!-- Separador 1 -->
 		        <ul class="nav nav-tabs" style="border-color:white"> </ul>
-			      
-                  
-                <form class="form-horizontal" 	id="FORM-aparato"> <!-- .................................................... ¬  Form 1 - Aparato -->
-			  		
+                  <!--  .................................................... ¬  Form 1 - Aparato -->
+                @using(Html.BeginForm("RegistrarAparato", "Electronicos", FormMethod.Post, new { @class="form-horizontal", id="FORM-aparato" }))
+                {
                   <!-- Icono de encabezado -->
 				  <div class="form-group">				    
 				      <h1 class="col-sm-3 control-label">
@@ -124,104 +124,67 @@
 					    <strong> Registrar aparato electronico </strong>
 					  </h3>
 				    
-				  </div>				  
-				  
+				  </div>	
+                    
 				  <div class="form-group">
-                    <label for="FORM-aparato_LB-tipo" class="col-sm-3 control-label">
-				      Tipo
-				    </label>
-					    
-				    <div class="btn-group col-sm-9 has-success"   data-toggle="buttons">
-					  
-					  <select class="form-control" id="FORM-aparato_LB-tipo" style="border-color:white">
-					    <option style="color:white">
-						  Seleccionar:</option>
-							
+                    <label for="FORM-aparato_LB-tipo" class="col-sm-3 control-label">Tipo</label>					    
+				    <div class="btn-group col-sm-9 has-success"   data-toggle="buttons">					  
+					  <select class="form-control" id="FORM-aparato_LB-tipo" name="tipo" style="border-color:white">
+					    <option value="0" style="color:white">
+						  Seleccionar</option>
+							<!--1
 					    <option style="color:black"
 						 data-toggle="collapse"
                          data-target="#FORM-aparato_V-agregarTipo" 
 		                 aria-expanded="false"
     		             aria-controls="FORM-aparato_V-agregarTipo"
 						>
-					      + Agregar</option>
-						
-					    <option>Bocinas de computadora</option>
-					    <option>CPU</option>
-					    <option>Disco duro en la nube</option>
-					    <option>Escaner</option>
-					    <option>Fotocopiadora</option>
-					    <option>Impresora</option>
-					    <option>Modem</option>
-					    <option>Monitor estandar</option>
-					    <option>Mouse mecanico</option>
-					    <option>Mouse optico</option>
-					    <option>Multifuncional</option>
-					    <option>No break</option>
-					    <option>Pantalla LCD</option>
-					    <option>Pantalla Led</option>
-					    <option>Proyector</option>
-					    <option>Regulador de corriente</option>
-					    <option>Router</option>
-					    <option>Switch</option>
-					  </select>
-						  
+					      + Agregar</option> -->
+                         @foreach (var tipo in ViewBag.TiposElectronicos)
+                           {
+                               <option value="@tipo.Id_tipo_electronico">@tipo.Nombre </option>
+                           }						
+					  </select>						  
 					</div>					
-                  </div> <!--  -->
-				  
+                  </div> <!--  -->			
+                    	  
 				  <!-- Ventana colapsable para Tipo otro -->
-				  <div class="collapse" id="FORM-aparato_V-agregarTipo">
-					  
+				  <div class="collapse" id="FORM-aparato_V-agregarTipo">					  
 				    <div class="form-group">
-					  <label for="FORM-aparato_V-agregarTipo_TB-agregarTipo" class="col-sm-3 control-label">  </label>
+					  <label for="FORM-aparato_V-agregarTipo_TB-agregarTipo" class="col-sm-3 control-label"> </label>
                       <div class="col-sm-9   has-success">					  
                         <input type="text" class="form-control" id="FORM-aparato_V-agregarTipo_TB-agregarTipo" placeholder="">
                       </div>
 					</div>
-
-				  </div> <!-- Colapsable -->
-				  
+				  </div> <!-- Colapsable -->				  
 				  <br/>				  
 				
                   <div class="form-group">
-                    <label for="FORM-aparato_TB-cantidad" class="col-sm-3 control-label">
-					  Cantidad
-					</label>
-                    <div class="col-sm-2   has-success">
-                      <input type="text" class="form-control" id="FORM-aparato_TB-cantidad" placeholder="1">  
+                    <label for="FORM-aparato_TB-cantidad" class="col-sm-3 control-label">Cantidad</label>
+                    <div class="col-sm-2   has-success">                        
+                        @Html.TextBox("cantidad", "", new {type="number",placeholder="Ingrese una cantidad",id="FORM-aparato_TB-cantidad",
+                               @class="form-control", autocomplete="off",min="1" })                      
                     </div>
                   </div> <!--  -->
-					
-				  
 				  <br/>
 				  
 				  <!-- Boton: Agregar detalles. Los botones no tienen ID -->
 				  <div class="form-group">
-	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">
-					
+	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">					
 					  <button class="btn btn-success btn-block" type="button" style="border-color:white"
 	                   data-toggle="collapse" 
 	                   data-target="#FORM-aparato_V-detalles" 
 	                   aria-expanded="false" 
-	                   aria-controls="FORM-aparato_V-detalles"
-	                  >
+	                   aria-controls="FORM-aparato_V-detalles" >
                         Agregar detalles
 						<span class="caret"></span>
-                      </button>
-					  
+                      </button>					  
 					</div>
 				  </div>
 				  
-				  
-				  
-				  <!-- DETALLES -->
-				  
-				  
-				  <div class="collapse" id="FORM-aparato_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->
-				  
+				  <!-- Región del formulario para DETALLES -->
+				  <div class="collapse" id="FORM-aparato_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->				  
 				  <br />
-				    
-					
-					
 					<div class="form-group">
 				      <div class="col-sm-offset-3 col-sm-9">
 					    <p>
@@ -230,112 +193,77 @@
 					    </p>
 					  </div>
 					</div>
-					
-					
-					
-					<br/>
-					
-					
-					
+					<br/>					
 					<div class="form-group">
-                      <label for="FORM-aparato_V-detalles_TB-marca" class="col-sm-3 control-label">
-					    Marca
-					  </label>
+                      <label for="contenedorListaMarcas" class="col-sm-3 control-label">Marca</label>
+                      <div class="col-sm-5   has-success" id="contenedorListaMarcas">
+                          <select class='form-control' id='listaMarcas' name='marca' style='border-color:white'>
+                              <option value='0'>Selecciona una marca</option>
+                              @foreach (var m in ViewBag.marcasElectronicos)
+                               {
+                                   <option value="@m.Id_marca">@m.Marca </option>
+                               }             
+                          </select>
+                      </div>
+                        <button type="button" class="btn btn-success col-sm-3" style="border-color:white" data-target="#form-marca" data-toggle="modal">
+					      <span class="glyphicon glyphicon-plus"></span> Agregar nueva marca
+                        </button>                       
+                    </div> <!--  -->
+					<br/>
+					<div class="form-group">
+                      <label for="FORM-aparato_V-detalles_TB-numeroSerie" class="col-sm-3 control-label">Numero de serie</label>
                       <div class="col-sm-5   has-success">
-                        <input type="text" class="form-control" id="FORM-aparato_V-detalles_TB-marca" placeholder="">
+                          @Html.TextBox("serie", "", new {type="text",@class="form-control", id="FORM-aparato_V-detalles_TB-numeroSerie" })                        
                       </div>
                     </div> <!--  -->
-					
-					
-					
-					<br/>
-					
-					
-					
-					<div class="form-group">
-                      <label for="FORM-aparato_V-detalles_TB-numeroSerie" class="col-sm-3 control-label">
-					    Numero de serie
-					  </label>
-                      <div class="col-sm-5   has-success">
-                        <input type="text" class="form-control" id="FORM-aparato_V-detalles_TB-numeroSerie" placeholder="">
-                      </div>
-                    </div> <!--  -->
-				  
-				  
 				    <br/>
 				    <br/>
-				  
-				  
 				    <div class="form-group">
-                      <label for="FORM-aparato_V-detalles_RB-fechaRecien" class="col-sm-3 control-label">
-				        Se utiliza desde
-				      </label>
-					    
-				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
-					  
-                        <label class="btn btn-success">
-                          <input type="radio" name="fechaRecien" id="FORM-aparato_V-detalles_RB-fechaRecien" value="fechaRecien">
-						    <span class="glyphicon glyphicon-flash"></span>
-						    Hoy. Lo acabo de adquirir
-                        </label>
-					  
-					    <label class="btn btn-success">
-                          <input type="radio" name="fechaDespues" id="FORM-aparato_V-detalles_RB-fechaDespues" value="fechaDespues">
-						    <span class="glyphicon glyphicon-remove" ></span>
-						    Indicar despues...
-                        </label>
-					  
+                      <label for="FORM-aparato_V-detalles_RB-fechaRecien" class="col-sm-3 control-label">Se utiliza desde</label>					    
+				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">					  
+                        <label class="btn btn-success active">
+                          <input type="radio" name="utilizado" id="FORM-aparato_V-detalles_RB-fechaRecien" value="1" checked>
+						    <span class="glyphicon glyphicon-flash"></span>Hoy. Lo acabo de adquirir</label>					  
+					    <label class="btn btn-success ">
+                          <input type="radio" name="utilizado" id="FORM-aparato_V-detalles_RB-fechaDespues" value="0" >
+						    <span class="glyphicon glyphicon-remove" ></span>Indicar despues...</label>					  
 					    <label class="btn btn-success"
 					     data-toggle="collapse"
                          data-target="#FORM-aparato_V-detalles_V-fechaEspecifica" 
 		                 aria-expanded="false"
     		             aria-controls="FORM-aparato_V-detalles_V-fechaEspecifica"		  
 					    >
-                          <input type="radio" name="fechaEspecifica" id="FORM-aparato_V-detalles_RB-fechaEspecifica" value="fechaEspecifica" checked>
-						    <span class="glyphicon glyphicon-time" ></span>
-						    Especificar fecha
-						    <span class="caret" ></span>
-                        </label>
-					    
-					  </div>
-					
-			        </div> <!--  -->
-					
-					
+                          <input type="radio" name="utilizado" id="FORM-aparato_V-detalles_RB-fechaEspecifica" value="2" >
+						    <span class="glyphicon glyphicon-time" ></span>Especificar fecha<span class="caret" ></span>
+                        </label>					    
+					  </div>					
+			        </div> <!--  -->										
 			        <!-- Ventana colapsable para Fecha y hora -->
 				    <div class="collapse" id="FORM-aparato_V-detalles_V-fechaEspecifica">                        
                       <div class="form-group">
-                        <label for="FORM-aparato_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Fecha </label>
+                        <label for="FORM-aparato_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label">Fecha</label>
                           <div class="col-sm-5   has-success">					  
-                          @Html.TextBox("FechaUso", "", new { type = "date",@class = "form-control"})                          
+                          @Html.TextBox("FechaUso", @DateTime.Now.Year+"-"+DateTime.Now.Month.ToString().PadLeft(2,'0')+"-"+DateTime.Now.Day.ToString().PadLeft(2,'0'), new { type = "date",@class = "form-control"})                          
                         </div>
 					  </div>
 				    </div> <!-- Colapsable -->
-					
-					
 					<br/>
 					<br/>
-					
-					
 					<div class="form-group">
-                      <label for="FORM-aparato_V-detalles_TB-cicloVida" class="col-sm-3 control-label">
-				        Se debe reemplazar antes de
-				      </label>
-					    
+                      <label for="FORM-aparato_V-detalles_TB-cicloVida" class="col-sm-3 control-label">Se debe reemplazar antes de</label>					    
 				      <div class="btn-group col-sm-2 has-success"   data-toggle="buttons">
-					    <input type="text" class="form-control" id="FORM-aparato_V-detalles_TB-cicloVida" placeholder="5">
+                        @Html.TextBox("reemplazo","", new {type="number", @class="form-control", id="FORM-aparato_V-detalles_TB-cicloVida", autocomplete="off",min="1"})					    
 					  </div>					
-                    </div> <!--  -->
-					
-					
-					<div class="form-group">
-                      <div class="btn-group col-sm-offset-3 col-sm-2 has-success"   data-toggle="buttons">
-					    <select class="form-control" id="FORM-aparato_V-detalles_LB-cicloVida" style="border-color:white">
-					      <option>An~os</option>
-					      <option>Meses</option>
-					      <option>Dias</option>
+                      <div class="btn-group  col-sm-2 has-success"   data-toggle="buttons">
+					    <select class="form-control" id="FORM-aparato_V-detalles_LB-cicloVida" style="border-color:white" name="unidadReemplazo">
+					      <option value="2">Años</option>
+					      <option value="1">Meses</option>
+					      <option value="0">Dias</option>
 					    </select>
-					  </div>					
+					  </div>
+                    </div> <!--  -->
+					<div class="form-group">
+                      					
                     </div> <!--  -->
 					
 				    
@@ -370,176 +298,112 @@
 				  <!-- Boton: Listo! -->
                   <div class="form-group   has-success">
                     <div class="col-sm-offset-3 col-sm-4">
-                      <button type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+                      <button data-ajax="true" type="submit" data-reset="true" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
 					    <span class="glyphicon glyphicon-ok"></span>
 						<strong> Listo! </strong>
 					  </button>
                     </div>
+                    <div class=" col-sm-4">
+                      <button type="reset" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-remove"></span>
+						<strong> Limpiar </strong>
+					  </button>
+                    </div>
                   </div> <!--  -->
 				
-                </form> <!-- ................................................................................................... ^  Form 1 -->
+                                   
+                }  
+                 <!--  ................................................................................................... ^  Form 1 -->
   
               </div> <!-- Fin de Ventana de Formulario 1 -->
 
 
 			  
 
-              <div class="collapse" id="V-registrar_GV-formularios_V-solicitud">   <!-- Ventana de formulario 2: Solicitud -->
-			  
+              <div class="collapse" id="V-registrar_GV-formularios_V-solicitud">   <!-- Ventana de formulario 2: Solicitud -->			  
 			    <!-- Separador 2 -->
 		        <ul class="nav nav-tabs" style="border-color:white"> </ul>
-				
-				
-				<form class="form-horizontal" 	id="FORM-solicitud"> <!-- .................................................... ¬  Form 2 - Solicitud -->
-			  		
+                  <!-- .................................................... ¬  Form 2 - Solicitud -->
+                @using (Html.BeginForm("RegistrarSolicitud", "Electronicos", FormMethod.Post, new {@class="form-horizontal", id="FORM-solicitud"}))
+				{
                   <!-- Icono de encabezado -->
-				  <div class="form-group">
-				    <label class="col-sm-3 control-label">
-				      <h1>
+				  <div class="form-group">				    
+				      <h1 class="col-sm-3 control-label">
 		                <span class="glyphicon glyphicon-file" ></span>
-			          </h1>
-				    </label>
-					
-					<label class="col-sm-9 control-label">
-				      <h3>
+			          </h1>				    					
+				      <h3 class="col-sm-9 control-label">
 					    <strong> Registrar solicitud de equipo </strong>
-					  </h3>
-				    </label>
+					  </h3>				    
 				  </div>
-				  
-
-				  
 				
                   <div class="form-group">
                     <label for="FORM-solicitud_TB-para" class="col-sm-3 control-label"> Para </label>
-                    <div class="col-sm-9   has-success">					  
-					  
+                    <div class="col-sm-9   has-success">					  					  
 					  <div class="input-group">
                         <div class="input-group-addon">
 						  <span class="glyphicon glyphicon-user"></span>
 						</div>
-                        <input type="text" class="form-control" id="FORM-solicitud_TB-para" placeholder="">
-                      </div>
-					  
+                          @Html.TextBox("destino", "", new {@class="form-control", id="FORM-solicitud_TB-para" })                        
+                      </div>					  
                     </div>
                   </div> <!--  -->
-				  
 				
-					
-					
 				  <div class="form-group">
                     <label for="FORM-solicitud_TB-asunto" class="col-sm-3 control-label"> Descripcion del pedido </label>
                     <div class="col-sm-9   has-success">
-				      <textarea class="form-control" id="FORM-solicitud_TB-asunto" rows="3" placeholder=""></textarea>
+                        @Html.TextArea("descripcion", "", new {@class="form-control",id="FORM-solicitud_TB-asunto" ,rows="3" })				      
                     </div>
-                  </div> <!--  -->
-			      
-				  
-				  
-				  </br>
-				  
-				  
-				  
+                  </div> <!--  -->			      
+				  <br/>
 				  <!-- Boton: Agregar detalles. Los botones no tienen ID -->
 				  <div class="form-group">
-	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">
-					
+	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">					
 					  <button class="btn btn-success btn-block" type="button" style="border-color:white"
 	                   data-toggle="collapse" 
 	                   data-target="#FORM-solicitud_V-detalles" 
 	                   aria-expanded="false" 
 	                   aria-controls="FORM-solicitud_V-detalles"
-	                  >
-                        Agregar detalles
-						<span class="caret"></span>
-                      </button>
-					  
+	                  > Agregar detalles<span class="caret"></span>
+                      </button>					  
 					</div>
-				  </div>
-				  
-				  
+				  </div>				  
 				  <!-- DETALLES -->
-				  
-				  
 				  <div class="collapse" id="FORM-solicitud_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->
-				  
-				  
-				    </br>
-				  
-				  
+				    <br/>
 				    <div class="form-group">
                       <label for="FORM-solicitud_V-detalles_RB-fechaRecien" class="col-sm-3 control-label">
 				        Fecha y hora del envio de la solicitud real
-				      </label>
-					    
-				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
-					  
-                        <label class="btn btn-success">
-                          <input type="radio" name="fechaRecien" id="FORM-solicitud_V-detalles_RB-fechaRecien" value="fechaRecien">
-						    <span class="glyphicon glyphicon-flash"></span>
-						    La acabo de enviar
-                        </label>
-					  
+				      </label>					    
+				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">					  
+                        <label class="btn btn-success active">
+                          <input type="radio" name="envio" id="FORM-solicitud_V-detalles_RB-fechaRecien" value="1" checked/>
+						    <span class="glyphicon glyphicon-flash"></span>La acabo de enviar</label>					  
 					    <label class="btn btn-success">
-                          <input type="radio" name="fechaDespues" id="FORM-solicitud_V-detalles_RB-fechaDespues" value="fechaDespues">
-						    <span class="glyphicon glyphicon-remove" ></span>
-						    Indicar despues...
-                        </label>
-					  
+                          <input type="radio" name="envio" id="FORM-solicitud_V-detalles_RB-fechaDespues" value="0"/>
+						    <span class="glyphicon glyphicon-remove" ></span>Indicar despues...</label>					  
 					    <label class="btn btn-success"
 					     data-toggle="collapse"
                          data-target="#FORM-solicitud_V-detalles_V-fechaEspecifica" 
 		                 aria-expanded="false"
     		             aria-controls="FORM-solicitud_V-detalles_V-fechaEspecifica"		  
 					    >
-                          <input type="radio" name="fechaEspecifica" id="FORM-solicitud_V-detalles_RB-fechaEspecifica" value="fechaEspecifica" checked>
+                          <input type="radio" name="envio" id="FORM-solicitud_V-detalles_RB-fechaEspecifica" value="2" />
 						    <span class="glyphicon glyphicon-time" ></span>
 						    Especificar fecha y hora
 						    <span class="caret" ></span>
-                        </label>
-					    
-					  </div>
-					
-			        </div> <!--  -->
-					
+                        </label>					    
+					  </div>					
+			        </div> <!--  -->				
 					
 			        <!-- Ventana colapsable para Fecha y hora -->
-				    <div class="collapse" id="FORM-solicitud_V-detalles_V-fechaEspecifica">
-					  
-				      <div class="form-group">
-					    <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Dia </label>
-                        <div class="col-sm-2   has-success">					  
-                          <input type="text" class="form-control" id="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-dia" placeholder="">
+				    <div class="collapse" id="FORM-solicitud_V-detalles_V-fechaEspecifica">                                              
+                      <div class="form-group">
+                        <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Fecha </label>
+                          <div class="col-sm-5   has-success">					  
+                          @Html.TextBox("fechaEnvio", @DateTime.Now.Year+"-"+DateTime.Now.Month.ToString().PadLeft(2,'0')+"-"+DateTime.Now.Day.ToString().PadLeft(2,'0'), new { type = "date", @class = "form-control" })                          
                         </div>
 					  </div>
-					  
-					  <div class="form-group">
-					    <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_LB-mes" class="col-sm-3 control-label"> Mes </label>
-                        <div class="col-sm-3   has-success">
-						  <select class="form-control" id="FORM-solicitud_V-detalles_V-fechaEspecifica_LB-mes"   style="border-color:white">
-						    <option>Enero</option>
-						    <option>Febrero</option>
-						    <option>Marzo</option>
-						    <option>Abril</option>
-						    <option>Mayo</option>
-						    <option>Junio</option>
-						    <option>Julio</option>
-						    <option>Agosto</option>
-						    <option>Septiembre</option>
-						    <option>Octubre</option>
-						    <option>Noviembre</option>
-						    <option>Diciembre</option>
-						  </select>
-                        </div>
-					  </div>
-					  
-					  <div class="form-group">
-					    <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-year" class="col-sm-3 control-label"> An~o </label>
-                        <div class="col-sm-3   has-success">					  
-					      <input type="text" class="form-control" id="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-year" placeholder="2015">
-                        </div>
-					  </div>
-				
+				      
 					  <div class="form-group">
 					    <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-hora" class="col-sm-3 control-label"> Hora </label>
                         <div class="col-sm-3   has-success">					  
@@ -547,47 +411,38 @@
 					        <div class="input-group-addon">
 					          <span class="glyphicon glyphicon-time"></span>
 					        </div>
-                            <input type="text" class="form-control" id="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-hora" placeholder="hh:mm">
+                              @Html.TextBox("horaEnvio", DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0'),
+                                     new {@class="form-control", id="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-hora" })                            
                           </div>
                         </div>
 					  </div>
 					  
 					  <div class="form-group">
-					    <div class="checkbox col-sm-offset-3 col-sm-5" value="">
+					    <div class="checkbox col-sm-offset-3 col-sm-5" >
                           <label >
-                            <input type="checkbox" id="FORM-solicitud_V-detalles_V-fechaEspecifica_CB-crearFolio" value="crearFolio">
+                            <input  type="checkbox" name="crearFolio" id="crearFolio"  >
 							Crear folio del documento con estos datos
                           </label>
                         </div>
 					  </div>
-
 				    </div> <!-- Colapsable -->
+				    <br/>				  
 				  
-				  
-				  
-				  
-				  
-				    </br>
-				  
-				  
-				
-				  
-				  
-				    <div class="form-group">
+				    <div class="form-group" id="form-folio">
                       <label for="FORM-solicitud_V-detalles_TB-folio" class="col-sm-3 control-label">
 				        Folio
 				      </label>
 					
 				      <div class="col-sm-5 has-success"   data-toggle="buttons">
-                        <input type="text" class="form-control" id="FORM-solicitud_V-detalles_TB-folio" placeholder="">
+                          @Html.TextBox("folio", "", new {@class="form-control", id="FORM-solicitud_V-detalles_TB-folio" })                        
 					  </div>					
                     </div> <!--  -->
 				  
 				  
 				  
 					
-				    </br>
-				    </br>
+				    <br/>
+				    <br/>
 					
                   
 				  
@@ -600,27 +455,30 @@
 					  
 					  <div class="col-sm-9">   <!-- El estilo "Success" No funciona, el diseño es predeterminado -->
 					    <h3><span class="glyphicon glyphicon-paperclip" ></span></h3>
-                        <input type="file" id="FORM-solicitud_V-detalles_BTN-adjunto">
+                        <input name="imagen" type="file" id="FORM-solicitud_V-detalles_BTN-adjunto">
 					  </div>
 				    </div>
 				  
 				  
 				  </div>  <!-- :::::: :::::: Fin Colapsable: Detalles -->
 				  
-
-				  </br>
-					
+				  <br/>					
 				  <!-- Boton: Listo! -->
                   <div class="form-group   has-success">
                     <div class="col-sm-offset-3 col-sm-4">
-                      <button type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+                      <button data-ajax="true" type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
 					    <span class="glyphicon glyphicon-ok"></span>
 						<strong> Listo! </strong>
 					  </button>
                     </div>
+                    <div class=" col-sm-4">
+                      <button type="reset" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-remove"></span>
+						<strong> Limpiar </strong>
+					  </button>
+                    </div>
                   </div> <!--  -->
-				
-                </form> <!-- ................................................................. ^  Form 2 -->
+				} <!-- ................................................................. ^  Form 2 -->
   
 			    
               </div> <!-- Fin de Ventana de Formulario 2 -->
@@ -640,3 +498,55 @@
 
   </div> <!-- ::::::::::::::::::::::::::::::::::::: Celda de tabla: Ventana registrar -->
 </div> <!-- Raw --> 
+<!-- Formularios modal -->
+
+<div id="form-marca" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Registro de nueva marca</h4>
+        </div>       
+          <div class="modal-body">
+            @using(Html.BeginForm("RegistrarMarca","electronicos",FormMethod.Post))
+            {
+              <div class="form-group">                  
+                      <label for="nuevaMarca" class="control-label">Marca</label>
+                      <input type="text" class="form-control" name="nuevaMarca" required />                          
+              </div>     
+                <hr />
+              <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button data-ajax="true"  type="submit" class="btn btn-primary">Registrar</button>          
+              </div>
+            }
+          </div>               
+    </div>
+   </div>
+</div>
+
+
+<!-- Declaracióin de script propios -->
+<script>
+    function actualizarMarcas() {
+        $.ajax("/electronicos/ObtenerMarcas", {
+            async:true,
+            type:"post",
+            beforeSend:function(){$.notify("Actualizando la lista de marcas","info");},
+            success: function(respuesta)
+            {
+                if (respuesta.response == true) {
+                    $("#contenedorListaMarcas").html(respuesta.mensaje);
+                }
+                else {
+                    alert("Error al actualizar marcas, presione F5");
+                }
+            },
+            error: function (a)
+            {
+                alert("Error inesperado: No se ha logrado actualizar la lista de marcas, presione F5. "+a);
+            }
+        });
+       
+    }
+
+</script>

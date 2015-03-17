@@ -5,7 +5,7 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
+    [Table("Mobiliarios")]
     public partial class Mobiliarios
     {
         [Key]
@@ -33,10 +33,10 @@ namespace Entidades
         [StringLength(20)]
         public string Usuario_registra { get; set; }
 
-        public virtual Marca_mobiliario Marca_mobiliario { get; set; }
+      /*  public virtual Marca_mobiliario Marca_mobiliario { get; set; }
 
         public virtual Tipo_mobiliario Tipo_mobiliario { get; set; }
 
-        public virtual Usuarios Usuarios { get; set; }
+        public virtual Usuarios Usuarios { get; set; }*/
     }
 }

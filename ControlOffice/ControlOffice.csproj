@@ -119,7 +119,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MobiliarioController.cs" />
     <Compile Include="CustomAttributes\CustomAttributes.cs" />
-    <Compile Include="DBContolOficceContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +158,7 @@
     <Content Include="Assets\Iconos\Usuarios.png" />
     <Content Include="Assets\Iconos\UsuariosXX.png" />
     <Content Include="Assets\Iconos\Varios_rectangulosAzules.png" />
+    <Content Include="Assets\js\notify.min.js" />
     <Content Include="Assets\js\util.js" />
     <Content Include="Assets\js\jquery.form.js" />
     <Content Include="Global.asax" />
@@ -191,9 +191,9 @@
       <Project>{098cd836-d7ff-45eb-80be-e14e967b4f17}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modelo\Modelo.csproj">
-      <Project>{6edf0035-90be-404a-b7cc-b7e12fd45e01}</Project>
-      <Name>Modelo</Name>
+    <ProjectReference Include="..\Modelos\Modelos.csproj">
+      <Project>{c7b49ea1-9689-4c75-a31f-56559873ee6c}</Project>
+      <Name>Modelos</Name>
     </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{3b01ad2e-1f9e-405c-9b97-16dde4086229}</Project>

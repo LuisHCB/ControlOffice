@@ -7,34 +7,35 @@ namespace Modelo
     using System.Linq;
     using Entidades;
 
-    public partial class DBContolOficceContext : DbContext
+    public  class DBContolOficceContext : DbContext
     {
         public DBContolOficceContext()
             : base("name=DBContolOficceContext")
         {
         }
 
-        public virtual DbSet<Consumibles> Consumibles { get; set; }
-        public virtual DbSet<Documentos_enviados> Documentos_enviados { get; set; }
-        public virtual DbSet<Documentos_internos> Documentos_internos { get; set; }
-        public virtual DbSet<Documentos_recibidos> Documentos_recibidos { get; set; }
-        public virtual DbSet<Electronicos> Electronicos { get; set; }
-        public virtual DbSet<Marca_electronicos> Marca_electronicos { get; set; }
-        public virtual DbSet<Marca_mobiliario> Marca_mobiliario { get; set; }
-        public virtual DbSet<Mobiliarios> Mobiliarios { get; set; }
-        public virtual DbSet<Solicitudes> Solicitudes { get; set; }
-        public virtual DbSet<Tipo_consumible> Tipo_consumible { get; set; }
-        public virtual DbSet<Tipo_electronico> Tipo_electronico { get; set; }
-        public virtual DbSet<Tipo_mobiliario> Tipo_mobiliario { get; set; }
-        public virtual DbSet<Tipo_solicitudes> Tipo_solicitudes { get; set; }
-        public virtual DbSet<Tipos_documento> Tipos_documento { get; set; }
-        public virtual DbSet<Tipos_documento_interno> Tipos_documento_interno { get; set; }
-        public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public  DbSet<Consumibles> Consumibles { get; set; }
+        public  DbSet<Documentos_enviados> Documentos_enviados { get; set; }
+        public  DbSet<Documentos_internos> Documentos_internos { get; set; }
+        public  DbSet<Documentos_recibidos> Documentos_recibidos { get; set; }
+        public  DbSet<Electronicos> Electronicos { get; set; }
+        public  DbSet<Marca_electronicos> Marca_electronicos { get; set; }
+        public  DbSet<Marca_mobiliario> Marca_mobiliario { get; set; }
+        public  DbSet<Mobiliarios> Mobiliarios { get; set; }
+        public  DbSet<Solicitudes> Solicitudes { get; set; }
+        public  DbSet<Tipo_consumible> Tipo_consumible { get; set; }
+        public  DbSet<Tipo_electronico> Tipo_electronico { get; set; }
+        public  DbSet<Tipo_mobiliario> Tipo_mobiliario { get; set; }
+        public  DbSet<Tipo_solicitudes> Tipo_solicitudes { get; set; }
+        public  DbSet<Tipos_documento> Tipos_documento { get; set; }
+        public  DbSet<Tipos_documento_interno> Tipos_documento_interno { get; set; }
+        public  DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Evitamos que pluralize el nombre de las identidades
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
+            
 
             #region Codigo generado por entity que no me interesa
             /*

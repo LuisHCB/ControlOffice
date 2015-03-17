@@ -9,7 +9,7 @@
 
             if ($(this).data('ajax') != true) return; // si no tiene le atributo usar-ajax no hace nada
 
-            var form = $(this).closest("form");
+            var form = $(this).closest("form"); //parentNode();//     
             var buttons = $("button", form);
             var button = $(this);
             var url = form.attr('action');
@@ -44,11 +44,15 @@
                 url: url,
                 success: function (respuesta) {
                     //aqui remover el div de espera  block.remove();
+
+                    //Aqui deberia resetear el fomrulario
+                    /*
                     if (respuesta.response) {
                         if (button.data("reset") != undefined) {
-                            if (button.data("reset")) form.reset();//resetea formulario
+                            if (button.data("reset")) form.reset();  //resetea formulario
                         }
-                    }
+                    }*/
+                    
 
                     //Muestra mensaje
                     if (respuesta.mensaje != null) {
@@ -63,9 +67,19 @@
                         }
                     }
 
-                    //ejecutar funciones
-                    if (respuesta.funcion != null) {
-                        setTimeout(respuesta.funcion,0);//ejecuta la funcion en 0 segundos
+                    //muestra los mensaje flotantes
+                    if (respuesta.alerta != null) {
+                        if (respuesta.alerta.length > 0) {
+                            //muestra mensaje de alerta
+                            $.notify(respuesta.alerta, "success");                           
+                        }
+                    }
+                    
+                    //ejecutar funciones, solo si la accion fue correcta
+                    if (respuesta.response) {
+                        if (respuesta.funcion != null) {
+                            setTimeout(respuesta.funcion, 0);//ejecuta la funcion en 0 segundos
+                        }
                     }
 
                     //redirecciona
@@ -83,3 +97,4 @@
         });// cualquier click en el body
     }// funcion anonima para document.ready
  );
+

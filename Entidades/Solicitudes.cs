@@ -5,7 +5,7 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
+    [Table("Solicitudes")]
     public partial class Solicitudes
     {
         [Key]
@@ -32,9 +32,9 @@ namespace Entidades
 
         [StringLength(20)]
         public string Usuario_registra { get; set; }
-
+        /*
         public virtual Tipo_solicitudes Tipo_solicitudes { get; set; }
 
-        public virtual Usuarios Usuarios { get; set; }
+        public virtual Usuarios Usuarios { get; set; }*/
     }
 }

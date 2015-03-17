@@ -5,10 +5,10 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
-    public partial class Electronicos
+    [Table("Electronicos")]
+    public class Electronicos
     {
-        [Key]
+        [Key]        
         public int Id_electronico { get; set; }
 
         public int Id_tipo_electronico { get; set; }
@@ -33,10 +33,10 @@ namespace Entidades
         [StringLength(20)]
         public string Usuario_registra { get; set; }
 
-        public virtual Marca_electronicos Marca_electronicos { get; set; }
+      /*  public Marca_electronicos Marca_electronicos { get; set; }
 
-        public virtual Tipo_electronico Tipo_electronico { get; set; }
-
-        public virtual Usuarios Usuarios { get; set; }
+        public Tipo_electronico Tipo_electronico { get; set; }
+        
+        public Usuarios Usuarios { get; set; }*/
     }
 }

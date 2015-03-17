@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Entidades;
-using Modelo;
+using Modelos;
 using ControlOffice.CustomAttributes;
 using Util;
 

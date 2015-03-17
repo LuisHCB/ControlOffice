@@ -212,6 +212,14 @@ create table Solicitudes
  )
  go
  
+/* Inserta datos necesarios */
+ insert into dbo.Tipo_solicitudes (Tipo_solicitud)values
+ ('Electronico'),/*1*/
+ ('Mobiliario'),/*2*/
+ ('Consumible')/*3*/
+ go
+ 
+ 
  /* Inserta datos de prueba */
  insert into dbo.Usuarios (Usuario, Pass, Nombre) values('admin@gmail.com','1111','Administrador'),
  ('demo@gmail.com','demo','Usuario demo')
