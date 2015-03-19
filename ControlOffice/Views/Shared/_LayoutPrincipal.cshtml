@@ -4,19 +4,31 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link href="~/Assets/css/formato.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>        
-    <script src="~/Assets/js/util.js"></script>
-      <script>
-          function baseUrl(url) {
-              return '@(Url.Content("~/"))' + url;
+    <link href="~/Assets/css/formato.css" rel="stylesheet" />   
+    <link href="~/Assets/css/ui.jqgrid.css" rel="stylesheet"  />
+    <link href="~/Assets/css/jquery-ui.css" rel="stylesheet" />
+
+    
+    <script>
+        function baseUrl(url) {
+            return '@(Url.Content("~/"))' + url;
           }
 
           function redirect(href) {
               window.location.href = '@(Url.Content("~/"))' + href;
           }
       </script>
+     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.jqGrid.min.js"></script>
+    <script src="~/Assets/js/i18n/grid.locale-es.js"></script>    
+
+    
+           
+    <script src="~/Assets/js/util.js"></script>
+
+      
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
@@ -142,7 +154,7 @@
     </div>
 
     <script src="~/Assets/js/jquery.validate.min.js"></script>
-    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>    
     <script src="~/Assets/js/jquery.form.js"></script>
     <script src="~/Assets/js/notify.min.js"></script>
 </body>

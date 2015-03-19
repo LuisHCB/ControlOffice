@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -170,6 +171,38 @@ namespace Modelos
             {
                 return context.Marca_electronicos.ToList();
             }
+        }
+
+        public JqGridModel<Electronicos> ObtenerTodosLosElectronicos(JqGrid jq)
+        {
+            JqGridModel<Electronicos> jqm = new JqGridModel<Electronicos>();
+
+            using (var ctx = new DBControlOfficeContext())
+            {
+                // Traemos la cantidad de registros
+                jq.count = ctx.Electronicos.Count();
+
+                // Configuramos el JqGridModel
+                jqm.Config(jq);
+
+                //Esta consulta solo sirve para Sql serve 2012 en adelante
+               // consulta ="SELECT * FROM Electronicos ORDER BY  Id_electronico  OFFSET 10 ROWS FETCH NEXT 3 ROWS ONLY;",
+                try
+                {
+                    string consulta = "select top " + jqm.limit + " * from (select *, ROW_NUMBER() over (order by " + jqm.sord +
+                           " ) as limites from Electronicos) xx where limites >=" + jqm.start;
+                    jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta).ToList());
+                    /*jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta,
+                            new SqlParameter("OFFSET", jqm.start),
+                            new SqlParameter("FETCH", jqm.limit)).ToList());*/
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
+
+            return jqm;
         }
     }
 }

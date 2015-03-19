@@ -95,6 +95,57 @@
 
 
         });// cualquier click en el body
+
+        //------------------------  Funcion para tablas -------------------------------
+        CargarElectronicos();
     }// funcion anonima para document.ready
  );
 
+
+function CargarElectronicos() {
+    var config = {
+        ordenPorDefecto:'Id_electronico',
+        colNames: ['Id', 'Tipo','Cantidad','Marca'],
+        colModel: [
+            { name: 'Id_electronico', index: 'Id_electronico', hidden: false /*true*/ },
+            {name: 'Id_tipo_electronico', index: 'Id_tipo_electronico', formatter: function (cellvalue, options, rowObject) {
+                    return '<a>' + ('product/ver/' + rowObject.id, cellvalue) + '</a>';
+                }
+            },
+            { name:'Cantidad', index: 'Cantidad'
+            },
+            { name:'Id_marca', index: 'Id_marca'
+            }
+
+        ]
+    };
+
+    jqGridStart('tabla1', 'paginador-tabla1', 'electronicos/listaElectronicos', config,'Id_electronico');
+}
+
+function jqGridStart(id, pager, url, conf) {
+    var grid = $("#" + id);
+
+    var start = {
+        url: baseUrl(url),
+        datatype: 'json',
+        mtype: 'POST',
+        rowNum: 2,
+        rowList: [2, 3, 10],
+        pager: '#' + pager,
+        sortname: (conf.sortname == undefined ?conf.ordenPorDefecto : null),
+        sortorder: (conf.sortorder == undefined ? 'asc' : null),
+        viewrecords: true,
+        autowidth: true,
+        height: 'auto',
+        filterToolbar: true
+    };
+
+    for (key in conf) {
+        start[key] = conf[key];
+    }
+
+    grid.jqGrid(start);
+
+    return grid;
+}

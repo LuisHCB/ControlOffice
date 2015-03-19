@@ -171,5 +171,10 @@ namespace ControlOffice.Controllers
             
             return Json(new { response = true,mensaje=opciones});
         }
+
+        public JsonResult listaElectronicos(JqGrid jq)
+        {
+            return Json(em.ObtenerTodosLosElectronicos(jq), JsonRequestBehavior.AllowGet);
+        }
     }
 }
