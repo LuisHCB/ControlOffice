@@ -31,12 +31,20 @@ namespace ControlOffice.Controllers
         [Protegido]
         public ActionResult Index()
         {
-
-            ViewBag.TiposElectronicos = em.ObtenerTiposElectronicos();
             ViewBag.NombreUsuario = usuario != null ? usuario.Nombre : "Usuario";
-            ViewBag.marcasElectronicos = em.ObtenerMarcas();
-
             return View();
+        }
+
+        public PartialViewResult Registro()
+        {
+            ViewBag.TiposElectronicos = em.ObtenerTiposElectronicos();
+            ViewBag.marcasElectronicos = em.ObtenerMarcas();
+            return PartialView();
+        }
+
+        public PartialViewResult Inventario()
+        {
+            return PartialView();
         }
 
         public JsonResult RegistrarAparato(int utilizado, int tipo = 0, string cantidad = "", int marca = 0, string serie = null, DateTime FechaUso = new DateTime(),

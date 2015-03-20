@@ -97,7 +97,7 @@
         });// cualquier click en el body
 
         //------------------------  Funcion para tablas -------------------------------
-        CargarElectronicos();
+        
     }// funcion anonima para document.ready
  );
 
@@ -130,8 +130,8 @@ function jqGridStart(id, pager, url, conf) {
         url: baseUrl(url),
         datatype: 'json',
         mtype: 'POST',
-        rowNum: 2,
-        rowList: [2, 3, 10],
+        rowNum: 20,
+        rowList: [20, 50, 70],
         pager: '#' + pager,
         sortname: (conf.sortname == undefined ?conf.ordenPorDefecto : null),
         sortorder: (conf.sortorder == undefined ? 'asc' : null),

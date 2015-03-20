@@ -46,6 +46,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <!-- Boton: Menu lateral -->
+      <a class="navbar-brand" onclick=" $('#menu').addClass('mostrar'); $('#menu').show('slide'); " >
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
 	  <!-- Boton: Inicio -->
       <a class="navbar-brand" href="/controlOffice/menu">
         <span class="glyphicon glyphicon-home"></span>
@@ -149,9 +153,13 @@
   </div>  <!-- Fin Jumbotron -->
 </div>  <!-- Fin de Ventana colapsable -->
 <!-- Fin -------------------------------------- Ventana de ayuda -->
-    <div >
-        @RenderBody()
-    </div>
+    <div class="row-md-12" >
+        
+        <!-- Inicia el contenido -->
+            @RenderBody()
+        <!-- Termina el contenido -->
+
+      </div>
 
     <script src="~/Assets/js/jquery.validate.min.js"></script>
     <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>    

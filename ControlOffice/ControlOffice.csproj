@@ -129,20 +129,36 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Assets\css\formato.css" />
+    <Content Include="Assets\css\jquery-ui.css" />
     <Content Include="Assets\images\ui-bg_diagonals-small_0_aaaaaa_40x40.png" />
     <Content Include="Assets\images\ui-bg_diagonals-thick_15_444444_40x40.png" />
     <Content Include="Assets\images\ui-bg_diagonals-thick_95_ffdc2e_40x40.png" />
+    <Content Include="Assets\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Assets\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Assets\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Assets\images\ui-bg_glass_55_f8da4e_1x400.png" />
     <Content Include="Assets\images\ui-bg_glass_55_fbf5d0_1x400.png" />
+    <Content Include="Assets\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Assets\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Assets\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="Assets\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
     <Content Include="Assets\images\ui-bg_highlight-hard_30_285c00_1x100.png" />
     <Content Include="Assets\images\ui-bg_highlight-soft_33_3a8104_1x100.png" />
     <Content Include="Assets\images\ui-bg_highlight-soft_50_4eb305_1x100.png" />
     <Content Include="Assets\images\ui-bg_highlight-soft_60_4ca20b_1x100.png" />
+    <Content Include="Assets\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
     <Content Include="Assets\images\ui-bg_inset-soft_10_285c00_1x100.png" />
+    <Content Include="Assets\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Assets\images\ui-icons_056b93_256x240.png" />
     <Content Include="Assets\images\ui-icons_4eb305_256x240.png" />
     <Content Include="Assets\images\ui-icons_72b42d_256x240.png" />
     <Content Include="Assets\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Assets\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Assets\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Assets\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="Assets\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Assets\images\ui-icons_fcd113_256x240.png" />
     <Content Include="Assets\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Assets\css\jquery-ui.css" />
     <Content Include="Assets\css\ui.jqgrid.css" />
     <Content Include="Assets\gradle\wrapper\gradle-wrapper.jar" />
     <Content Include="Assets\Iconos\Apagar.png" />
@@ -250,6 +266,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Electronicos\Registro.cshtml" />
+    <Content Include="Views\Electronicos\Inventario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
