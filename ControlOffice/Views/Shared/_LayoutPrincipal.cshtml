@@ -27,6 +27,7 @@
     
            
     <script src="~/Assets/js/util.js"></script>
+    <script src="~/Assets/js/tablas.js"></script>
 
       
     <meta name="viewport" content="width=device-width" />
@@ -47,12 +48,12 @@
         <span class="icon-bar"></span>
       </button>
       <!-- Boton: Menu lateral -->
-      <a class="navbar-brand" onclick=" $('#menu').addClass('mostrar'); $('#menu').show('slide'); " >
-        <span class="glyphicon glyphicon-chevron-right"></span>
+      <a class="navbar-brand" onclick=" toogleClase('#boton-menu-lateral','glyphicon-chevron-right','glyphicon-chevron-left');  $('#menu').toggle('slide'); " >
+        <span id="boton-menu-lateral" class="glyphicon glyphicon-chevron-left"></span>
       </a>
 	  <!-- Boton: Inicio -->
       <a class="navbar-brand" href="/controlOffice/menu">
-        <span class="glyphicon glyphicon-home"></span>
+        <span class="glyphicon glyphicon-home "></span>
       </a>
 	  <!-- "Documentos" -->
       <a class="navbar-brand" href="#" style="color:#f0ad4e"

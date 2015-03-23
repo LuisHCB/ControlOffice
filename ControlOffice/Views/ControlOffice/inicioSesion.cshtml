@@ -1,0 +1,46 @@
+﻿@model Usuarios
+@{
+    Layout = null;    
+}
+
+<div class="jumbotron">
+  <div class=" row ">    
+    <div class="col-md-offset-4 col-md-4">      
+          <div class="alert  alert-warning alert-dismissable  " >Es necesario que primero inicies una sesión.</div>
+          <fieldset>
+              <legend>Inicio de sesión</legend>
+          @using(Html.BeginForm("Acceder","ControlOffice",FormMethod.Post , new {@class="form-horizontal" }))
+          {
+            <div class="form-group">
+              <label for="TB-correo" class="col-sm-2 control-label" >  </label>
+              <div class="col-sm-10 ">
+                @Html.ValidationMessageFor(model => model.Usuario,"",new {style ="font-style:italic;"})
+                @Html.TextBoxFor(model => model.Usuario, new {@class="form-control", placeholder="Usuario", type="email" , maxlength="20" })                
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="TB-password" class="col-sm-2 control-label">  </label>
+              <div class="col-sm-10">
+                  @Html.ValidationMessageFor(model => model.Pass,"",new {style ="font-style:italic;"})
+                  @Html.PasswordFor(model => model.Pass, new {@class="form-control", placeholder="Password", type="password", maxlength="20" })                
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Recordarme en este equipo
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button data-ajax="true" type="submit" data-reset="false" class="btn btn-primary">Iniciar sesion</button>
+              </div>
+            </div>
+          }
+              </fieldset>
+    </div>
+  </div>
+</div>

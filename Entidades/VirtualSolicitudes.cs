@@ -5,29 +5,27 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Solicitudes")]
-    public partial class Solicitudes
+    public class VirtualSolicitudes
     {
-        [Key]
+      
         public int Id_solicitud { get; set; }
 
         public int Id_tipo_solicitud { get; set; }
 
-        [Required]
-        [StringLength(255)]
+       
         public string Destino { get; set; }
 
-        [Required]
-        [StringLength(1024)]
         public string Descripcion { get; set; }
 
-        [Column(TypeName = "datetime2")]        
+        
         public DateTime? Fecha_envio { get; set; }
 
-        [StringLength(50)]
+        public string Fecha_envio_texto { get; set; }
+
+        
         public string Folio { get; set; }
 
-        [StringLength(200)]
+        
         public string Imagen { get; set; }
 
         [StringLength(20)]

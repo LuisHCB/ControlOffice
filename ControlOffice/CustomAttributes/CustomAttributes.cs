@@ -40,8 +40,23 @@ namespace ControlOffice.CustomAttributes
                 base.OnActionExecuted(filterContext);
             }
             else //pide que ingrese al sistema primero
-            {
+            {                
                 HttpContext.Current.Response.Redirect("/controlOffice", true);
+            }
+        }
+    }
+    
+    public class ProtegidoVista : ActionFilterAttribute //hereda
+    {
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (ManejadorDeSesiones.ExisteUsuarioEnSesion())
+            {
+                base.OnActionExecuted(filterContext);
+            }
+            else //pide que ingrese al sistema primero
+            {
+                HttpContext.Current.Response.Redirect("/controlOffice/inicioSesion", true);
             }
         }
     }

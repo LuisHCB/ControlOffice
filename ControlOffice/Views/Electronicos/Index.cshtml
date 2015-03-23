@@ -8,13 +8,35 @@
   <div class="col-md-4  " id="menu" >    
     <blockquote >  <!-- deja un pequeño espacio entre losbotones y el borde de pantalla -->      	
         <div class="form-group">
-            <button class="btn btn-primary btn-lg btn-block" type="button" onclick=" $('#menu').hide('slide');  $('#subContenido').load('/electronicos/Inventario');"  >
+            <button class="btn btn-primary btn-lg btn-block" type="button" 
+                 data-toggle="collapse" 
+	             data-target="#sub-menu" 
+	             aria-expanded="false" 
+	             aria-controls="sub-menu"  >
                     <span class="glyphicon glyphicon-search"></span>
                     <strong>Ver inventario </strong>
             </button>            
+            <div id="sub-menu" class=" collapse  " style=" background-color:#428bca; opacity:0.8; text-align:center; ">
+                <br />
+                <a class="  btn-block textoBlanco "  onclick=" $('#menu').toggle('slide'); toogleClase('#boton-menu-lateral','glyphicon-chevron-right','glyphicon-chevron-left');  $('#subContenido').load('/electronicos/Inventario');" data-toggle="collapse" 
+	             data-target="#sub-menu" 
+	             aria-expanded="false" 
+	             aria-controls="sub-menu" >
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                    <strong>Electrónicos</strong>
+                </a> 
+                <a class="  btn-block textoBlanco " type="button" onclick=" toogleClase('#boton-menu-lateral','glyphicon-chevron-right','glyphicon-chevron-left');  $('#menu').toggle('slide');  $('#subContenido').load('/electronicos/InventarioSolicutides');"data-toggle="collapse" 
+	             data-target="#sub-menu" 
+	             aria-expanded="false" 
+	             aria-controls="sub-menu"  >
+                    <span class="glyphicon glyphicon-file"></span>
+                    <strong >Solicitudes</strong>
+                </a>
+                <br />
+            </div>
         </div>  
         <div class="form-group">
-            <button class="btn btn-success btn-lg btn-block" type="button" onclick=" $('#menu').hide('slide');   $('#subContenido').load('/electronicos/registro');"   >
+            <button class="btn btn-success btn-lg btn-block" type="button" onclick=" toogleClase('#boton-menu-lateral','glyphicon-chevron-right','glyphicon-chevron-left'); $('#menu').hide('slide');   $('#subContenido').load('/electronicos/registro');"   >
 	         <!--data-toggle="collapse" 
 	         data-target="#V-registrar" 
 	         aria-expanded="false" 
@@ -27,7 +49,7 @@
   </div>
 <!--  Termina menu lateral -->
 <!-- subcontenido -->
-   <div class="col-md-8" id="subContenido"> <!-- Celda con ventana registrar -->
+   <div class="col-md-12" id="subContenido" > <!-- Celda con ventana registrar -->
    </div>
 <!-- termina subcontenido -->
 

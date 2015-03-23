@@ -11,7 +11,7 @@ namespace Entidades
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Marca_electronicos()
         {
-            Electronicos = new HashSet<Electronicos>();
+            Electronicos = new List<Electronicos>(); //new HashSet<Electronicos>();            
         }
 
         [Key]
@@ -21,6 +21,7 @@ namespace Entidades
         public string Marca { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Electronicos> Electronicos { get; set; }
+        //public virtual ICollection<Electronicos> Electronicos { get; set; }
+        public List<Electronicos> Electronicos { get; set; }
     }
 }

@@ -173,6 +173,60 @@ namespace Modelos
             }
         }
 
+        public JqGridModel<VirtualSolicitudes> ObtenerSolicitudesElectronicos(JqGrid jq)
+        {
+            JqGridModel<VirtualSolicitudes> jqm = new JqGridModel<VirtualSolicitudes>();
+
+            using (var ctx = new DBControlOfficeContext())
+            {
+                // Traemos la cantidad de registros
+                jq.count = ctx.Solicitudes.Where(x=>
+                     x.Id_tipo_solicitud == 1).Count();
+
+                // Configuramos el JqGridModel
+                jqm.Config(jq);
+
+                //Esta consulta solo sirve para Sql serve 2012 en adelante
+                // consulta ="SELECT * FROM Electronicos ORDER BY  Id_electronico  OFFSET 10 ROWS FETCH NEXT 3 ROWS ONLY;",
+                //try
+                {
+                    string consulta = "select top " + jqm.limit + " * from (select *, ROW_NUMBER() over (order by " + jqm.sord +
+                           " ) as limites from Solicitudes where Id_tipo_solicitud = 1 ) xx where limites >=" + jqm.start;
+                    List<Solicitudes> listaSolicitudes = ctx.Database.SqlQuery<Solicitudes>(consulta).ToList();
+                    List<VirtualSolicitudes> lista = new List<VirtualSolicitudes>();
+                    VirtualSolicitudes solicitudVirtual;
+                    //int t = 0; int m = 0;
+                    //Da formato a la fecha y otros parametros para ser enviada como un objeto json
+                    for (int i = 0; i < listaSolicitudes.Count(); i++)
+                    {
+                        solicitudVirtual = new VirtualSolicitudes();
+                        solicitudVirtual.Descripcion = listaSolicitudes[i].Descripcion;
+                        solicitudVirtual.Destino = listaSolicitudes[i].Destino;
+                        solicitudVirtual.Fecha_envio = listaSolicitudes[i].Fecha_envio;
+                        solicitudVirtual.Fecha_envio_texto = listaSolicitudes[i].Fecha_envio.ToString();
+                        solicitudVirtual.Folio = listaSolicitudes[i].Folio;
+                        solicitudVirtual.Id_solicitud = listaSolicitudes[i].Id_solicitud;
+                        solicitudVirtual.Id_tipo_solicitud = listaSolicitudes[i].Id_tipo_solicitud;
+                        solicitudVirtual.Imagen = listaSolicitudes[i].Imagen;
+                        solicitudVirtual.Usuario_registra = listaSolicitudes[i].Usuario_registra;
+
+                        lista.Add(solicitudVirtual);   
+                        
+                    }
+                    jqm.DataSource(lista );//ctx.Database.SqlQuery<Electronicos>(consulta).ToList());
+                    /*jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta,
+                            new SqlParameter("OFFSET", jqm.start),
+                            new SqlParameter("FETCH", jqm.limit)).ToList());*/
+                }
+                //catch(Exception ex)
+                {
+
+                }
+            }
+
+            return jqm;
+        }
+
         public JqGridModel<Electronicos> ObtenerTodosLosElectronicos(JqGrid jq)
         {
             JqGridModel<Electronicos> jqm = new JqGridModel<Electronicos>();
@@ -187,16 +241,27 @@ namespace Modelos
 
                 //Esta consulta solo sirve para Sql serve 2012 en adelante
                // consulta ="SELECT * FROM Electronicos ORDER BY  Id_electronico  OFFSET 10 ROWS FETCH NEXT 3 ROWS ONLY;",
-                try
+                //try
                 {
                     string consulta = "select top " + jqm.limit + " * from (select *, ROW_NUMBER() over (order by " + jqm.sord +
-                           " ) as limites from Electronicos) xx where limites >=" + jqm.start;
-                    jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta).ToList());
+                           " ) as limites from Electronicos ) xx where limites >=" + jqm.start;
+                    List <Electronicos> l = ctx.Database.SqlQuery<Electronicos>(consulta).ToList();
+                    int t = 0; int m=0;
+                    for (int i = 0; i < l.Count(); i++)
+                    {//obtengo relaciones por cada electronico. Este algoritmo no es nada recomendado, debido al tiempo que toma,
+                       //pero en un mapeo directo habria que modificar la entidad del modelo e ingresar los datos directamente
+                        t=l[i].Id_tipo_electronico;
+                        m = (int) (l[i].Id_marca == null ? -1 : l[i].Id_marca);
+                        l[i].Tipo_electronico = ctx.Tipo_electronico.Where(x => x.Id_tipo_electronico == t).SingleOrDefault();
+                        l[i].Marca_electronicos = ctx.Marca_electronicos.Where(x => x.Id_marca == m).SingleOrDefault();
+                    }
+
+                        jqm.DataSource(l);//ctx.Database.SqlQuery<Electronicos>(consulta).ToList());
                     /*jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta,
                             new SqlParameter("OFFSET", jqm.start),
                             new SqlParameter("FETCH", jqm.limit)).ToList());*/
                 }
-                catch(Exception ex)
+                //catch(Exception ex)
                 {
 
                 }

@@ -35,6 +35,7 @@ namespace ControlOffice.Controllers
             return View();
         }
 
+        [ProtegidoVista]
         public PartialViewResult Registro()
         {
             ViewBag.TiposElectronicos = em.ObtenerTiposElectronicos();
@@ -42,11 +43,19 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
+        [ProtegidoVista]
         public PartialViewResult Inventario()
         {
             return PartialView();
         }
 
+        [ProtegidoVista]
+        public PartialViewResult InventarioSolicutides()
+        {
+            return PartialView();
+        }
+
+        [Protegido]
         public JsonResult RegistrarAparato(int utilizado, int tipo = 0, string cantidad = "", int marca = 0, string serie = null, DateTime FechaUso = new DateTime(),
             string reemplazo = "", int unidadReemplazo = -1)
         {
@@ -68,7 +77,7 @@ namespace ControlOffice.Controllers
                 }
                 catch
                 {
-                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una catidad valida <br />";
+                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una cantidad valida <br />";
                 }
             }
             if (reemplazo.Length > 0)
@@ -90,14 +99,23 @@ namespace ControlOffice.Controllers
             }
             else
             {//guarda la informacion
-                if (reemplazo.Length > 0)
+               // if (ManejadorDeSesiones.ExisteUsuarioEnSesion())
                 {
-                    tiempoReemplazo = Convert.ToInt32(reemplazo);
-                    if (unidadReemplazo == 1) { tiempoReemplazo *= 30; }
-                    else if (unidadReemplazo == 2) { tiempoReemplazo *= 365; }
+                    if (reemplazo.Length > 0)
+                    {
+                        tiempoReemplazo = Convert.ToInt32(reemplazo);
+                        if (unidadReemplazo == 1) { tiempoReemplazo *= 30; }
+                        else if (unidadReemplazo == 2) { tiempoReemplazo *= 365; }
+                    }
+                    return Json(em.RegistrarElectronico(tipo, Convert.ToInt32(cantidad), marca, serie, FechaUso, utilizado, tiempoReemplazo, usuario.Usuario));
                 }
-                
-                return Json( em.RegistrarElectronico(tipo,Convert.ToInt32(cantidad),marca, serie, FechaUso,utilizado, tiempoReemplazo, usuario.Usuario));
+                /*else
+                {//Debe iniciar sesion, tal vez se ingreso aqui con una copia de la pagina o en cache                    
+                    RespuestaModel respuesta = new RespuestaModel();
+                    respuesta.SetRespuesta(false,"Primero debes iniciar sesión");
+                    respuesta.href = "controloffice/index";
+                    return Json(respuesta);
+                }*/
             }
             
 
@@ -183,6 +201,11 @@ namespace ControlOffice.Controllers
         public JsonResult listaElectronicos(JqGrid jq)
         {
             return Json(em.ObtenerTodosLosElectronicos(jq), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult listaSolicitudElectronicos(JqGrid jq)
+        {
+            return Json(em.ObtenerSolicitudesElectronicos(jq), JsonRequestBehavior.AllowGet);
         }
     }
 }

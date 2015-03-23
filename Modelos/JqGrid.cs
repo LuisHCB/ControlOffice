@@ -40,6 +40,7 @@ namespace Modelos
             this.total = total_pages;
             this.records = jq.count;
         }
+
         public void DataSource(List<T> data)
         {
             this.rows = data;

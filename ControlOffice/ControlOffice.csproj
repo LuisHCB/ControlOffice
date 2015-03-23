@@ -240,6 +240,7 @@
     <Content Include="Assets\js\jquery.validate.min.js" />
     <Content Include="Assets\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Assets\js\notify.min.js" />
+    <Content Include="Assets\js\tablas.js" />
     <Content Include="Assets\js\util.js" />
     <Content Include="Assets\plugins\grid.addons.js" />
     <Content Include="Assets\plugins\grid.postext.js" />
@@ -268,6 +269,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Electronicos\Registro.cshtml" />
     <Content Include="Views\Electronicos\Inventario.cshtml" />
+    <Content Include="Views\Electronicos\InventarioSolicutides.cshtml" />
+    <Content Include="Views\Mobiliario\Inventario.cshtml" />
+    <Content Include="Views\Mobiliario\InventarioSolicitudes.cshtml" />
+    <Content Include="Views\Mobiliario\Registro.cshtml" />
+    <Content Include="Views\ControlOffice\inicioSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

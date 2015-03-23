@@ -32,7 +32,12 @@ namespace Modelos
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           /* modelBuilder.Entity<Marca_electronicos>()
+            /*modelBuilder.Entity<Tipo_electronico>()
+                .HasMany(e => e.Electronicos)
+                .WithOptional(e => e.Tipo_electronico)
+                .WillCascadeOnDelete();*/
+
+            /*modelBuilder.Entity<Marca_electronicos>()
                 .HasMany(e => e.Electronicos)
                 .WithOptional(e => e.Marca_electronicos)
                 .WillCascadeOnDelete();*/

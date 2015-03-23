@@ -52,6 +52,7 @@
     <Compile Include="DBControlOfficeContext.cs" />
     <Compile Include="ElectronicosModel.cs" />
     <Compile Include="JqGrid.cs" />
+    <Compile Include="MobiliariosModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RespuestaModel.cs" />
     <Compile Include="SolicitudesModel.cs" />

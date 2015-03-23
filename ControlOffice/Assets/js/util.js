@@ -102,50 +102,20 @@
  );
 
 
-function CargarElectronicos() {
-    var config = {
-        ordenPorDefecto:'Id_electronico',
-        colNames: ['Id', 'Tipo','Cantidad','Marca'],
-        colModel: [
-            { name: 'Id_electronico', index: 'Id_electronico', hidden: false /*true*/ },
-            {name: 'Id_tipo_electronico', index: 'Id_tipo_electronico', formatter: function (cellvalue, options, rowObject) {
-                    return '<a>' + ('product/ver/' + rowObject.id, cellvalue) + '</a>';
-                }
-            },
-            { name:'Cantidad', index: 'Cantidad'
-            },
-            { name:'Id_marca', index: 'Id_marca'
-            }
 
-        ]
-    };
+// Esta funcion intercambia entre clases cada que es llamada
+// si no tiene definida ninguna clase de inicio entonces no hara nada
+function toogleClase(target,clase1, clase2)
+{
+    var objeto = document.querySelector(target);
 
-    jqGridStart('tabla1', 'paginador-tabla1', 'electronicos/listaElectronicos', config,'Id_electronico');
-}
-
-function jqGridStart(id, pager, url, conf) {
-    var grid = $("#" + id);
-
-    var start = {
-        url: baseUrl(url),
-        datatype: 'json',
-        mtype: 'POST',
-        rowNum: 20,
-        rowList: [20, 50, 70],
-        pager: '#' + pager,
-        sortname: (conf.sortname == undefined ?conf.ordenPorDefecto : null),
-        sortorder: (conf.sortorder == undefined ? 'asc' : null),
-        viewrecords: true,
-        autowidth: true,
-        height: 'auto',
-        filterToolbar: true
-    };
-
-    for (key in conf) {
-        start[key] = conf[key];
+    if (objeto.className.indexOf(clase1) != -1) {
+        $(target).removeClass(clase1);
+        $(target).addClass(clase2);
     }
-
-    grid.jqGrid(start);
-
-    return grid;
+    else
+    {
+        $(target).removeClass(clase2);
+        $(target).addClass(clase1);
+    }
 }

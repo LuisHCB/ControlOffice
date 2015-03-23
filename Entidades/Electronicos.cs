@@ -8,6 +8,7 @@ namespace Entidades
     [Table("Electronicos")]
     public class Electronicos
     {
+        
         [Key]        
         public int Id_electronico { get; set; }
 
@@ -33,10 +34,11 @@ namespace Entidades
         [StringLength(20)]
         public string Usuario_registra { get; set; }
 
-      /*  public Marca_electronicos Marca_electronicos { get; set; }
+    
+        public   Marca_electronicos Marca_electronicos { get; set; }
 
-        public Tipo_electronico Tipo_electronico { get; set; }
+        public   Tipo_electronico Tipo_electronico { get; set; }
         
-        public Usuarios Usuarios { get; set; }*/
+       /* public Usuarios Usuarios { get; set; }*/
     }
 }

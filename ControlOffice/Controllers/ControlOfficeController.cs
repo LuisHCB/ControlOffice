@@ -16,7 +16,7 @@ namespace ControlOffice.Controllers
         
         //
         // GET: /ControlOffice/
-
+        
         public ActionResult Index()
         {
             return View();
@@ -32,6 +32,10 @@ namespace ControlOffice.Controllers
         }
 
 
+        public PartialViewResult inicioSesion()
+        {
+            return PartialView();
+        }
 
         [HttpPost] //solo accede por el metodo post
         [SoloAjax]     // definida en customattributes
