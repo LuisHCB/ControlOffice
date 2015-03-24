@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsumiblesModel.cs" />
     <Compile Include="DBControlOfficeContext.cs" />
     <Compile Include="ElectronicosModel.cs" />
     <Compile Include="JqGrid.cs" />
