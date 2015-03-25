@@ -28,10 +28,9 @@ namespace Entidades
         
         public string Imagen { get; set; }
 
-        [StringLength(20)]
+        
         public string Usuario_registra { get; set; }
 
-        
         /*
         public virtual Tipo_solicitudes Tipo_solicitudes { get; set; }
 

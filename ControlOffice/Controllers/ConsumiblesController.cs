@@ -14,6 +14,7 @@ namespace ControlOffice.Controllers
     {
         Usuarios usuario;
         ConsumiblesModel cm = new ConsumiblesModel();
+        SolicitudesModel sm = new SolicitudesModel();
 
         /// <summary>
         /// Constructor del controlador
@@ -22,7 +23,7 @@ namespace ControlOffice.Controllers
         {
             UsuarioModel usuarioModel = new UsuarioModel();
             //Obtenemos usuario actual
-            this.usuario = usuarioModel.ObtenerUsuario(ManejadorDeSesiones.ObtenerUsuarioEnSesion());            
+            this.usuario = usuarioModel.ObtenerUsuario(ManejadorDeSesiones.ObtenerUsuarioEnSesion());
         }
 
 
@@ -35,10 +36,11 @@ namespace ControlOffice.Controllers
             return View();
         }
 
-       // [ProtegidoVista]
+        [ProtegidoVista]
         public PartialViewResult Registro()
         {
-            ViewBag.TiposConsumibles = cm.ObtenerTiposConsumibles();            
+            ViewBag.TiposConsumibles = cm.ObtenerTiposConsumibles();
+            ViewBag.NombreUsuario = usuario != null ? usuario.Nombre : "No definido";
             return PartialView();
         }
 
@@ -54,72 +56,132 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
-       /* [Protegido]
-        public JsonResult RegistrarConsumible(string cantidad = "", int tipo = 0, string clave = "", utilizado=0, DateTime fechaRecepcion = new DateTime(),
-            string horaRecepcion ="00:00", string entregado ="",string recibido="", string archivo="")
+        public JsonResult RegistrarSolicitud(int envio, string destino = "", string descripcion = "", DateTime fechaEnvio = new DateTime(), string horaEnvio = "",
+            string crearFolio = "", string folio = "", string imagen = "")
         {
-            string totalErrores = "";
-            int tiempoReemplazo = 0;
-            if (tipo == 0)
+            try
             {
-                totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes seleccionar un tipo de electrónico <br />";
-            }
-            if (cantidad.Length <= 0)
-            {
-                totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una cantidad <br />";
-            }
-            else
-            {
-                try
+                string totalErrores = "";
+                if (destino.Length <= 0)
                 {
-                    Convert.ToInt32(cantidad);
+                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes indicar para quien es esta solicitud. <br />";
                 }
-                catch
+                if (descripcion.Length <= 0)
                 {
-                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una cantidad valida <br />";
+                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Ingresa una descripción para esta solicitud. <br />";
                 }
-            }
-            if (reemplazo.Length > 0)
-            {
-                try
+                if (envio == 1) { fechaEnvio = DateTime.Now; }
+                else if (envio == 2)
                 {
-                    Convert.ToInt32(cantidad);
+                    if (horaEnvio.Length <= 0) { horaEnvio = "00:00"; }
+                    fechaEnvio = new DateTime(fechaEnvio.Year, fechaEnvio.Month, fechaEnvio.Day, Convert.ToInt32(horaEnvio.Substring(0, 2)), Convert.ToInt32(horaEnvio.Substring(3, 2)), 0);
                 }
-                catch
-                {
-                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar un número valido como tiempo de reemplazo <br />";
-                }
-            }
-            if (utilizado == 1) { FechaUso = DateTime.Now; }
 
-            if (totalErrores.Length > 0)
-            {
-                return Json(new { response = false, mensaje = totalErrores });
-            }
-            else
-            {//guarda la informacion
-                // if (ManejadorDeSesiones.ExisteUsuarioEnSesion())
+                if (crearFolio == "on")
                 {
-                    if (reemplazo.Length > 0)
+                    folio = DateTime.Now.Year + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0');
+                    int f = sm.ObtenerUltimoFolio();
+                    int conta = 20;//intentos de asignacion de folio
+                    while (conta > 0)
                     {
-                        tiempoReemplazo = Convert.ToInt32(reemplazo);
-                        if (unidadReemplazo == 1) { tiempoReemplazo *= 30; }
-                        else if (unidadReemplazo == 2) { tiempoReemplazo *= 365; }
+                        if (sm.ExisteSolicitud(folio + f)) { f++; }
+                        else { folio += f; conta = -1; }
+                        conta--;
                     }
-                    return Json(em.RegistrarElectronico(tipo, Convert.ToInt32(cantidad), marca, serie, FechaUso, utilizado, tiempoReemplazo, usuario.Usuario));
+                    if (conta == 0)//fue imposible asignar el folio
+                    {
+                        totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Error: Imposible asignar el folio automaticamente; Por favor, insegresa el folio manualmente <br />";
+                    }
                 }
-               // else
-                //{//Debe iniciar sesion, tal vez se ingreso aqui con una copia de la pagina o en cache                    
-                  //  RespuestaModel respuesta = new RespuestaModel();
-                  //  respuesta.SetRespuesta(false,"Primero debes iniciar sesión");
-                  //  respuesta.href = "controloffice/index";
-                  //  return Json(respuesta);
-               // }
+                if (totalErrores.Length > 0)
+                {
+                    return Json(new { response = false, mensaje = totalErrores });
+                }
+                else
+                {
+                    return Json(cm.RegistrarSolicitud(destino, descripcion, fechaEnvio, folio, imagen, envio, usuario.Usuario));
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { response = false, mensaje = "Error inesperado del sistema, verifique la información. " + ex.Message });
+            }
+        }
+
+        [Protegido]
+        public JsonResult RegistrarConsumible(string cantidad = "", int tipo = 0, string clave = "", int recibido = 0, DateTime fechaRecepcion = new DateTime(),
+            string horaRecepcion = "00:00", string entregado = "", string archivo = "")
+        {
+            try
+            {
+                string totalErrores = "";                
+                if (tipo == 0)
+                {
+                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes seleccionar un tipo de consumible <br />";
+                }
+                if (cantidad.Length <= 0)
+                {
+                    totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una cantidad <br />";
+                }
+                else
+                {
+                    try
+                    {
+                        Convert.ToInt32(cantidad);
+                    }
+                    catch
+                    {
+                        totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Debes ingresar una cantidad valida <br />";
+                    }
+                }
+
+                if (recibido == 1) { fechaRecepcion = DateTime.Now; }
+                else if (recibido == 2) {
+                    if (horaRecepcion.Length <= 0) { horaRecepcion = "00:00"; }
+                    fechaRecepcion = new DateTime(fechaRecepcion.Year, fechaRecepcion.Month, fechaRecepcion.Day, Convert.ToInt32(horaRecepcion.Substring(0, 2)), Convert.ToInt32(horaRecepcion.Substring(3, 2)), 0); }
+
+                if (totalErrores.Length > 0)
+                {
+                    return Json(new { response = false, mensaje = totalErrores });
+                }
+                else
+                {//guarda la informacion
+                    // if (ManejadorDeSesiones.ExisteUsuarioEnSesion())
+                    {
+                        return Json(cm.RegistrarConsumible(Convert.ToInt32(cantidad), tipo, clave, recibido, fechaRecepcion, entregado, archivo, usuario.Usuario));
+                    }
+                    // else
+                    //{//Debe iniciar sesion, tal vez se ingreso aqui con una copia de la pagina o en cache                    
+                    //  RespuestaModel respuesta = new RespuestaModel();
+                    //  respuesta.SetRespuesta(false,"Primero debes iniciar sesión");
+                    //  respuesta.href = "controloffice/index";
+                    //  return Json(respuesta);
+                    // }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { response = false, mensaje = "Error inesperado del sistema, verifique la información. " + ex.Message });
             }
 
-
-
-        }*/
+        }
+    
+        public JsonResult listaConsumibles(JqGrid jq)
+        {
+            try
+            {
+                return Json(cm.ObtenerTodosLosConsumibles(jq), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { response = false, mensaje = "Error: " + ex.Message });
+            }
+        }
+    
+        public JsonResult listaSolicitudConsumibles(JqGrid jq)
+        {
+            return Json(cm.ObtenerSolicitudesConsumibles(jq), JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

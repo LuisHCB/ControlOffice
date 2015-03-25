@@ -137,7 +137,10 @@ namespace ControlOffice.Controllers
                     totalErrores += "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Ingresa una descripción para esta solicitud. <br />";
                 }
                 if (envio == 1) { fechaEnvio = DateTime.Now; }
-                else if (envio == 2) { fechaEnvio = new DateTime(fechaEnvio.Year, fechaEnvio.Month, fechaEnvio.Day, Convert.ToInt32(horaEnvio.Substring(0, 2)), Convert.ToInt32(horaEnvio.Substring(3, 2)), 0); }
+                else if (envio == 2) {
+                    if (horaEnvio.Length <= 0) { horaEnvio = "00:00"; } 
+                    fechaEnvio = new DateTime(fechaEnvio.Year, fechaEnvio.Month, fechaEnvio.Day, Convert.ToInt32(horaEnvio.Substring(0, 2)), Convert.ToInt32(horaEnvio.Substring(3, 2)), 0);
+                }
 
                 if (crearFolio == "on")
                 {

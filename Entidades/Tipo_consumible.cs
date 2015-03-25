@@ -8,10 +8,10 @@ namespace Entidades
     [Table("Tipo_consumible")]
     public partial class Tipo_consumible
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tipo_consumible()
         {
-            Consumibles = new HashSet<Consumibles>();
+            Consumibles = new List <Consumibles>();
         }
 
         [Key]
@@ -20,7 +20,7 @@ namespace Entidades
         [StringLength(100)]
         public string Nombre { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Consumibles> Consumibles { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public  List<Consumibles> Consumibles { get; set; }
     }
 }

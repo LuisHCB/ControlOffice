@@ -275,6 +275,8 @@
     <Content Include="Views\Mobiliario\Registro.cshtml" />
     <Content Include="Views\ControlOffice\inicioSesion.cshtml" />
     <Content Include="Views\Consumibles\Registro.cshtml" />
+    <Content Include="Views\Consumibles\Inventario.cshtml" />
+    <Content Include="Views\Consumibles\InventarioSolicutides.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
