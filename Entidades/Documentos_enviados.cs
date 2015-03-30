@@ -35,6 +35,6 @@ namespace Entidades
 
         public virtual Tipos_documento Tipos_documento { get; set; }
 
-        public virtual Usuarios Usuarios { get; set; }
+       /* public virtual Usuarios Usuarios { get; set; }*/
     }
 }

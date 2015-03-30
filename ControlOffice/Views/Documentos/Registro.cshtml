@@ -1,0 +1,1045 @@
+﻿@{
+    Layout = null;
+}
+
+ <!-- :::::::::::::::::::: :::::::::::::::::::::::::::::::::::::::::::: ventana_registrar colapsable -->
+      <div id="V-registrar"> 
+        <div class="well"   style="background-color:#5cb85c; border-color:#eee">
+		  <h4 class="col-sm-5 control-label" style="color:white"><strong> Registrar documento: </strong></h4>
+	      <!-- Grupo de botones necesario -->
+		  <div class="btn-group btn-group-justified" data-toggle="buttons">				
+            <label class="btn btn-success" style="border-color:#5cb85c"
+		     data-toggle="collapse"
+             data-target="#V-registrar_GV-formularios_V-enviado" 
+		     aria-expanded="false"
+    		 aria-controls="V-registrar_GV-formularios_V-enviado"
+             data-parent="#V-registrar_GV-formularios"
+		    >
+            <input type="radio" name="Enviados" id="V-registrar_RB-enviado" autocomplete="off"> 
+			  <span class="glyphicon glyphicon-send"></span>
+			  <br/>
+              <strong> Enviado </strong>
+            </label>
+			<label class="btn btn-success" style="border-color:#5cb85c"
+			 data-toggle="collapse"
+		     data-target="#V-registrar_GV-formularios_V-recibido" 
+		     aria-expanded="false" 
+		     aria-controls="V-registrar_GV-formularios_V-recibido"
+		     data-parent="#V-registrar_GV-formularios"
+		    >
+			<input type="radio" name="Recibidos" id="V-registrar_RB-recibido" autocomplete="off"> 
+		      <span class="glyphicon glyphicon-envelope"></span>
+			  <br/>
+			  <strong> Recibido </strong>
+		    </label>			
+			<label class="btn btn-success" style="border-color:#5cb85c"
+		     data-toggle="collapse"
+             data-target="#V-registrar_GV-formularios_V-normal" 
+		     aria-expanded="false" 
+		     aria-controls="V-registrar_GV-formularios_V-normal"
+			 data-parent="#V-registrar_GV-formularios"
+			>
+            <input type="radio" name="Normal" id="V-registrar_RB-normal" autocomplete="off">
+			  <span class="glyphicon glyphicon-file"></span>
+			  <br/>
+			  <strong> Estandar </strong>
+            </label>
+          </div>      <!-- Fin Grupo de botones tipo necesario ::::::::::::::::::::::::-->
+		  <!-- Grupo de paneles: Grupo de ventanas Formularios  -->
+          <div class="panel-group" id="V-registrar_GV-formularios" role="tablist" aria-multiselectable="true" style="color:white">
+			<br/>
+		    <!-- Panel o grupo de botones necesario para evitar abrir + de 1 ventana -->
+            <div class="panel panel-default" style="background-color:#5cb85c; border-color:#5cb85c">
+              <div class="collapse" id="V-registrar_GV-formularios_V-enviado">   <!-- Ventana colapsable de formulario 1: Enviados -->
+			    <!-- Separador 1 -->
+		        <ul class="nav nav-tabs" style="border-color:white"> </ul>
+                  @using(Html.BeginForm("registrarDocumentoEnviado","documentos",FormMethod.Post, new {@class="form-horizontal" ,	id="FORM-enviado"}))
+                  {
+                  <!-- Icono de encabezado -->
+				  <div class="form-group">
+				    <h1 class="col-sm-3 control-label"><span class="glyphicon glyphicon-send" ></span></h1>
+					<h3 class="col-sm-9 control-label"><strong> Documento enviado </strong></h3>
+				  </div>
+                  <div class="form-group">
+                    <label for="FORM-enviado_TB-para" class="col-sm-3 control-label"> Para </label>
+                    <div class="col-sm-9   has-success">					  
+					  <div class="input-group">
+                        <div class="input-group-addon">
+						  <span class="glyphicon glyphicon-user"></span>
+						</div>
+                        <input type="text" name="destino" class="form-control" id="FORM-enviado_TB-para" placeholder="Persona y/o departamento." required>
+                      </div>
+                    </div>
+                  </div> <!--  -->
+				  <div class="form-group">
+                    <label for="FORM-enviado_TB-asunto" class="col-sm-3 control-label"> Asunto </label>
+                    <div class="col-sm-9   has-success">
+				      <textarea name="asunto" class="form-control" id="FORM-enviado_TB-asunto" rows="3" required placeholder="... o descripcion del documento."></textarea>
+                    </div>
+                  </div> <!--  -->
+				  <br/>				  
+				  <!-- Boton: Agregar detalles. Los botones no tienen ID -->
+				  <div class="form-group">
+	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">					
+					  <button class="btn btn-success btn-block" type="button" style="border-color:white"
+	                   data-toggle="collapse" 
+	                   data-target="#FORM-enviado_V-detalles" 
+	                   aria-expanded="false" 
+	                   aria-controls="FORM-enviado_V-detalles"
+	                  >
+                        Agregar detalles
+						<span class="caret"></span>
+                      </button>
+					</div>
+				  </div>
+				  <!-- DETALLES -->
+				  <div class="collapse" id="FORM-enviado_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->
+				    <br/>
+				    <div class="form-group">
+                      <label for="FORM-enviado_V-detalles_RB-tipoMemo" class="col-sm-3 control-label">Tipo de documento</label>
+                      <div class="col-sm-5   has-success" id="contenedorListaTipoDocumentos">
+                        <select class=' form-control col-sm-9' id='listaTipoDocumentos' name='tipoDocumento' style='border-color:white'>
+                              <option value='0'>Selecciona una tipo de documento</option>
+                              @foreach (var m in ViewBag.tiposDocumentosEnviados)
+                               {
+                                   <option value="@m.Id_tipo_documento">@m.Tipo_documento</option>
+                               }             
+                         </select>
+                      </div>
+                         <button type="button" class="btn btn-success col-sm-2 " style="border-color:white"
+					         data-toggle="collapse"
+                             data-target="#FORM-enviado_V-detalles_V-tipoOtro" 
+		                     aria-expanded="false"
+    		                 aria-controls="FORM-enviado_V-detalles_V-tipoOtro"		  
+					        >                          
+						    <span class="glyphicon glyphicon-plus" ></span> Otro <span class="caret" ></span>
+                        </button>
+                    </div> <!--  -->
+				    <!-- Ventana colapsable para Tipo otro -->
+				    <div class="collapse" id="FORM-enviado_V-detalles_V-tipoOtro">
+				      <div class="form-group">
+					    <label for="FORM-enviado_V-detalles_V-tipoOtro_TB-tipoOtro" class="col-sm-3 control-label">  </label>
+                        <div class="col-sm-5   has-success">					  
+                          <input type="text" id="nuevoTipoDocEnv" name="nuevoTipoDocEnv" class="form-control"  placeholder="Especificar tipo.">
+                        </div>
+                        <button type="button" class="btn btn-default col-sm-2 " style="border-color:white" onclick="registrarNuevoTipoDocEnv();"
+					         data-toggle="collapse"
+                             data-target="#FORM-enviado_V-detalles_V-tipoOtro" 
+		                     aria-expanded="false"
+    		                 aria-controls="FORM-enviado_V-detalles_V-tipoOtro"		  
+					        >                          
+						    <span class="glyphicon glyphicon-ok" ></span> Registrar nuevo tipo 
+                        </button>
+					  </div>
+
+				    </div> <!-- Colapsable -->
+			        <br/>					
+				    <div class="form-group">
+                      <label for="FORM-enviado_V-detalles_RB-fechaRecien" class="col-sm-3 control-label">Fecha y hora del envio fisico</label>					    
+				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
+                        <label class="btn btn-success">
+                          <input type="radio" name="opcionEnvio" id="FORM-enviado_V-detalles_RB-fechaRecien" value="1">
+						    <span class="glyphicon glyphicon-flash"></span>Lo acabo de enviar</label>					  
+					    <label class="btn btn-success">
+                          <input type="radio" name="opcionEnvio" id="FORM-enviado_V-detalles_RB-fechaDespues" value="0">
+						    <span class="glyphicon glyphicon-remove" ></span>Indicar despues...</label>					  
+					    <label class="btn btn-success"
+					     data-toggle="collapse"
+                         data-target="#FORM-enviado_V-detalles_V-fechaEspecifica" 
+		                 aria-expanded="false"
+    		             aria-controls="FORM-enviado_V-detalles_V-fechaEspecifica"		  
+					    >
+                          <input type="radio" name="opcionEnvio" id="FORM-enviado_V-detalles_RB-fechaEspecifica" value="2" checked>
+						    <span class="glyphicon glyphicon-ok" ></span>Especificar fecha y hora<span class="caret" ></span>
+                        </label>
+					  </div>
+			        </div> <!--  -->
+			        <!-- Ventana colapsable para Fecha y hora -->				   
+				    <div class="collapse" id="FORM-enviado_V-detalles_V-fechaEspecifica">                                              
+                      <div class="form-group">
+                        <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Fecha </label>
+                          <div class="col-sm-5   has-success">					  
+                          @Html.TextBox("fechaEnvio", @DateTime.Now.Year+"-"+DateTime.Now.Month.ToString().PadLeft(2,'0')+"-"+DateTime.Now.Day.ToString().PadLeft(2,'0'), new { type = "date", @class = "form-control" })                          
+                        </div>
+                      </div>
+					  <div class="form-group">
+					    <label for="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-hora" class="col-sm-3 control-label"> Hora </label>
+                        <div class="col-sm-3   has-success">					  
+					      <div class="input-group">
+					        <div class="input-group-addon">
+					          <span class="glyphicon glyphicon-time"></span>
+					        </div>
+                              @Html.TextBox("horaEnvio", DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0'),
+                                     new {@class="form-control", type="time", id="FORM-solicitud_V-detalles_V-fechaEspecifica_TB-hora" })                            
+                          </div>
+                        </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="checkbox col-sm-offset-3 col-sm-5" >
+                          <label >
+                            <input  type="checkbox" name="crearFolio" id="crearFolio"  >
+							Crear folio del documento con estos datos
+                          </label>
+                        </div>
+					  </div>
+				    </div> <!-- Colapsable -->
+				    <br/>
+				    <div class="form-group">
+                      <label for="FORM-enviado_V-detalles_TB-folio" class="col-sm-3 control-label">
+				        Folio
+				      </label>
+				      <div class="col-sm-5 has-success"   data-toggle="buttons">
+                        <input type="text" class="form-control" id="FORM-enviado_V-detalles_TB-folio" placeholder="" name="folio">
+					  </div>					
+                    </div> <!--  -->					
+				    <br/>
+				    <br/>
+				    <!-- Boton: Examinar -->
+				    <div class="form-group">
+                      <label class="col-sm-3 control-label"> <!-- "control-label" ajusta el texto a la derecha -->
+					    Adjuntar copia digital o foto
+					  </label>
+					  <div class="col-sm-9">   <!-- El estilo "Success" No funciona, el diseño es predeterminado -->
+					    <h3><span class="glyphicon glyphicon-paperclip" ></span></h3>
+                        <input type="file" id="FORM-enviado_V-detalles_BTN-adjunto" name="archivo">
+					  </div>
+				    </div>
+				  </div>  <!-- :::::: :::::: Fin Colapsable: Detalles -->				  
+				  <br/>
+				  <!-- Boton: Listo! -->
+                  <div class="form-group   has-success">
+                    <div class="col-sm-offset-3 col-sm-4">
+                      <button data-ajax="true" type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-ok"></span>
+						<strong> Listo! </strong>
+					  </button>
+                    </div>
+                    <div class=" col-sm-4">
+                      <button type="reset" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-remove"></span>
+						<strong> Limpiar </strong>
+					  </button>
+                    </div>
+                  </div> <!--  -->
+                  } <!-- ................................................................. ^  Form 1 -->
+              </div> <!-- Fin de Ventana de Formulario 1 -->
+
+
+			  
+
+              <div class="collapse" id="V-registrar_GV-formularios_V-recibido">   <!-- Ventana de formulario 2: Recibidos -->
+			  
+			    <!-- Separador 2 -->
+		        <ul class="nav nav-tabs" style="border-color:#white"> </ul>
+				
+				
+				<form class="form-horizontal" 	id="FORM-recibido"> <!-- .................................................... ¬  Form 2 - Recibido -->
+			  		
+                  <!-- Icono de encabezado -->
+				  <div class="form-group">
+				    <label class="col-sm-3 control-label">
+				      <h1>
+		                <span class="glyphicon glyphicon-envelope" ></span>
+			          </h1>
+				    </label>
+					
+					<label class="col-sm-9 control-label">
+				      <h3>
+					    <strong> Documento recibido </strong>
+					  </h3>
+				    </label>
+				  </div>
+				  
+
+				  
+				
+                  <div class="form-group">
+                    <label for="FORM-recibido_TB-para" class="col-sm-3 control-label"> Para </label>
+                    <div class="col-sm-9   has-success">					  
+					  
+					  <div class="input-group">
+                        <div class="input-group-addon">
+						  <span class="glyphicon glyphicon-user"></span>
+						</div>
+                        <input type="text" class="form-control" id="FORM-recibido_TB-para" placeholder="">
+                      </div>
+					  
+                    </div>
+                  </div> <!--  -->
+				  
+				
+					
+					
+				  <div class="form-group">
+                    <label for="FORM-recibido_TB-asunto" class="col-sm-3 control-label"> Asunto </label>
+                    <div class="col-sm-9   has-success">
+				      <textarea class="form-control" id="FORM-recibido_TB-asunto" rows="3" placeholder="... o descripcion del documento."></textarea>
+                    </div>
+                  </div> <!--  -->
+			      
+				  
+				  
+				  <br/>
+				  
+				  
+				  
+				  
+				  <div class="form-group">
+                    <label for="FORM-recibido_TB-quienRecibe" class="col-sm-3 control-label">
+					  Recibido por
+					</label>
+                    <div class="col-sm-6   has-success">
+                      <input type="text" class="form-control" id="FORM-recibido_TB-quienRecibe" placeholder="Usuario actual de Control office.">
+                    </div>
+                  </div> <!--  -->
+					
+					
+					
+				  <br/>
+				  
+				  
+				  
+				  
+				  <div class="form-group">
+                    <label for="FORM-recibido_RB-fechaRecien" class="col-sm-3 control-label">
+				      Fecha y hora de recepcion
+				    </label>
+					    
+				    <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
+					  
+                      <label class="btn btn-success">
+                        <input type="radio" name="fechaRecien" id="FORM-recibido_RB-fechaRecien" value="fechaRecien">
+					    <span class="glyphicon glyphicon-flash"></span>
+					    Acaba de llegar
+                      </label>
+					  
+					  <label class="btn btn-success">
+                        <input type="radio" name="fechaDespues" id="FORM-recibido_RB-fechaDespues" value="fechaDespues">
+						<span class="glyphicon glyphicon-remove" ></span>
+						Indicar despues...
+                      </label>
+					  
+					  <label class="btn btn-success"
+					   data-toggle="collapse"
+                       data-target="#FORM-recibido_V-fechaEspecifica" 
+		               aria-expanded="false"
+    		           aria-controls="FORM-recibido_V-fechaEspecifica"		  
+					  >
+                        <input type="radio" name="fechaEspecifica" id="FORM-recibido_RB-fechaEspecifica" value="fechaEspecifica" checked>
+						  <span class="glyphicon glyphicon-ok" ></span>
+						  Especificar fecha y hora
+						  <span class="caret" ></span>
+                      </label>
+					    
+					</div>
+					
+			      </div> <!--  -->
+					
+					
+			      <!-- Ventana colapsable para Fecha y hora -->
+				  <div class="collapse" id="FORM-recibido_V-fechaEspecifica">
+					  
+				    <div class="form-group">
+					  <label for="FORM-recibido_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Dia </label>
+                      <div class="col-sm-2   has-success">					  
+                        <input type="text" class="form-control" id="FORM-recibido_V-fechaEspecifica_TB-dia" placeholder="">
+                      </div>
+					</div>
+					  
+					<div class="form-group">
+					  <label for="FORM-recibido_V-detalles_V-fechaEspecifica_LB-mes" class="col-sm-3 control-label"> Mes </label>
+                      <div class="col-sm-3   has-success">
+					    <select class="form-control" id="FORM-recibido_V-fechaEspecifica_LB-mes"   style="border-color:white">
+						  <option>Enero</option>
+						  <option>Febrero</option>
+						  <option>Marzo</option>
+						  <option>Abril</option>
+						  <option>Mayo</option>
+						  <option>Junio</option>
+						  <option>Julio</option>
+						  <option>Agosto</option>
+						  <option>Septiembre</option>
+						  <option>Octubre</option>
+						  <option>Noviembre</option>
+						  <option>Diciembre</option>
+						</select>
+                      </div>
+					</div>
+					  
+					<div class="form-group">
+					  <label for="FORM-recibido_V-fechaEspecifica_TB-year" class="col-sm-3 control-label"> An~o </label>
+                      <div class="col-sm-3   has-success">					  
+					    <input type="text" class="form-control" id="FORM-recibido_V-fechaEspecifica_TB-year" placeholder="2015">
+                      </div>
+					</div>
+				
+					<div class="form-group">
+					  <label for="FORM-recibido_V-fechaEspecifica_TB-hora" class="col-sm-3 control-label"> Hora </label>
+                      <div class="col-sm-3   has-success">					  
+					    <div class="input-group">
+					      <div class="input-group-addon">
+					        <span class="glyphicon glyphicon-time"></span>
+					      </div>
+                          <input type="text" class="form-control" id="FORM-recibido_V-fechaEspecifica_TB-hora" placeholder="hh:mm">
+                        </div>
+                      </div>
+					</div>
+
+				  </div> <!-- Colapsable -->
+				  
+				  
+				  
+				  <br/>
+				  
+				  
+				  
+				  <!-- Boton: Agregar detalles. Los botones no tienen ID -->
+				  <div class="form-group">
+	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">
+					
+					  <button class="btn btn-success btn-block" type="button" style="border-color:white"
+	                   data-toggle="collapse" 
+	                   data-target="#FORM-recibido_V-detalles" 
+	                   aria-expanded="false" 
+	                   aria-controls="FORM-recibido_V-detalles"
+	                  >
+                        Agregar detalles
+						<span class="caret"></span>
+                      </button>
+					  
+					</div>
+				  </div>
+				  
+				  
+				  <!-- DETALLES -->
+				  
+				  
+				  <div class="collapse" id="FORM-recibido_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->
+				  
+				  
+				    <br/>
+				  
+				  
+				    <div class="form-group">
+                      <label for="FORM-recibido_V-detalles_RB-fechaDespues" class="col-sm-3 control-label">
+				        ¿Cuando se envio?
+				      </label>
+					    
+				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
+					  
+					    <label class="btn btn-success">
+                          <input type="radio" name="fechaDespues" id="FORM-recibido_V-detalles_RB-fechaDespues" value="fechaDespues">
+						    <span class="glyphicon glyphicon-remove" ></span>
+						    Indicar despues...
+                        </label>
+					  
+					    <label class="btn btn-success"
+					     data-toggle="collapse"
+                         data-target="#FORM-recibido_V-detalles_V-fechaEspecifica" 
+		                 aria-expanded="false"
+    		             aria-controls="FORM-recibido_V-detalles_V-fechaEspecifica"		  
+					    >
+                          <input type="radio" name="fechaEspecifica" id="FORM-recibido_V-detalles_RB-fechaEspecifica" value="fechaEspecifica" checked>
+						    <span class="glyphicon glyphicon-ok" ></span>
+						    Especificar fecha y hora
+						    <span class="caret" ></span>
+                        </label>
+					    
+					  </div>
+					
+			        </div> <!--  -->
+					
+					
+			        <!-- Ventana colapsable para Fecha y hora -->
+				    <div class="collapse" id="FORM-recibido_V-detalles_V-fechaEspecifica">
+					  
+				      <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Dia </label>
+                        <div class="col-sm-2   has-success">					  
+                          <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaEspecifica_TB-dia" placeholder="">
+                        </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaEspecifica_LB-mes" class="col-sm-3 control-label"> Mes </label>
+                        <div class="col-sm-3   has-success">
+						  <select class="form-control" id="FORM-recibido_V-detalles_V-fechaEspecifica_LB-mes"   style="border-color:white">
+						    <option>Enero</option>
+						    <option>Febrero</option>
+						    <option>Marzo</option>
+						    <option>Abril</option>
+						    <option>Mayo</option>
+						    <option>Junio</option>
+						    <option>Julio</option>
+						    <option>Agosto</option>
+						    <option>Septiembre</option>
+						    <option>Octubre</option>
+						    <option>Noviembre</option>
+						    <option>Diciembre</option>
+						  </select>
+                        </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaEspecifica_TB-year" class="col-sm-3 control-label"> An~o </label>
+                        <div class="col-sm-3   has-success">					  
+					      <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaEspecifica_TB-year" placeholder="2015">
+                        </div>
+					  </div>
+				
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaEspecifica_TB-hora" class="col-sm-3 control-label"> Hora </label>
+                        <div class="col-sm-3   has-success">					  
+					      <div class="input-group">
+					        <div class="input-group-addon">
+					          <span class="glyphicon glyphicon-time"></span>
+					        </div>
+                            <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaEspecifica_TB-hora" placeholder="hh:mm">
+                          </div>
+                        </div>
+					  </div>
+
+				    </div> <!-- Colapsable -->
+				  
+				  
+				  
+				  
+				  
+				    <br/>
+					
+					
+					
+					
+					
+					<div class="form-group">
+                      <label for="FORM-recibido_V-detalles_RB-fechaCorrecta" class="col-sm-3 control-label">
+				        ¿Cuando debia llegar?
+				      </label>
+					    
+				      <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
+					  
+                        <label class="btn btn-success">
+                          <input type="radio" name="fechaRecien" id="FORM-recibido_V-detalles_RB-fechaCorrecta" value="fechaRecien">
+						    <span class="glyphicon glyphicon-ok-sign"></span>
+						    Llego a tiempo
+                        </label>
+					  
+					    <label class="btn btn-success"
+					     data-toggle="collapse"
+                         data-target="#FORM-recibido_V-detalles_V-fechaIncorrecta" 
+		                 aria-expanded="false"
+    		             aria-controls="FORM-recibido_V-detalles_V-fechaIncorrecta"		  
+					    >
+                          <input type="radio" name="fechaEspecifica" id="FORM-recibido_V-detalles_RB-fechaIncorrecta" value="fechaEspecifica" checked>
+						    <span class="glyphicon glyphicon-remove-sign" ></span>
+						      Especificar fecha y hora
+						    <span class="caret" ></span>
+                        </label>
+					    
+					  </div>
+					
+			        </div> <!--  -->
+					
+					
+			        <!-- Ventana colapsable para Fecha y hora -->
+				    <div class="collapse" id="FORM-recibido_V-detalles_V-fechaIncorrecta">
+					  
+				      <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-dia" class="col-sm-3 control-label"> Dia </label>
+                        <div class="col-sm-2   has-success">					  
+                          <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-dia" placeholder="">
+                        </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaIncorrecta_LB-mes" class="col-sm-3 control-label"> Mes </label>
+                        <div class="col-sm-3   has-success">
+						  <select class="form-control" id="FORM-recibido_V-detalles_V-fechaIncorrecta_LB-mes"   style="border-color:white">
+						    <option>Enero</option>
+						    <option>Febrero</option>
+						    <option>Marzo</option>
+						    <option>Abril</option>
+						    <option>Mayo</option>
+						    <option>Junio</option>
+						    <option>Julio</option>
+						    <option>Agosto</option>
+						    <option>Septiembre</option>
+						    <option>Octubre</option>
+						    <option>Noviembre</option>
+						    <option>Diciembre</option>
+						  </select>
+                        </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-year" class="col-sm-3 control-label"> An~o </label>
+                        <div class="col-sm-3   has-success">					  
+					      <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-year" placeholder="2015">
+                        </div>
+					  </div>
+				
+					  <div class="form-group">
+					    <label for="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-hora" class="col-sm-3 control-label"> Hora </label>
+                        <div class="col-sm-3   has-success">					  
+					      <div class="input-group">
+					        <div class="input-group-addon">
+					          <span class="glyphicon glyphicon-time"></span>
+					        </div>
+                            <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-fechaIncorrecta_TB-hora" placeholder="hh:mm">
+                          </div>
+                        </div>
+					  </div>
+
+				    </div> <!-- Colapsable -->
+				  
+				  
+				  
+				  
+				  
+				    <br/>
+				  
+			
+			
+				  
+				  
+				  
+				    <div class="form-group">
+                      <label for="FORM-recibido_V-detalles_TB-folio" class="col-sm-3 control-label">
+				        Folio
+				      </label>
+					
+				      <div class="col-sm-5 has-success"   data-toggle="buttons">
+                        <input type="text" class="form-control" id="FORM-recibido_V-detalles_TB-folio" placeholder="">
+					  </div>					
+                    </div> <!--  -->
+					
+				
+				
+					
+					<br/>
+					
+					
+					
+					
+					<div class="form-group">
+                      <label for="FORM-recibido_V-detalles_RB-siRequiereRespuesta" class="col-sm-3 control-label">
+				        ¿Requiere respuesta?
+				      </label>
+					    
+				      <div class="btn-group col-sm-9"   data-toggle="buttons">
+					  
+					    <label class="btn btn-success"
+					     data-toggle="collapse"
+                         data-target="#FORM-recibido_V-detalles_V-respuesta" 
+		                 aria-expanded="false"
+    		             aria-controls="FORM-recibido_V-detalles_V-respuesta"		  
+					    >
+                          <input type="radio" name="siRequiereRespuesta" id="FORM-recibido_V-detalles_RB-siRequiereRespuesta" value="siRequiereRespuesta">
+							Si
+						    <span class="caret" ></span>
+                        </label>
+						
+                        <label class="btn btn-success">
+                          <input type="radio" name="noRequiereRespuesta" id="FORM-recibido_V-detalles_RB-noRequiereRespuesta" value="noRequiereRespuesta">
+						    No
+                        </label>
+					    
+					  </div>					
+                    </div> <!--  -->
+				  
+				    <!-- Ventana colapsable para Respuesta -->
+				    <div class="collapse" id="FORM-recibido_V-detalles_V-respuesta">
+					
+					
+					  
+					  <div class="form-group">
+                        <label for="FORM-recibido_V-detalles_V-respuesta_RB-sinRespuesta" class="col-sm-3 control-label">
+				          Fecha de respuesta
+				        </label>
+					    
+				        <div class="btn-group-vertical col-sm-5"   data-toggle="buttons">
+						
+						  <label class="btn btn-success">
+                            <input type="radio" name="fechaDespues" id="FORM-recibido_V-detalles_V-respuesta_RB-sinRespuesta" value="fechaDespues">
+						      Aun no se envia una respuesta
+                          </label>
+					  
+					      <label class="btn btn-success">
+                            <input type="radio" name="fechaDespues" id="FORM-recibido_V-detalles_V-respuesta_RB-fechaDespues" value="fechaDespues">
+						      <span class="glyphicon glyphicon-remove" ></span>
+						      Indicar despues...
+                          </label>
+					  
+					      <label class="btn btn-success"
+					       data-toggle="collapse"
+                           data-target="#FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica" 
+		                   aria-expanded="false"
+    		               aria-controls="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica"		  
+					      >
+                            <input type="radio" name="fechaEspecifica" id="FORM-recibido_V-detalles_V-respuesta_RB-fechaEspecifica"
+							 value="fechaEspecifica" checked
+							>
+						      <span class="glyphicon glyphicon-ok" ></span>
+						      Especificar fecha y hora
+						      <span class="caret" ></span>
+                          </label>
+					    
+					    </div>
+					
+			          </div> <!--  -->
+					
+					
+			          <!-- Ventana colapsable para Fecha y hora -->
+				      <div class="collapse" id="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica">
+					  
+				        <div class="form-group">
+					      <label for="FORM-recibido_V-detalles_V-fechaEspecifica_TB-dia" class="col-sm-3 control-label"> Dia </label>
+                          <div class="col-sm-2   has-success">					  
+                            <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica_TB-dia" placeholder="">
+                          </div>
+					    </div>
+					  
+					    <div class="form-group">
+					      <label for="FORM-recibido_V-detalles_V-fechaEspecifica_LB-mes" class="col-sm-3 control-label"> Mes </label>
+                          <div class="col-sm-3   has-success">
+						    <select class="form-control" id="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica_LB-mes"   style="border-color:white">
+						      <option>Enero</option>
+		        		      <option>Febrero</option>
+						      <option>Marzo</option>
+						      <option>Abril</option>
+						      <option>Mayo</option>
+						      <option>Junio</option>
+						      <option>Julio</option>
+						      <option>Agosto</option>
+						      <option>Septiembre</option>
+						      <option>Octubre</option>
+						      <option>Noviembre</option>
+						      <option>Diciembre</option>
+						    </select>
+                          </div>
+					    </div>
+					  
+					    <div class="form-group">
+					      <label for="FORM-recibido_V-detalles_V-fechaEspecifica_TB-year" class="col-sm-3 control-label"> An~o </label>
+                          <div class="col-sm-3   has-success">					  
+					        <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica_TB-year" placeholder="2015">
+                          </div>
+					    </div>
+				
+					    <div class="form-group">
+					      <label for="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica_TB-hora" class="col-sm-3 control-label"> Hora </label>
+                          <div class="col-sm-3   has-success">					  
+					        <div class="input-group">
+					          <div class="input-group-addon">
+					            <span class="glyphicon glyphicon-time"></span>
+					          </div>
+                              <input type="text" class="form-control" id="FORM-recibido_V-detalles_V-respuesta_V-fechaEspecifica_TB-hora" 
+							   placeholder="hh:mm"
+							  >
+                            </div>
+                          </div>
+					    </div>
+
+				      </div> <!-- Colapsable -->		  
+					
+					  
+					  <br/>
+					
+					  
+				      <div class="form-group">
+                        <label for="FORM-recibido_V-detalles_V-respuesta_TB-respuesta" class="col-sm-3 control-label">
+						  Resumen de la respuesta enviada
+						</label>
+                        <div class="col-sm-9   has-success">
+				          <textarea class="form-control" id="FORM-recibido_V-detalles_V-respuesta_TB-respuesta" rows="3" placeholder=""></textarea>
+                        </div>
+                      </div> <!--  -->
+
+				    </div> <!-- Colapsable -->
+				  
+				  
+				  
+					
+				    <br/>
+				    <br/>
+					
+                  
+				  
+				  
+				    <!-- Boton: Examinar -->
+				    <div class="form-group">
+                      <label class="col-sm-3 control-label"> <!-- "control-label" ajusta el texto a la derecha -->
+					    Adjuntar copia digital o foto
+					  </label>
+					  
+					  <div class="col-sm-9">   <!-- El estilo "Success" No funciona, el diseño es predeterminado -->
+					    <h3><span class="glyphicon glyphicon-paperclip" ></span></h3>
+                        <input type="file" id="FORM-recibido_V-detalles_BTN-adjunto">
+					  </div>
+				    </div>
+				  
+				  
+				  </div>  <!-- :::::: :::::: Fin Colapsable: Detalles -->
+				  
+
+				  <br/>
+					
+				  <!-- Boton: Listo! -->
+                  <div class="form-group   has-success">
+                    <div class="col-sm-offset-3 col-sm-4">
+                      <button type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-ok"></span>
+						<strong> Listo! </strong>
+					  </button>
+                    </div>
+                  </div> <!--  -->
+				
+                </form> <!-- ................................................................. ^  Form 2 -->
+  
+			    
+              </div> <!-- Fin de Ventana de Formulario 2 -->
+			  
+			  
+			  
+			  
+			  
+			  <div class="collapse" id="V-registrar_GV-formularios_V-normal">   <!-- Ventana de formulario 3: Normal -->
+			  
+			    
+			    <!-- Separador 3 -->
+		        <ul class="nav nav-tabs" style="border-color:#white"> </ul>
+			    
+				
+				<form class="form-horizontal" 	id="FORM-normal"> <!-- .................................................... ¬  Form 3 - Normal -->
+			  		
+                  <!-- Icono de encabezado -->
+				  <div class="form-group">
+				    <label class="col-sm-3 control-label">
+				      <h1>
+		                <span class="glyphicon glyphicon-file" ></span>
+			          </h1>
+				    </label>
+					
+					<label class="col-sm-9 control-label">
+				      <h3>
+					    <strong> Documento estandar </strong>
+					  </h3>
+				    </label>
+				  </div>
+				  
+				
+					
+					
+				  <div class="form-group">
+                    <label for="FORM-normal_TB-asunto" class="col-sm-3 control-label"> Descripcion </label>
+                    <div class="col-sm-9   has-success">
+				      <textarea class="form-control" id="FORM-normal_TB-asunto" rows="3" placeholder="... o asunto del documento."></textarea>
+                    </div>
+                  </div> <!--  -->
+			      
+				  
+				  
+				  <br/>
+				  
+				  
+				  
+				  <!-- Boton: Agregar detalles. Los botones no tienen ID -->
+				  <div class="form-group">
+	  	 		    <div class="btn-group col-sm-offset-3 col-sm-4"   data-toggle="buttons">
+					
+					  <button class="btn btn-success btn-block" type="button" style="border-color:white"
+	                   data-toggle="collapse" 
+	                   data-target="#FORM-normal_V-detalles" 
+	                   aria-expanded="false" 
+	                   aria-controls="FORM-normal_V-detalles"
+	                  >
+                        Agregar detalles
+						<span class="caret"></span>
+                      </button>
+					  
+					</div>
+				  </div>
+				  
+				  
+				  <!-- DETALLES -->
+				  
+				  
+				  <div class="collapse" id="FORM-normal_V-detalles">  <!-- :::::: :::::: Ventana colapsable: Detalles -->
+				  
+				  
+				    <br/>
+				  
+				  
+				    <div class="form-group">
+                      <label for="FORM-normal_V-detalles_RB-tipoMemo" class="col-sm-3 control-label">
+				        Tipo de documento
+				      </label>
+					    
+				      <div class="btn-group col-sm-9"   data-toggle="buttons">
+					
+					    <label class="btn btn-success">
+                          <input type="radio" name="tipoMemo" id="FORM-normal_V-detalles_RB-tipoMemo" value="tipoMemo">
+						    Memo
+                        </label>
+						
+                        <label class="btn btn-success">
+                          <input type="radio" name="tipoOficio" id="FORM-normal_V-detalles_RB-tipoOficio" value="tipoOficio">
+						    Oficio
+                        </label>
+					  
+					    <label class="btn btn-success"
+					     data-toggle="collapse"
+                         data-target="#FORM-normal_V-detalles_V-tipoOtro" 
+		                 aria-expanded="false"
+    		             aria-controls="FORM-normal_V-detalles_V-tipoOtro"		  
+					    >
+                          <input type="radio" name="tipoOtro" id="FORM-normal_V-detalles_RB-tipoOtro" value="tipoOtro">
+						    <span class="glyphicon glyphicon-plus" ></span>
+							Otro
+						    <span class="caret" ></span>
+                        </label>
+					    
+					  </div>					
+                    </div> <!--  -->
+				  
+				    <!-- Ventana colapsable para Tipo otro -->
+				    <div class="collapse" id="FORM-normal_V-detalles_V-tipoOtro">
+					  
+				      <div class="form-group">
+					    <label for="FORM-normal_V-detalles_V-tipoOtro_TB-tipoOtro" class="col-sm-3 control-label">  </label>
+                        <div class="col-sm-9   has-success">					  
+                          <input type="text" class="form-control" id="FORM-normal_V-detalles_V-tipoOtro_TB-tipoOtro" placeholder="Especificar tipo.">
+                        </div>
+					  </div>
+
+				    </div> <!-- Colapsable -->
+				  
+				  
+				  
+				  
+					
+			        <br/>
+			
+			
+				  
+				  
+				  
+				    <div class="form-group">
+                      <label for="FORM-normal_V-detalles_TB-folio" class="col-sm-3 control-label">
+				        Folio
+				      </label>
+					
+				      <div class="col-sm-5 has-success"   data-toggle="buttons">
+                        <input type="text" class="form-control" id="FORM-normal_V-detalles_TB-folio" placeholder="">
+					  </div>					
+                    </div> <!--  -->
+				  
+				  
+				  
+					
+				    <br/>
+				    <br/>
+					
+                  
+				  
+				  
+				    <!-- Boton: Examinar -->
+				    <div class="form-group">
+                      <label class="col-sm-3 control-label"> <!-- "control-label" ajusta el texto a la derecha -->
+					    Adjuntar copia digital o foto
+					  </label>
+					  
+					  <div class="col-sm-9">   <!-- El estilo "Success" No funciona, el diseño es predeterminado -->
+					    <h3><span class="glyphicon glyphicon-paperclip" ></span></h3>
+                        <input type="file" id="FORM-normal_V-detalles_BTN-adjunto">
+					  </div>
+				    </div>
+				  
+				  
+				  </div>  <!-- :::::: :::::: Fin Colapsable: Detalles -->
+				  
+
+				  <br/>
+					
+				  <!-- Boton: Listo! -->
+                  <div class="form-group   has-success">
+                    <div class="col-sm-offset-3 col-sm-4">
+                      <button type="submit" class="btn  btn-success  btn-lg  btn-block" style="border-color:white">
+					    <span class="glyphicon glyphicon-ok"></span>
+						<strong> Listo! </strong>
+					  </button>
+                    </div>
+                  </div> <!--  -->
+				
+                </form> <!-- ................................................................. ^  Form 3 -->
+ 
+
+              </div> <!-- Fin de Ventana de Formulario 3 -->
+			  
+			  
+			  
+			  
+			  
+			  
+			</div> <!-- Panel default, necesario para evitar abrir + de 1 formulario -->
+	      </div> <!-- Grupo de paneles: Grupo de Ventanas Formularios  -->
+			  
+
+
+        </div> <!-- Well -->
+      </div> <!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::: Fin ventana_registrar colapsable -->
+
+
+<!-- Declaracióin de script propios -->
+<script>
+    function registrarNuevoTipoDocEnv() {
+        $.ajax("/documentos/registrarNuevoTipoDocEnv", {
+            async: true,
+            data: { 'tipoDocumento': $("#nuevoTipoDocEnv").val() },
+            type:"post",
+            beforeSend:function(){$.notify("Registrando nuevo tipo de documento","info");},
+            success: function(respuesta)
+            {
+                if (respuesta.response == true) {                    
+                    $.notify("El tipo de documento "+$("#nuevoTipoDocEnv").val()+" se ha registrado correctamente", "success");
+                    //reinicio la lista
+                    $("#nuevoTipoDocEnv").val('');
+                    actualizarTiposDocEnv();//actualiza
+                }
+                else {
+                    if (respuesta.mensaje.length > 0) {
+                        setTimeout("alert('"+respuesta.mensaje+"');",2000);
+                    }
+                    else {
+                        setTimeout('alert("Error al registrar nuevo tipo de documento");', 2000);
+                    }
+                }
+            },
+            error: function (a)
+            {
+                alert("Error inesperado: No se ha logrado registrar el nuevo tipo de documento. "+a);
+            }
+        });
+    }
+
+    function actualizarTiposDocEnv() {
+        $.ajax("/documentos/ObtenerTiposDocEnv", {
+            async: true,
+            type: "post",
+            beforeSend: function () { $.notify("Actualizando la lista de tipo de documentos", "info"); },
+            success: function (respuesta) {
+                if (respuesta.response == true) {
+                    $("#contenedorListaTipoDocumentos").html(respuesta.mensaje);
+                }
+                else {
+                   setTimeout('alert("Error al actualizar la lista de tipos de documentos, presione F5");',2000);
+                }
+            },
+            error: function (a) {
+                setTimeout("alert('Error inesperado: No se ha logrado actualizar la lista de tipos de documentos, presione F5. " + a+"');",2000);
+            }
+        });
+
+    }
+
+</script>
