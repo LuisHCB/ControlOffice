@@ -278,6 +278,7 @@
     <Content Include="Views\Consumibles\Inventario.cshtml" />
     <Content Include="Views\Consumibles\InventarioSolicutides.cshtml" />
     <Content Include="Views\Documentos\Registro.cshtml" />
+    <Content Include="Views\Documentos\InventarioDocumentosEnviados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

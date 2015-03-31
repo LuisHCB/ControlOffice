@@ -186,3 +186,33 @@ function CargarSolicitudesConsumibles() {
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'consumibles/listaSolicitudConsumibles', config, 'Id_solicitud');
 }
+
+function CargarDocumentosEnviados() {
+    var config = {
+        ordenPorDefecto: 'Id_documento',
+        colNames: ['Id','Tipo de documento','Folio', 'Destino', 'Asunto'/*, 'Fecha de envío'*/],
+        colModel: [
+            { name: 'Id_documento', index: 'Id_documento', hidden: true },
+            {
+                name: 'Tipos_documento.Tipo_documento', index: 'Id_tipo_documento'
+            },
+            {
+                name: 'Folio', index: 'Folio'
+            },
+            {
+                name: 'Destino', index: 'Destino'
+            },
+            {
+                name: 'Asunto', index: 'Asunto'
+            },
+
+            /*{
+                name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
+                    // return  (new Date(cellvalue)).toDateString();
+                    return cellvalue;
+                }
+            },*/
+        ]
+    };
+    jqGridStart('tabla1', 'paginador-tabla1', 'documentos/listaDocumentosEnviados', config, 'Id_documento');
+}

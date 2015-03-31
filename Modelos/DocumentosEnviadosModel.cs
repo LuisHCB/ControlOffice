@@ -159,5 +159,47 @@ namespace Modelos
            }
        }
 
+
+       public JqGridModel<Documentos_enviados> ObtenerDocumentosEnviados(JqGrid jq)
+       {
+           JqGridModel<Documentos_enviados> jqm = new JqGridModel<Documentos_enviados>();
+
+           using (var ctx = new DBControlOfficeContext())
+           {
+               // Traemos la cantidad de registros
+               jq.count = ctx.Documentos_enviados.Count();
+
+               // Configuramos el JqGridModel
+               jqm.Config(jq);
+
+               //Esta consulta solo sirve para Sql serve 2012 en adelante
+               // consulta ="SELECT * FROM Electronicos ORDER BY  Id_electronico  OFFSET 10 ROWS FETCH NEXT 3 ROWS ONLY;",
+               //try
+               {
+                   string consulta = "select top " + jqm.limit + " * from (select *, ROW_NUMBER() over (order by " + jqm.sord +
+                          " ) as limites from Documentos_enviados ) xx where limites >=" + jqm.start;
+                   List<Documentos_enviados> l = ctx.Database.SqlQuery<Documentos_enviados>(consulta).ToList();
+                   int t = 0; 
+                   for (int i = 0; i < l.Count(); i++)
+                   {//obtengo relaciones por cada electronico. Este algoritmo no es nada recomendado, debido al tiempo que toma,
+                       //pero en un mapeo directo habria que modificar la entidad del modelo e ingresar los datos directamente
+                       t = (int)(l[i].Id_tipo_documento == null ? -1 : l[i].Id_tipo_documento);                       
+                       l[i].Tipos_documento = ctx.Tipos_documento.Where(x => x.Id_tipo_documento == t).SingleOrDefault();                       
+                   }
+
+                   jqm.DataSource(l);//ctx.Database.SqlQuery<Electronicos>(consulta).ToList());
+                   /*jqm.DataSource(ctx.Database.SqlQuery<Electronicos>(consulta,
+                           new SqlParameter("OFFSET", jqm.start),
+                           new SqlParameter("FETCH", jqm.limit)).ToList());*/
+               }
+               //catch(Exception ex)
+               {
+
+               }
+           }
+
+           return jqm;
+       }
+
     }
 }

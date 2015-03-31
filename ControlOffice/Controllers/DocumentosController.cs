@@ -44,7 +44,7 @@ namespace ControlOffice.Controllers
         }
 
         [ProtegidoVista]
-        public PartialViewResult Inventario()
+        public PartialViewResult InventarioDocumentosEnviados()
         {
             return PartialView();
         }
@@ -109,7 +109,7 @@ namespace ControlOffice.Controllers
             {
                 opciones += "<option value='" + d.Id_tipo_documento + "'>" + d.Tipo_documento + "</option>";
             }
-            opciones = "<select class=' form-control col-sm-9' id='listaTipoDocumentos' name='marca' style='border-color:white'>" + opciones + "</select>";
+            opciones = "<select class=' form-control col-sm-9' id='listaTipoDocumentos' name='tipoDocumento' style='border-color:white'>" + opciones + "</select>";
 
             return Json(new { response = true, mensaje = opciones });
         }
@@ -123,6 +123,18 @@ namespace ControlOffice.Controllers
             else
             {
                 return Json(new { response = false });
+            }
+        }
+
+        public JsonResult listaDocumentosEnviados(JqGrid jq)
+        {
+            try
+            {
+                return Json(docEnv.ObtenerDocumentosEnviados(jq), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { response = false, mensaje = "Error: " + ex.Message });
             }
         }
 
