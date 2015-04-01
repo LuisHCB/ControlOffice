@@ -52,6 +52,8 @@
     <Compile Include="ConsumiblesModel.cs" />
     <Compile Include="DBControlOfficeContext.cs" />
     <Compile Include="DocumentosEnviadosModel.cs" />
+    <Compile Include="DocumentosInternosModal.cs" />
+    <Compile Include="DocumentosRecibidosModel.cs" />
     <Compile Include="ElectronicosModel.cs" />
     <Compile Include="JqGrid.cs" />
     <Compile Include="MobiliariosModel.cs" />

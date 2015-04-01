@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consumibles.cs" />
+    <Compile Include="Virtual_documentos_internos.cs" />
     <Compile Include="VirtualConsumibles.cs" />
     <Compile Include="VirtualSolicitudes.cs" />
     <Compile Include="Documentos_enviados.cs" />

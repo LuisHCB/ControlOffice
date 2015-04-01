@@ -15,7 +15,7 @@ namespace Modelos
 
         public virtual DbSet<Consumibles> Consumibles { get; set; }
         public virtual DbSet<Documentos_enviados> Documentos_enviados { get; set; }
-        public virtual DbSet<Documentos_internos> Documentos_internos { get; set; }
+        public  DbSet<Documentos_internos> Documentos_internos { get; set; }
         public virtual DbSet<Documentos_recibidos> Documentos_recibidos { get; set; }
         public virtual DbSet<Electronicos> Electronicos { get; set; }
         public virtual DbSet<Marca_electronicos> Marca_electronicos { get; set; }
@@ -27,22 +27,22 @@ namespace Modelos
         public virtual DbSet<Tipo_mobiliario> Tipo_mobiliario { get; set; }
         public virtual DbSet<Tipo_solicitudes> Tipo_solicitudes { get; set; }
         public virtual DbSet<Tipos_documento> Tipos_documento { get; set; }
-        public virtual DbSet<Tipos_documento_interno> Tipos_documento_interno { get; set; }
+        public  DbSet<Tipos_documento_interno> Tipos_documento_interno { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+       /* protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Tipo_electronico>()
+            modelBuilder.Entity<Tipo_electronico>()
                 .HasMany(e => e.Electronicos)
                 .WithOptional(e => e.Tipo_electronico)
-                .WillCascadeOnDelete();*/
+                .WillCascadeOnDelete();
 
-            /*modelBuilder.Entity<Marca_electronicos>()
+            modelBuilder.Entity<Marca_electronicos>()
                 .HasMany(e => e.Electronicos)
                 .WithOptional(e => e.Marca_electronicos)
-                .WillCascadeOnDelete();*/
+                .WillCascadeOnDelete();
 
-           /* modelBuilder.Entity<Marca_mobiliario>()
+            modelBuilder.Entity<Marca_mobiliario>()
                 .HasMany(e => e.Mobiliarios)
                 .WithOptional(e => e.Marca_mobiliario)
                 .WillCascadeOnDelete();
@@ -89,7 +89,7 @@ namespace Modelos
                 .HasMany(e => e.Solicitudes)
                 .WithOptional(e => e.Usuarios)
                 .HasForeignKey(e => e.Usuario_registra)
-                .WillCascadeOnDelete();*/
-        }
+                .WillCascadeOnDelete();
+        }*/
     }
 }

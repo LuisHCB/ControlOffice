@@ -181,6 +181,8 @@ create table Solicitudes
   Folio nvarchar(50),
   Requiere_respuesta bit,
   Imagen nvarchar(200),  
+  Fecha_respuesta datetime2,
+  Respuesta nvarchar(500),
   
   foreign key (Usuario_recibe)references Usuarios(Usuario)
   on update cascade on delete cascade

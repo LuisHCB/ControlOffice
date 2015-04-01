@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row " >
+   <h2 class=" col-md-5"> Documentos generales (internos) </h2>
+   <button class=" btn btn-default col-sm-2 " onclick="$('#subContenido').load('/documentos/InventarioDocumentosInternos');" >
+       <span class="glyphicon glyphicon-refresh"></span> Actualizar</button>
+</div>
+ <div id="tabla-consumibles">
+        <table id="tabla1"  >
+        </table>
+        <div id="paginador-tabla1"  style="text-align:center; color:#000;"  >
+        </div>
+ </div>  
+
+<script>    
+    CargarDocumentosEstandar(); //Carga tabla
+</script>

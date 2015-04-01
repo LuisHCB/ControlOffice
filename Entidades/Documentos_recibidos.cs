@@ -23,14 +23,21 @@ namespace Entidades
         [StringLength(500)]
         public string Asunto { get; set; }
 
+        [Required]
+        [StringLength(500)]
+        public string Respuesta { get; set; }
+
         [Column(TypeName = "datetime2")]
-        public DateTime Fecha_recibe { get; set; }
+        public DateTime? Fecha_recibe { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime? Fecha_envio { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime? Fecha_esperada { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? Fecha_respuesta { get; set; }
 
         [StringLength(50)]
         public string Folio { get; set; }
@@ -40,6 +47,6 @@ namespace Entidades
         [StringLength(200)]
         public string Imagen { get; set; }
 
-        public virtual Usuarios Usuarios { get; set; }
+       /* public virtual Usuarios Usuarios { get; set; }*/
     }
 }

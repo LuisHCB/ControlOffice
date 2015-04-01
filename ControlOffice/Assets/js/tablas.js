@@ -216,3 +216,68 @@ function CargarDocumentosEnviados() {
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'documentos/listaDocumentosEnviados', config, 'Id_documento');
 }
+
+function CargarDocumentosRecibidos() {
+    var config = {
+        ordenPorDefecto: 'Id_documento',
+        colNames: ['Id', 'Folio', 'Destino', 'Asunto', 'Requiere respuesta', 'Respuesta'/*, 'Fecha de envío'*/],
+        colModel: [
+            { name: 'Id_documento', index: 'Id_documento', hidden: true },
+            {
+                name: 'Folio', index: 'Folio'
+            },
+            {
+                name: 'Destino', index: 'Destino'
+            },
+            {
+                name: 'Asunto', index: 'Asunto'
+            },
+            {
+                name: 'Requiere_respuesta', index: 'Requiere_respuesta', formatter: function (cellvalue, options, rowObject) {
+                    return   cellvalue?'Si':'No';                    
+                }
+            },
+            {
+                name: 'Respuesta', index: 'Respuesta'
+            },
+
+            /*{
+                name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
+                    // return  (new Date(cellvalue)).toDateString();
+                    return cellvalue;
+                }
+            },*/
+        ]
+    };
+
+    jqGridStart('tabla1', 'paginador-tabla1', 'documentos/listaDocumentosRecibidos', config, 'Id_documento');
+}
+
+function CargarDocumentosEstandar() {
+    
+    var config = {
+        ordenPorDefecto: 'Id_documento',
+        colNames: ['Id','Folio',  'Tipo de documento','Descripcion'],
+        colModel: [
+            { name: 'Id_documento', index: 'Id_documento', hidden: true },
+            {
+                name: 'Folio', index: 'Folio'
+            },
+            {
+                name: 'Tipo_documento.Tipo_documento', index: 'Id_tipo_documento'
+            },
+            {
+                name: 'Descripcion', index: 'Descripcion'
+            },            
+
+            /*{
+                name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
+                    // return  (new Date(cellvalue)).toDateString();
+                    return cellvalue;
+                }
+            },*/
+        ]
+    };
+
+    jqGridStart('tabla1', 'paginador-tabla1', 'documentos/listaDocumentosInternos', config, 'Id_documento');
+}
