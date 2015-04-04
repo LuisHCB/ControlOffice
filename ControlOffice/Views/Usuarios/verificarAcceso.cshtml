@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+@using(Html.BeginForm("verificarUsuario","usuarios",FormMethod.Post))
+            { 
+              <div class="form-group">                  
+                      <label for="" class="control-label">Contraseña</label>                     
+                    <input name="pass" type="password" class="form-control", required />                     
+              </div>               
+                <hr />
+              <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>                
+                <button data-ajax="true" type="submit" class="btn btn-primary">Aceptar</button>          
+              </div>
+            }
+
+

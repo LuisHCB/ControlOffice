@@ -12,7 +12,7 @@ namespace Modelos
     public class UsuarioModel
     {
         /// <summary>
-        /// Metodo que verifica si se permite o no el acceso
+        /// Metodo que verifica si se permite o no el acceso / login
         /// </summary>
         /// <param name="usuario"></param>
         public RespuestaModel Acceder(Usuarios usuario)
@@ -22,9 +22,10 @@ namespace Modelos
              RespuestaModel respuesta = new RespuestaModel();
              try
              {
+                 string pass = new Encriptacion().Encriptar(usuario.Pass);
                  var us = context.Usuarios.Where( x => 
                                          x.Usuario == usuario.Usuario &&
-                                         x.Pass == usuario.Pass ).SingleOrDefault();//solo uno
+                                         x.Pass == pass ).SingleOrDefault();//solo uno
                  if (us != null)
                  {
                      if (us.Activo == true)
@@ -198,6 +199,7 @@ namespace Modelos
                                                          x.Usuario == usuario.Usuario).FirstOrDefault();
                     if (us == null)
                     {
+                        usuario.Pass = new Encriptacion().Encriptar(usuario.Pass);
                         usuario.Activo = true;
                         context.Usuarios.Add(usuario);
                         context.SaveChanges();
@@ -235,7 +237,7 @@ namespace Modelos
                                                     x.Usuario == usuario.Usuario).SingleOrDefault();
                         if (us != null)
                         {
-                            us.Pass = usuario.Pass;
+                            us.Pass = new Encriptacion().Encriptar(usuario.Pass);
 
                             context.SaveChanges();
                             respuesta.SetRespuesta(true);
@@ -256,5 +258,76 @@ namespace Modelos
             return respuesta;
 
         }
+
+
+        public RespuestaModel modificarInfoUsuario(Usuarios usuario)
+        {
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {                
+                    using (var context = new DBControlOfficeContext())
+                    {
+                        Usuarios us = context.Usuarios.Where(x =>
+                                                    x.Usuario == usuario.Usuario).SingleOrDefault();
+                        if (us != null)
+                        {
+                            if (usuario.Pass != null)
+                            {
+                                us.Pass = new Encriptacion().Encriptar(usuario.Pass);
+                            }
+                            us.Nombre = usuario.Nombre;
+                            context.SaveChanges();
+                            respuesta.SetRespuesta(true,"La información se modifico correctamente. A continuación la sesion sera cerrada");
+                            respuesta.alerta = "La información se modificó correctamente";
+                            respuesta.funcion = "setTimeout(\"window.location.href='/controlOffice/cerrarsesion';\",2000);";
+                        }
+                        else
+                        {
+                            respuesta.SetRespuesta(false, "Lo lamento, el usuario " + usuario.Usuario + " no existe");
+                        }
+                    }                
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false, "Error inesperado: " + ex.Message);
+            }
+            return respuesta;
+
+        }
+
+        public RespuestaModel verificarUsuarioActual(string pass)
+        {
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using (var context = new DBControlOfficeContext())
+                {
+                    string idUsuario = ManejadorDeSesiones.ObtenerUsuarioEnSesion();
+                    Usuarios usuarioActual = context.Usuarios.Where(x=>
+                                                x.Usuario == idUsuario).FirstOrDefault();
+                    if (usuarioActual != null)
+                    {
+                        if (pass.Equals(new Encriptacion().Desencriptar(usuarioActual.Pass)))
+                        {
+                            respuesta.SetRespuesta(true);                            
+                        }
+                        else
+                        {
+                            respuesta.SetRespuesta(false,"La contraseña es incorrecta");
+                        }
+                    }
+                    else
+                    {
+                        respuesta.SetRespuesta(false,"No se logro encontrar al usuario");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false, "Error inesperado: "+ex.Message);
+            }
+            return respuesta;
+        }
+
     }
 }

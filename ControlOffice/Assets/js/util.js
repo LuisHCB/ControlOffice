@@ -80,6 +80,10 @@
                         if (respuesta.funcion != null) {
                             setTimeout(respuesta.funcion, 0);//ejecuta la funcion en 0 segundos
                         }
+                        if (respuesta.target != null && respuesta.html != null)
+                        {
+                            $(respuesta.target).load(respuesta.html);
+                        }
                     }
 
                     //redirecciona

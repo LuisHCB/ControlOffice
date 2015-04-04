@@ -27,7 +27,7 @@ namespace Entidades
         public string Usuario { get; set; }
 
         [Required (ErrorMessage="Ingresa tu contraseña")]
-        [StringLength(20)]
+        [StringLength(50)]
         public string Pass { get; set; }
 
         [StringLength(255)]        

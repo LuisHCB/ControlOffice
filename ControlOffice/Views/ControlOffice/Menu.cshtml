@@ -77,7 +77,7 @@
               Agregar o quitar usuarios 
             </a></li>
             <li class="divider"></li>
-            <li><a href="#">
+            <li><a data-target="#modal-general" data-toggle="modal" onclick=" $('#modal-modal-general').load('/usuarios/verificarAcceso')">
               Editar mi perfil
             </a></li>
             <li><a href="/controlOffice/cerrarsesion">
@@ -115,5 +115,28 @@
     </div>
   </div>
 </div> <!-- Fin Jumbotron -->
+
+    
+<!-- Modal general -------------------------------------- Ventana de ayuda -->
+
+  <div id="modal-general" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4></h4>
+        </div>       
+          <div class="modal-body" id="modal-modal-general" >
+
+
+              
+      </div>               
+    </div>
+   </div>
+</div>
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>    
+    <script src="~/Assets/js/jquery.form.js"></script>
+    <script src="~/Assets/js/notify.min.js"></script>
 </body>
 </html>

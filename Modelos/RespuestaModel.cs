@@ -15,6 +15,8 @@ namespace Modelos
         public string funcion { get; set; }
         public string href { get; set; }
         public string alerta { get; set; }
+        public string target { get; set; }
+        public string html { get; set; }
 
         /// <summary>
         /// constructor

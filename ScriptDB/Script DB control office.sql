@@ -9,7 +9,7 @@ go
 Create table Usuarios 
 (
  Usuario nvarchar(20) primary key,
- Pass nvarchar(20) not null,
+ Pass nvarchar(50) not null,
  Nombre nvarchar (255),
  Activo bit default 1,
  Administrador bit default 0
@@ -225,6 +225,6 @@ create table Solicitudes
  
  
  /* Inserta datos de prueba */
- insert into dbo.Usuarios (Usuario, Pass, Nombre) values('admin@gmail.com','1111','Administrador'),
- ('demo@gmail.com','demo','Usuario demo')
+ insert into dbo.Usuarios (Usuario, Pass, Nombre,Administrador) values('admin@gmail.com','rNf2oWxvFSc=','Administrador',1),
+ ('demo@gmail.com','rNf2oWxvFSc=','Usuario demo',0)
  go

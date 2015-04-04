@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;// "~/Views/Shared/_LayoutPrincipal.cshtml";    
+    Usuarios usuarioActual = ViewBag.usuarioActual;
+}
+
+            
+              
+@using(Html.BeginForm("modificarInfoUsuario","usuarios",FormMethod.Post))
+            {                 
+              <div class="form-group">                  
+                      <label for="" class="control-label">Nombre</label>
+                      @Html.ValidationMessageFor(model => usuarioActual.Nombre,"",new {@class ="textoError"})
+                      @Html.TextBoxFor(model => usuarioActual.Nombre, new {@class="form-control",type="text" })
+              </div> 
+              <div class="form-group">                  
+                      <label for="" class="control-label">Contraseña</label>
+                     @Html.ValidationMessageFor(model => usuarioActual.Pass,"",new {@class ="textoError"})
+                     @Html.PasswordFor(model => usuarioActual.Pass, new {@class="form-control", required="required" })                          
+              </div>                 
+                <hr />
+              <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>               
+                <button data-ajax="true" type="submit" class="btn btn-primary">Aceptar</button>          
+              </div>
+            }

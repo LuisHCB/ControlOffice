@@ -45,6 +45,20 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
+        public PartialViewResult modificarUsuario()
+        {
+            ViewBag.usuarioActual = usuarioModel.ObtenerUsuario(ManejadorDeSesiones.ObtenerUsuarioEnSesion());
+            return PartialView();
+        }
+
+        [ProtegidoVista]
+        public PartialViewResult verificarAcceso()        
+        {
+            return PartialView();
+        }
+
+        
+
         [ProtegidoVista]
         [SoloAdministradorParcial]        
         public PartialViewResult NuevoUsuario()
@@ -57,6 +71,16 @@ namespace ControlOffice.Controllers
             return Json(usuarioModel.ObtenerTodosLosUsuarios(jq), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult  verificarUsuario(string pass)
+        {
+            RespuestaModel respuesta = usuarioModel.verificarUsuarioActual(pass);
+            if (respuesta.response)
+            {
+                respuesta.target = "#modal-modal-general";
+                respuesta.html="../usuarios/modificarUsuario";
+            }
+            return Json( respuesta);
+        }
         
         public JsonResult darDeAlta(string id)
         {
@@ -121,6 +145,22 @@ namespace ControlOffice.Controllers
                 respuesta.alerta="No tienes los permisos necesarios para realizar esta acción";
                 return Json(respuesta);
             }
+        }
+
+        public JsonResult modificarInfoUsuario(Usuarios usuarioActual)
+        {
+            //if (usuario.Administrador)
+            {
+                usuarioActual.Usuario = usuario.Usuario;
+                return Json(usuarioModel.modificarInfoUsuario(usuarioActual));
+            }
+            /*else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false, "No tienes los permisos necesarios para realizar esta acción");
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }*/
         }
 
     }

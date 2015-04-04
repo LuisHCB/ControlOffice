@@ -291,6 +291,8 @@
     <Content Include="Views\ControlOffice\denegado.cshtml" />
     <Content Include="Views\ControlOffice\denegadoV.cshtml" />
     <Content Include="Views\Usuarios\NuevoUsuario.cshtml" />
+    <Content Include="Views\Usuarios\modificarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\verificarAcceso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
