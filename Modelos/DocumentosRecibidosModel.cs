@@ -19,7 +19,7 @@ namespace Modelos
             {                
                 try
                 {
-                  //  context.Configuration.ValidateOnSaveEnabled = false;
+                    context.Configuration.ValidateOnSaveEnabled = false;
                     Documentos_recibidos doc = new Documentos_recibidos();
                     doc.Usuario_recibe = idUsuario;
                     doc.Destino = destino;
@@ -156,6 +156,32 @@ namespace Modelos
                 }
             }
         }
+
+        public RespuestaModel eliminar(string id)
+        {
+            int idDoc = Convert.ToInt32(id);
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using (var context = new DBControlOfficeContext())
+                {
+                    Documentos_recibidos doc = context.Documentos_recibidos.Where(x =>
+                                                               x.Id_documento == idDoc).FirstOrDefault();
+                    context.Documentos_recibidos.Remove(doc);
+                    context.SaveChanges();
+                    respuesta.SetRespuesta(true, "El documento se ha eliminado correctamente");
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "Error: " + ex;
+                return respuesta;
+            }
+        }
+
+
     }
 
 

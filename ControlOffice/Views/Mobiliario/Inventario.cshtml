@@ -1,7 +1,13 @@
 ﻿@{
     Layout = null;
 }
- <h2 style="margin:0 auto; text-align:center center;" > Mobiliarios </h2>
+
+<div class="row " >
+   <h2 class=" col-md-5"> Mobiliarios </h2>
+   <button class=" btn btn-default col-sm-2 " onclick=" $('#tabla1').trigger('reloadGrid'); " >
+       <span class="glyphicon glyphicon-refresh"></span> Actualizar</button>
+</div>
+ 
  <div id="tabla-mobiliarios">
         <table id="tabla1"  >
         </table>

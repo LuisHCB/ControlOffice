@@ -201,5 +201,29 @@ namespace Modelos
            return jqm;
        }
 
+       public RespuestaModel eliminar(string id)
+       {
+           int idDoc = Convert.ToInt32(id);
+           RespuestaModel respuesta = new RespuestaModel();
+           try
+           {
+               using (var context = new DBControlOfficeContext())
+               {
+                   Documentos_enviados doc = context.Documentos_enviados.Where(x =>
+                                                              x.Id_documento == idDoc).FirstOrDefault();
+                   context.Documentos_enviados.Remove(doc);
+                   context.SaveChanges();
+                   respuesta.SetRespuesta(true, "El documento se ha eliminado correctamente");
+                   return respuesta;
+               }
+           }
+           catch (Exception ex)
+           {
+               respuesta.SetRespuesta(false);
+               respuesta.alerta = "Error: " + ex;
+               return respuesta;
+           }
+       }
+
     }
 }

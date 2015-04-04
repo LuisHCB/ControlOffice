@@ -63,5 +63,29 @@ namespace Modelos
             }
             return indice;
         }
+
+        public RespuestaModel eliminarSolicitud(string id)
+        {
+            int idSolicitud = Convert.ToInt32(id);
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using (var context = new DBControlOfficeContext())
+                {
+                    Solicitudes solicitud = context.Solicitudes.Where(x =>
+                                                               x.Id_solicitud == idSolicitud).FirstOrDefault();
+                    context.Solicitudes.Remove(solicitud);
+                    context.SaveChanges();
+                    respuesta.SetRespuesta(true, "La solicitud se ha eliminado correctamente");
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "Error: " + ex;
+                return respuesta;
+            }
+        }
     }
 }

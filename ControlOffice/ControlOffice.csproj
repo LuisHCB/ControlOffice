@@ -118,6 +118,7 @@
     <Compile Include="Controllers\ElectronicosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MobiliarioController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="CustomAttributes\CustomAttributes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +131,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Assets\css\formato.css" />
     <Content Include="Assets\css\jquery-ui.css" />
+    <Content Include="Assets\images\alta.png" />
+    <Content Include="Assets\images\baja.png" />
+    <Content Include="Assets\images\eliminar.png" />
+    <Content Include="Assets\images\key.png" />
     <Content Include="Assets\images\ui-bg_diagonals-small_0_aaaaaa_40x40.png" />
     <Content Include="Assets\images\ui-bg_diagonals-thick_15_444444_40x40.png" />
     <Content Include="Assets\images\ui-bg_diagonals-thick_95_ffdc2e_40x40.png" />
@@ -281,6 +286,11 @@
     <Content Include="Views\Documentos\InventarioDocumentosEnviados.cshtml" />
     <Content Include="Views\Documentos\InventarioDocumentosRecibidos.cshtml" />
     <Content Include="Views\Documentos\InventarioDocumentosInternos.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\modificarPass.cshtml" />
+    <Content Include="Views\ControlOffice\denegado.cshtml" />
+    <Content Include="Views\ControlOffice\denegadoV.cshtml" />
+    <Content Include="Views\Usuarios\NuevoUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

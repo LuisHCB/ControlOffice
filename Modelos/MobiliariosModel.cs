@@ -268,5 +268,29 @@ namespace Modelos
 
             return jqm;
         }
+
+        public RespuestaModel eliminar(string id)
+        {
+            int idMobiliario = Convert.ToInt32(id);
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using (var context = new DBControlOfficeContext())
+                {
+                    Mobiliarios mobiliario = context.Mobiliarios.Where(x =>
+                                                               x.Id_mobiliario == idMobiliario).FirstOrDefault();
+                    context.Mobiliarios.Remove(mobiliario);
+                    context.SaveChanges();
+                    respuesta.SetRespuesta(true, "El elemento se ha eliminado correctamente");
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "Error: " + ex;
+                return respuesta;
+            }
+        }
     }
 }

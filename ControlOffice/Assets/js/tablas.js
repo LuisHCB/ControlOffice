@@ -25,11 +25,79 @@
     return grid;
 }
 
+function eliminar(ruta)
+{   
+    if (confirm("¿Estas seguro de eliminar este elemento?")) {
+        $.ajax(ruta, {
+            type: 'POST',
+            async: true,
+            beforeSend: function () { },
+            success: function (respuesta) {
+                if (respuesta.response)
+                {                    
+                    $('#tabla1').trigger('reloadGrid');   //actualiza la tabla              
+                }
+                else
+                {
+                    alert("No se puede eliminar el elemento. Error: "+respuesta.alerta);
+                }
+            },
+            error: function (a, b, c) {
+                alert("Error inesperado: No se logro eliminar el elemento seleccionado. " + a + ", " + b + ", " + c );
+            }
+        });
+    }    
+}
+
+function darDeBaja(ruta)
+{
+    if (confirm("¿Estas seguro de dar de baja este usuario?")) {
+        $.ajax(ruta, {
+            type: 'POST',
+            async: true,
+            beforeSend: function () { },
+            success: function (respuesta) {
+                if (respuesta.response) {
+                    $.notify(respuesta.alerta,"success");
+                    $('#tabla1').trigger('reloadGrid');   //actualiza la tabla              
+                }
+                else {
+                    alert("No se puede dara de baja este usuario. Error: " + respuesta.mensaje);
+                }
+            },
+            error: function (a, b, c) {
+                alert("Error inesperado: No se logro dar de baja a este usuario. " + a + ", " + b + ", " + c);
+            }
+        });
+    }
+}
+
+function darDeAlta(ruta) {
+    if (confirm("¿Estas seguro de dar de alta este usuario?")) {
+        $.ajax(ruta, {
+            type: 'POST',
+            async: true,
+            beforeSend: function () { },
+            success: function (respuesta) {
+                if (respuesta.response) {
+                    $.notify(respuesta.alerta, "success");
+                    $('#tabla1').trigger('reloadGrid');   //actualiza la tabla              
+                }
+                else {
+                    alert("No se puede dara de alta este usuario. Error: " + respuesta.mensaje);
+                }
+            },
+            error: function (a, b, c) {
+                alert("Error inesperado: No se logro dar de alta a este usuario. " + a + ", " + b + ", " + c);
+            }
+        });
+    }
+}
 
 function CargarElectronicos() {
-    var config = {
+    var config = {       
         ordenPorDefecto: 'Id_electronico',
-        colNames: ['Id', 'Tipo', 'Cantidad', 'Marca', 'Número de serie'],
+        colNames: ['Id', 'Tipo', 'Cantidad', 'Marca', 'Número de serie','Acciones'],
         colModel: [
             { name: 'Id_electronico', index: 'Id_electronico', hidden: false /*true*/ },
             {
@@ -46,6 +114,12 @@ function CargarElectronicos() {
             {
                 name: 'NoSerie', index: 'NoSerie'
             },
+            {
+                name: 'Id_electronico', index: 'Id_electronico',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="'+"eliminar('electronicos/eliminar?id="+cellvalue +"');"+'" >  <span class="eliminar"> </span></a>';
+                }
+            },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'electronicos/listaElectronicos', config, 'Id_electronico');
@@ -54,7 +128,7 @@ function CargarElectronicos() {
 function CargarSolicitudesElectronicos() {
     var config = {
         ordenPorDefecto: 'Id_solicitud',
-        colNames: ['Id', 'Folio de la solicitud', 'Destino','Descripción',  'Fecha de envío'],
+        colNames: ['Id', 'Folio de la solicitud', 'Destino','Descripción',  'Fecha de envío','Acciones'],
         colModel: [
             { name: 'Id_solicitud', index: 'Id_solicitud', hidden: true },
             {
@@ -72,6 +146,12 @@ function CargarSolicitudesElectronicos() {
                     return cellvalue;
                 }
             },
+            {
+                name: 'Id_solicitud', index: 'Id_solicitud',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('electronicos/eliminarSolicitud?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'electronicos/listaSolicitudElectronicos', config, 'Id_solicitud');
@@ -80,7 +160,7 @@ function CargarSolicitudesElectronicos() {
 function CargarMobiliarios() {
     var config = {
         ordenPorDefecto: 'Id_mobiliario',
-        colNames: ['Id', 'Tipo', 'Cantidad', 'Marca', 'Número de serie'],
+        colNames: ['Id', 'Tipo', 'Cantidad', 'Marca', 'Número de serie','Acciones'],
         colModel: [
             { name: 'Id_mobiliario', index: 'Id_mobiliario', hidden: false /*true*/ },
             {
@@ -97,6 +177,12 @@ function CargarMobiliarios() {
             {
                 name: 'NoSerie', index: 'NoSerie'
             },
+            {
+                name: 'Id_mobiliario', index: 'Id_mobiliario',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('mobiliario/eliminar?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'mobiliario/listaMobiliarios', config, 'Id_mobiliario');
@@ -105,7 +191,7 @@ function CargarMobiliarios() {
 function CargarSolicitudesMobiliarios() {
     var config = {
         ordenPorDefecto: 'Id_solicitud',
-        colNames: ['Id', 'Folio de la solicitud',  'Destino','Descripción', 'Fecha de envío'],
+        colNames: ['Id', 'Folio de la solicitud',  'Destino','Descripción', 'Fecha de envío','Acciones'],
         colModel: [
             { name: 'Id_solicitud', index: 'Id_solicitud', hidden: true },
             {
@@ -124,6 +210,12 @@ function CargarSolicitudesMobiliarios() {
                     return cellvalue;
                 }
             },
+            {
+                name: 'Id_solicitud', index: 'Id_solicitud',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('mobiliario/eliminarSolicitud?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'mobiliario/listaSolicitudMobiliarios', config, 'Id_solicitud');
@@ -132,7 +224,7 @@ function CargarSolicitudesMobiliarios() {
 function CargarConsumibles() {
     var config = {
         ordenPorDefecto: 'Id_consumible',
-        colNames: ['Id', 'Tipo', 'Cantidad', 'Clave', 'Fecha de recepción','Entregado', 'Recibido'],
+        colNames: ['Id', 'Tipo', 'Cantidad', 'Clave', 'Fecha de recepción','Entregado', 'Recibido','Acciones'],
         colModel: [
             { name: 'Id_consumible', index: 'Id_consumible', hidden: false /*true*/ },
             {
@@ -155,6 +247,12 @@ function CargarConsumibles() {
             {
                 name: 'Usuario_recibe', index: 'Usuario_recibe'
             },
+            {
+                name: 'Id_consumible', index: 'Id_consumible',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('consumibles/eliminar?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'consumibles/listaConsumibles', config, 'Id_consumible');
@@ -163,7 +261,7 @@ function CargarConsumibles() {
 function CargarSolicitudesConsumibles() {
     var config = {
         ordenPorDefecto: 'Id_solicitud',
-        colNames: ['Id', 'Folio de la solicitud', 'Destino', 'Descripción', 'Fecha de envío'],
+        colNames: ['Id', 'Folio de la solicitud', 'Destino', 'Descripción', 'Fecha de envío','Acciones'],
         colModel: [
             { name: 'Id_solicitud', index: 'Id_solicitud', hidden: true },
             {
@@ -182,6 +280,12 @@ function CargarSolicitudesConsumibles() {
                     return cellvalue;
                 }
             },
+             {
+                 name: 'Id_solicitud', index: 'Id_solicitud',
+                 formatter: function (cellvalue, options, rowObject) {
+                     return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('consumibles/eliminarSolicitud?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                 }
+             },
         ]
     };
     jqGridStart('tabla1', 'paginador-tabla1', 'consumibles/listaSolicitudConsumibles', config, 'Id_solicitud');
@@ -190,7 +294,7 @@ function CargarSolicitudesConsumibles() {
 function CargarDocumentosEnviados() {
     var config = {
         ordenPorDefecto: 'Id_documento',
-        colNames: ['Id','Tipo de documento','Folio', 'Destino', 'Asunto'/*, 'Fecha de envío'*/],
+        colNames: ['Id','Tipo de documento','Folio', 'Destino', 'Asunto','Acciones'/*, 'Fecha de envío'*/],
         colModel: [
             { name: 'Id_documento', index: 'Id_documento', hidden: true },
             {
@@ -204,6 +308,12 @@ function CargarDocumentosEnviados() {
             },
             {
                 name: 'Asunto', index: 'Asunto'
+            },
+            {
+                name: 'Id_documento', index: 'Id_documento',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('documentos/eliminarDocEnviado?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
             },
 
             /*{
@@ -220,7 +330,7 @@ function CargarDocumentosEnviados() {
 function CargarDocumentosRecibidos() {
     var config = {
         ordenPorDefecto: 'Id_documento',
-        colNames: ['Id', 'Folio', 'Destino', 'Asunto', 'Requiere respuesta', 'Respuesta'/*, 'Fecha de envío'*/],
+        colNames: ['Id', 'Folio', 'Destino', 'Asunto', 'Requiere respuesta', 'Respuesta','Acciones'/*, 'Fecha de envío'*/],
         colModel: [
             { name: 'Id_documento', index: 'Id_documento', hidden: true },
             {
@@ -240,6 +350,12 @@ function CargarDocumentosRecibidos() {
             {
                 name: 'Respuesta', index: 'Respuesta'
             },
+            {
+                name: 'Id_documento', index: 'Id_documento',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('documentos/eliminarDocRecibido?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
 
             /*{
                 name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
@@ -257,7 +373,7 @@ function CargarDocumentosEstandar() {
     
     var config = {
         ordenPorDefecto: 'Id_documento',
-        colNames: ['Id','Folio',  'Tipo de documento','Descripcion'],
+        colNames: ['Id','Folio',  'Tipo de documento','Descripcion','Acciones'],
         colModel: [
             { name: 'Id_documento', index: 'Id_documento', hidden: true },
             {
@@ -268,7 +384,13 @@ function CargarDocumentosEstandar() {
             },
             {
                 name: 'Descripcion', index: 'Descripcion'
-            },            
+            },
+            {
+                name: 'Id_documento', index: 'Id_documento',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<a title="Eliminar" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "eliminar('documentos/eliminarDocInterno?id=" + cellvalue + "');" + '" >  <span class="eliminar"> </span></a>';
+                }
+            },
 
             /*{
                 name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
@@ -280,4 +402,53 @@ function CargarDocumentosEstandar() {
     };
 
     jqGridStart('tabla1', 'paginador-tabla1', 'documentos/listaDocumentosInternos', config, 'Id_documento');
+}
+
+function CargarUsuarios() {
+    var config = {
+        ordenPorDefecto: 'Usuario',
+        colNames: ['Usuario', 'Nombre del usuario', 'Activo','Administrador','Acciones'/*, 'Fecha de envío'*/],
+        colModel: [
+            { name: 'Usuario', index: 'Usuario', hidden: false },
+            {
+                name: 'Nombre', index: 'Nombre'
+            },
+            {
+                name: 'Activo', index: 'Activo',
+                formatter: function (cellvalue, options, rowObject) {
+                    return cellvalue ? 'Si' : 'No';
+                }
+            },
+            {
+                name: 'Administrador', index: 'Administrador',
+                formatter: function (cellvalue, options, rowObject) {
+                    return cellvalue ? 'Si' : 'No';
+                }
+            },
+            {
+                name: 'Id_documento', index: 'Id_documento',
+                formatter: function (cellvalue, options, rowObject) {
+                    if(rowObject.Activo)
+                    {
+                        return '<a title="Dar de baja" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "darDeBaja('usuarios/darDeBaja?id=" + rowObject.Usuario + "');" + '" >  <span class="darDeBaja"> </span></a>' +
+                               ' <a data-target="#form-usuario-info" data-toggle="modal" title="Modificar contraseña" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "$('#modal-form-pass').load('usuarios/modificarPass?id=" + rowObject.Usuario + "');" + '" >  <span class="contrasena"> </span></a>';;
+
+                    }
+                    else
+                    {
+                        return '<a title="Dar de alta" class="ui-pg-button ui-corner-all ui-state-disabled" onclick="' + "darDeAlta('usuarios/darDeAlta?id=" + rowObject.Usuario + "');" + '" >  <span class="darDeAlta"> </span></a>';
+                    }
+                }
+            },
+
+            /*{
+                name: 'Fecha_envio_texto', index: 'Fecha_envio', formatter: function (cellvalue, options, rowObject) {
+                    // return  (new Date(cellvalue)).toDateString();
+                    return cellvalue;
+                }
+            },*/
+        ]
+    };
+
+    jqGridStart('tabla1', 'paginador-tabla1', 'usuarios/listaUsuarios', config, 'Usuario');
 }

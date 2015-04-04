@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+    Usuarios usuarioActual = ViewBag.usuarioActual;
+    usuarioActual.Pass = "";
+}
+
+
+@using (Html.BeginForm("modificarPassUsuario", "usuarios", FormMethod.Post))
+{
+            <div class="form-group">                  
+                             <label for="" class="control-label">Usuario: @usuarioActual.Usuario</label>
+                              @Html.ValidationMessageFor(usuarioAct => usuarioActual.Usuario,"",new {@class ="textoError"})
+                              @Html.HiddenFor(usuarioAct => usuarioActual.Usuario, new {@class="form-control", required="required" })                                        
+                      </div>  
+             <div class="form-group" >                  
+             <label for="" class="control-label">Nueva contraseña</label>
+                      @Html.ValidationMessageFor(usuarioAct => usuarioActual.Pass,"",new {@class ="textoError"})
+                      @Html.PasswordFor(model => usuarioActual.Pass,new {@class="form-control", required="required" } )
+             </div>     
+    
+                <hr />
+            <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>                
+                <button data-ajax="true" type="submit" class="btn btn-primary">Guardar</button>          
+            </div>
+}

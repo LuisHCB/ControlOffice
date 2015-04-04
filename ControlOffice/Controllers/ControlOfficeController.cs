@@ -60,5 +60,16 @@ namespace ControlOffice.Controllers
             return View();
         }
 
+
+        public PartialViewResult denegado()
+        {
+            return PartialView();
+        }
+
+        public ActionResult denegadoV()
+        {
+            return View();
+        }
+
     }
 }

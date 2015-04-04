@@ -2,7 +2,12 @@
     Layout = null;
 }
 
-<h2  > Documentos recibidos </h2>
+<div class="row " >
+   <h2 class=" col-md-5"> Documentos recibidos </h2>
+   <button class=" btn btn-default col-sm-2 " onclick=" $('#tabla1').trigger('reloadGrid'); " >
+       <span class="glyphicon glyphicon-refresh"></span> Actualizar</button>
+</div>
+
  <div id="tabla-consumibles">
         <table id="tabla1"  >
         </table>

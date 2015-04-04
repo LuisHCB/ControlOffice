@@ -23,6 +23,7 @@ namespace Entidades
         [Key]
         [StringLength(20)]
         [Required (ErrorMessage="Debes ingresar tu correo")]
+        [EmailAddress (ErrorMessage="Es necesaria una dirección de email")]
         public string Usuario { get; set; }
 
         [Required (ErrorMessage="Ingresa tu contraseña")]
@@ -31,6 +32,14 @@ namespace Entidades
 
         [StringLength(255)]        
         public string Nombre { get; set; }
+
+        
+        public bool? Activo { get; set; }
+
+        
+        public bool Administrador { get; set; }
+
+
         /*
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Consumibles> Consumibles { get; set; }

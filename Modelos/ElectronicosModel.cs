@@ -269,5 +269,30 @@ namespace Modelos
 
             return jqm;
         }
+
+        public RespuestaModel eliminar(string id)
+        {
+            int idElectronico = Convert.ToInt32(id);
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using(var context = new DBControlOfficeContext())
+                {
+                    Electronicos electronico = context.Electronicos.Where(x=> 
+                                                               x.Id_electronico == idElectronico ).FirstOrDefault();
+                    context.Electronicos.Remove(electronico);
+                    context.SaveChanges();
+                    respuesta.SetRespuesta(true,"El elemento se ha eliminado correctamente");
+                    return respuesta;
+                }
+            }
+            catch(Exception ex)
+            {
+                respuesta.SetRespuesta(false);
+                respuesta.alerta="Error: "+ex;
+                return respuesta;
+            }
+        }
+
     }
 }

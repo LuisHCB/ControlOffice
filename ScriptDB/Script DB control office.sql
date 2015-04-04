@@ -10,7 +10,9 @@ Create table Usuarios
 (
  Usuario nvarchar(20) primary key,
  Pass nvarchar(20) not null,
- Nombre nvarchar (255)
+ Nombre nvarchar (255),
+ Activo bit default 1,
+ Administrador bit default 0
 )
 go
 
@@ -175,7 +177,7 @@ create table Solicitudes
   Destino nvarchar(255) not null,
   Usuario_recibe nvarchar(20) not null,
   Asunto nvarchar(500) not null, 
-  Fecha_recibe datetime2 not null default SYSDATETIME(), 
+  Fecha_recibe datetime2 default SYSDATETIME(), 
   Fecha_envio datetime2,
   Fecha_esperada datetime2,
   Folio nvarchar(50),

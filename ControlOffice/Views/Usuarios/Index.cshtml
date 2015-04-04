@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";    
+}
+
+
+<div class="row " >
+   <h2 class=" col-md-5"> Usuarios </h2>
+   <button class=" btn btn-default col-sm-2 " onclick=" $('#tabla1').trigger('reloadGrid'); " >
+       <span class="glyphicon glyphicon-refresh"></span> Actualizar</button>
+</div>
+
+ <div id="tabla-usuarios">
+        <table id="tabla1"  >
+        </table>
+        <div id="paginador-tabla1"  style="text-align:center; color:#000;"  >
+        </div>
+ </div>  
+<br />
+<div class="row " >
+   <button class=" btn btn-default col-sm-2 alineadoDerecha "  onclick=" $('#tabla1').trigger('reloadGrid'); $('#formulario-nuevo-usuario').load('usuarios/nuevoUsuario'); " data-target="#form-usuario" data-toggle="modal" >
+       <span class="glyphicon glyphicon-user"></span> Registrar nuevo usuario</button>
+</div>
+
+<div id="form-usuario" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Registro de nuevo usuario</h4>
+        </div>       
+          <div class="modal-body" id="formulario-nuevo-usuario">
+            
+          </div>               
+    </div>
+   </div>
+</div>
+
+<div id="form-usuario-info" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Cambio de contraseña</h4>
+        </div>       
+          <div class="modal-body" id="modal-form-pass" >            
+              
+          </div>               
+    </div>
+   </div>
+</div>
+
+<script>
+    CargarUsuarios(); //Carga los usuarios la primera vez que es leido
+</script>
+
+
+
+
+

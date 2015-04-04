@@ -36,6 +36,11 @@
     display:block ;
 }
 
+.alineadoDerecha
+{
+    margin-right:2%; float:right;
+}
+
 /*=================================================================================*/
 /*                               Fuentes                                           */
 /*=================================================================================*/
@@ -44,6 +49,74 @@
 {
     color:#FFFFFF !important;
 }
+
+.textoError
+{
+    font-style: italic;
+    color:rgb(255, 0, 0) !important;
+}
+
+/*=================================================================================*/
+/*                               Imagenes                                          */
+/*=================================================================================*/
+
+.eliminar
+{
+   background-image:url('../images/eliminar.png');
+   background-size:cover;
+   margin-left:10px !important;  
+   width:16px !important;
+   height:16px !important;
+}
+
+.darDeBaja
+{
+   background-image:url('../images/baja.png');
+   background-size:cover; 
+   margin-left:10px  !important;
+   width:16px !important;
+   height:16px !important;
+}
+
+.darDeAlta
+{
+   background-image:url('../images/alta.png');
+   background-size:cover;
+   margin-left:10px !important;   
+   width:16px !important;
+   height:16px !important;
+}
+
+.contrasena
+{
+   background-image:url('../images/key.png');
+   background-size:cover;   
+   margin-left:10px !important;
+   width:16px !important;
+   height:16px !important;
+}
+
+
+.eliminar:hover, .darDeBaja:hover, .darDeAlta:hover, .contrasena:hover
+{
+    -webkit-transform:scale(1.2) !important; /* transicion para chrome*/
+	-moz-transform:scale(1.2) !important; /* transicion para mozila*/
+	-o-transform:scale(1.2) !important; /* transicion para opera*/
+	-ms-transform:scale(1.2) !important; /* transicion para microsoft*/
+	/*box-shadow: 0px 0px 10px rgba(0,0,0,1) !important; */
+	/*opacity:1 !important;*/
+}
+
+.eliminar:hover
+{
+    -webkit-transform:scale(1.2) !important; /* transicion para chrome*/
+	-moz-transform:scale(1.2) !important; /* transicion para mozila*/
+	-o-transform:scale(1.2) !important; /* transicion para opera*/
+	-ms-transform:scale(1.2) !important; /* transicion para microsoft*/
+	/*box-shadow: 0px 0px 10px rgba(0,0,0,1) !important; */
+	/*opacity:1 !important;*/
+}
+
 
 /*=================================================================================*/
 /*                               Animaciones                                       */

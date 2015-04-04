@@ -307,5 +307,50 @@ namespace ControlOffice.Controllers
                 return Json(new { response = false, mensaje = "Error: " + ex.Message });
             }
         }
+
+        public JsonResult eliminarDocEnviado(string id)
+        {
+            if (usuario.Administrador)
+            {
+                return Json(docEnv.eliminar(id));
+            }
+            else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }
+        }
+
+        public JsonResult eliminarDocInterno(string id)
+        {
+            if(usuario.Administrador)
+            {
+             return Json(docInt.eliminar(id));
+            }
+            else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }
+        }
+
+        public JsonResult eliminarDocRecibido(string id)
+        {
+            if (usuario.Administrador)
+            {
+                return Json(docRec.eliminar(id));
+            }
+            else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }
+        }
     }
 }

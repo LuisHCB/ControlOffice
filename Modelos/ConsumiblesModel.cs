@@ -215,5 +215,29 @@ namespace Modelos
 
             return jqm;
         }
+
+        public RespuestaModel eliminar(string id)
+        {
+            int idConsumible = Convert.ToInt32(id);
+            RespuestaModel respuesta = new RespuestaModel();
+            try
+            {
+                using (var context = new DBControlOfficeContext())
+                {
+                    Consumibles consumible = context.Consumibles.Where(x =>
+                                                               x.Id_consumible == idConsumible).FirstOrDefault();
+                    context.Consumibles.Remove(consumible);
+                    context.SaveChanges();
+                    respuesta.SetRespuesta(true, "El elemento se ha eliminado correctamente");
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "Error: " + ex;
+                return respuesta;
+            }
+        }
     }
 }

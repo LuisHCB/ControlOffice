@@ -201,5 +201,36 @@ namespace ControlOffice.Controllers
         {
             return Json(mm.ObtenerSolicitudesMobiliarios(jq), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult eliminarSolicitud(string id)
+        {
+            if (usuario.Administrador)
+            {
+                return Json(sm.eliminarSolicitud(id));
+            }
+            else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }
+        }
+
+        public JsonResult eliminar(string id)
+        {
+            if (usuario.Administrador)
+            {
+                return Json(mm.eliminar(id));
+            }
+            else
+            {
+                RespuestaModel respuesta = new RespuestaModel();
+                respuesta.SetRespuesta(false);
+                respuesta.alerta = "No tienes los permisos necesarios para realizar esta acción";
+                return Json(respuesta);
+            }
+        }
+
     }
 }
