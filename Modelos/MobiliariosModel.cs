@@ -29,6 +29,14 @@ namespace Modelos
             }
         }
 
+        public List<Tipo_mobiliario> ObtenerTipos()
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                return context.Tipo_mobiliario.ToList();
+            }
+        }
+
         /// <summary>
         /// Indica si la marca ya existe
         /// </summary>
@@ -42,6 +50,29 @@ namespace Modelos
                                                 x.Marca == marca
                                                  ).FirstOrDefault();
                 if (marcaE == null)//no existe
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Indica si la el tipo de mobiliario ya existe
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public bool ExisteTipo(string tipo)
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                Tipo_mobiliario tipoE = context.Tipo_mobiliario.Where(x =>
+                                                x.Nombre == tipo
+                                                 ).FirstOrDefault();
+                if (tipoE == null)//no existe
                 {
                     return false;
                 }
@@ -79,6 +110,38 @@ namespace Modelos
                 else
                 {
                     respuesta.SetRespuesta(false, "La marca que ingresaste ya existe");
+                    return respuesta;
+                }
+            }
+        }
+
+        public RespuestaModel RegistrarTipoMobiliario(string tipo)
+        {
+            RespuestaModel respuesta = new RespuestaModel();
+            using (var contex = new DBControlOfficeContext())
+            {
+                if (!ExisteTipo(tipo))
+                {
+
+                    try
+                    {
+                        Tipo_mobiliario nuevoTipo = new Tipo_mobiliario();
+                        nuevoTipo.Nombre = tipo;
+                        contex.Tipo_mobiliario.Add(nuevoTipo);
+                        contex.SaveChanges();
+                        respuesta.SetRespuesta(true);
+                        respuesta.alerta = "El tipo de mobiliario se ha registrado correctamente.";
+                        return respuesta;
+                    }
+                    catch
+                    {
+                        respuesta.SetRespuesta(false, "Error al ingresar el registro, verifique información o conexión");
+                        return respuesta;
+                    }
+                }
+                else
+                {
+                    respuesta.SetRespuesta(false, "La tipo de mobiliario que ingresaste ya existe");
                     return respuesta;
                 }
             }

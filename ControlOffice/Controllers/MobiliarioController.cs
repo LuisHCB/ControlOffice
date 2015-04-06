@@ -36,6 +36,7 @@ namespace ControlOffice.Controllers
             return View();
         }
 
+        
         public JsonResult RegistrarMobiliario(int utilizado, int tipo = 0, string cantidad = "", int marca = 0, string serie = null, DateTime FechaUso = new DateTime(),
             string reemplazo = "", int unidadReemplazo = -1, string archivo="")
         {
@@ -150,7 +151,7 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
-
+        [ProtegidoVista]
         public JsonResult RegistrarMarca(string nuevaMarca = "")
         {
 
@@ -162,6 +163,22 @@ namespace ControlOffice.Controllers
             {
                 RespuestaModel respuesta = mm.RegistrarMarca(nuevaMarca);
                 respuesta.funcion = "actualizarMarcas()";
+                return Json(respuesta);
+            }
+        }
+
+        [Protegido]
+        public JsonResult RegistrarTipoMobiliario(string nuevoTipo = "")
+        {
+
+            if (nuevoTipo.Length <= 0)
+            {
+                return Json(new { Response = false, mensaje = "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Ingresa el nombre del nuevo tipo de mobiliario que quieres registrar. <br />" });
+            }
+            else
+            {
+                RespuestaModel respuesta = mm.RegistrarTipoMobiliario(nuevoTipo);
+                respuesta.funcion = "actualizarTipos()";
                 return Json(respuesta);
             }
         }
@@ -180,6 +197,19 @@ namespace ControlOffice.Controllers
             return Json(new { response = true, mensaje = opciones });
         }
 
+        public JsonResult ObtenerTipos()
+        {
+            string opciones = "<option value='0'>Seleccionar</option>";
+            List<Tipo_mobiliario> tipos = mm.ObtenerTipos();
+            foreach (Tipo_mobiliario t in tipos)
+            {
+                opciones += "<option value='" + t.Id_tipo_mobiliario + "'>" + t.Nombre + "</option>";
+            }
+            opciones = "<select class='form-control' id='FORM-mobiliario_LB-tipo' name='tipo' style='border-color:white'>" + opciones + "</select>";
+
+            return Json(new { response = true, mensaje = opciones });
+        }
+
         [ProtegidoVista]
         public PartialViewResult Inventario()
         {
@@ -192,16 +222,19 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
+        [ProtegidoVista]
         public JsonResult listaMobiliarios(JqGrid jq)
         {
             return Json(mm.ObtenerTodosLosMobiliarios(jq), JsonRequestBehavior.AllowGet);
         }
 
+        [ProtegidoVista]
         public JsonResult listaSolicitudMobiliarios(JqGrid jq)
         {
             return Json(mm.ObtenerSolicitudesMobiliarios(jq), JsonRequestBehavior.AllowGet);
         }
 
+        [ProtegidoVista]
         public JsonResult eliminarSolicitud(string id)
         {
             if (usuario.Administrador)
@@ -217,6 +250,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminar(string id)
         {
             if (usuario.Administrador)

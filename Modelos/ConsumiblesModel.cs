@@ -239,5 +239,68 @@ namespace Modelos
                 return respuesta;
             }
         }
+
+        public RespuestaModel RegistrarTipoConsumible(string tipo)
+        {
+            RespuestaModel respuesta = new RespuestaModel();
+            using (var contex = new DBControlOfficeContext())
+            {
+                if (!ExisteTipo(tipo))
+                {
+
+                    try
+                    {
+                        Tipo_consumible nuevoTipo = new Tipo_consumible();
+                        nuevoTipo.Nombre = tipo;
+                        contex.Tipo_consumible.Add(nuevoTipo);
+                        contex.SaveChanges();
+                        respuesta.SetRespuesta(true);
+                        respuesta.alerta = "El tipo de consumible se ha registrado correctamente.";
+                        return respuesta;
+                    }
+                    catch
+                    {
+                        respuesta.SetRespuesta(false, "Error al ingresar el registro, verifique información o conexión");
+                        return respuesta;
+                    }
+                }
+                else
+                {
+                    respuesta.SetRespuesta(false, "La tipo de conusmible que ingresaste ya existe");
+                    return respuesta;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Indica si la el tipo de consumible ya existe
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public bool ExisteTipo(string tipo)
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                Tipo_consumible tipoE = context.Tipo_consumible.Where(x =>
+                                                x.Nombre == tipo
+                                                 ).FirstOrDefault();
+                if (tipoE == null)//no existe
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public List<Tipo_consumible> ObtenerTipos()
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                return context.Tipo_consumible.ToList();
+            }
+        }
     }
 }

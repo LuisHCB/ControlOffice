@@ -33,6 +33,10 @@ namespace ControlOffice.CustomAttributes
         }
     }
 
+
+    /// <summary>
+    /// Protege la acción de usuarios no registrados
+    /// </summary>
     public class Protegido : ActionFilterAttribute //hereda
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)

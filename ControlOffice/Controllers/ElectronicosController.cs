@@ -122,6 +122,7 @@ namespace ControlOffice.Controllers
            
         }
 
+        [ProtegidoVista]
         public JsonResult RegistrarSolicitud(int envio,string destino="",string descripcion="",DateTime fechaEnvio = new DateTime(), string horaEnvio="",
              string crearFolio="",string folio="", string imagen="" )
         {
@@ -173,6 +174,7 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
         public JsonResult RegistrarMarca(string nuevaMarca = "")
         {
 
@@ -184,6 +186,22 @@ namespace ControlOffice.Controllers
             {
                 RespuestaModel respuesta = em.RegistrarMarca(nuevaMarca);
                 respuesta.funcion= "actualizarMarcas()";
+                return Json(respuesta);
+            }
+        }
+
+        [Protegido]
+        public JsonResult RegistrarTipoElectronico(string nuevoTipo = "")
+        {
+
+            if (nuevoTipo.Length <= 0)
+            {
+                return Json(new { Response = false, mensaje = "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Ingresa el nombre del nuevo tipo de electrónico que quieres registrar. <br />" });
+            }
+            else
+            {
+                RespuestaModel respuesta = em.RegistrarTipoElectronico(nuevoTipo);
+                respuesta.funcion= "actualizarTipos()";
                 return Json(respuesta);
             }
         }
@@ -201,17 +219,33 @@ namespace ControlOffice.Controllers
             return Json(new { response = true,mensaje=opciones});
         }
 
+        public JsonResult ObtenerTipos()
+        {
+            string opciones = "<option value='0'>Seleccionar</option>";
+            List<Tipo_electronico> tipos = em.ObtenerTipos();
+            foreach (Tipo_electronico t in tipos)
+            {
+                opciones += "<option value='" + t.Id_tipo_electronico + "'>" + t.Nombre + "</option>";
+            }
+            opciones = "<select class='form-control' id='FORM-aparato_LB-tipo' name='tipo' style='border-color:white'>" + opciones + "</select>";
+
+            return Json(new { response = true, mensaje = opciones });
+        }
+
+        [ProtegidoVista]
         public JsonResult listaElectronicos(JqGrid jq)
         {
             return Json(em.ObtenerTodosLosElectronicos(jq), JsonRequestBehavior.AllowGet);
         }
 
+        [ProtegidoVista]
         public JsonResult listaSolicitudElectronicos(JqGrid jq)
         {
             return Json(em.ObtenerSolicitudesElectronicos(jq), JsonRequestBehavior.AllowGet);
         }
 
-        
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminar(string id)
         {
             if (usuario.Administrador)
@@ -227,6 +261,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminarSolicitud(string id)
         {
             if(usuario.Administrador)

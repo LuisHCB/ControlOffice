@@ -64,6 +64,7 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
+        [ProtegidoVista]        
         public JsonResult registrarDocumentoEnviado(string destino = "", string asunto = "", int opcionEnvio = 0, int tipoDocumento = 0, DateTime fechaEnvio = new DateTime(), string horaEnvio = "",
              string crearFolio = "", string folio = "", string imagen = "")
         {
@@ -116,6 +117,7 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]        
         public JsonResult registrarDocumentoRecibido(string destinoRecibido = "", string asuntoRecibido = "", int opcionRecepcion = 0, DateTime fechaRecepcion = new DateTime(), string horaRecepcion = "",
              string crearFolioRecepcion = "", string folioRecepcion = "", string imagenRecepcion = "", DateTime fechaEnvioRecepcion = new DateTime(), string horaEnvioRecepcion = "", int opcionEnvio=0,
             int opcionLlegada = 0, DateTime fechaEnvioLlegada = new DateTime(), string horaEnvioLlegada = "",int requiereRespuesta=0, int opcionRequiereRespuesta =0,
@@ -196,6 +198,7 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
         public JsonResult registrarDocumentoEstandar(string asuntoEstandar = "", int tipoDocumentoEstandar = 0, string folioEstandar = "", string imagenEstandar = "")
         {
             try
@@ -235,6 +238,7 @@ namespace ControlOffice.Controllers
             return Json(new { response = true, mensaje = opciones });
         }
 
+        [ProtegidoVista]        
         public JsonResult registrarNuevoTipoDocEnv(string tipoDocumento="")
         {
             if (tipoDocumento.Length > 0)
@@ -246,6 +250,7 @@ namespace ControlOffice.Controllers
                 return Json(new { response = false });
             }
         }
+
 
         public JsonResult ObtenerTiposDocInt()
         {
@@ -260,6 +265,8 @@ namespace ControlOffice.Controllers
             return Json(new { response = true, mensaje = opciones });
         }
 
+
+        [ProtegidoVista]
         public JsonResult registrarNuevoTipoDocInt(string tipoDocumento = "")
         {
             if (tipoDocumento.Length > 0)
@@ -272,6 +279,7 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]        
         public JsonResult listaDocumentosEnviados(JqGrid jq)
         {
             try
@@ -283,7 +291,8 @@ namespace ControlOffice.Controllers
                 return Json(new { response = false, mensaje = "Error: " + ex.Message });
             }
         }
-        
+
+        [ProtegidoVista]
         public JsonResult listaDocumentosRecibidos(JqGrid jq)
         {
             try
@@ -296,6 +305,7 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
         public JsonResult listaDocumentosInternos(JqGrid jq)
         {
             try
@@ -308,6 +318,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminarDocEnviado(string id)
         {
             if (usuario.Administrador)
@@ -323,6 +335,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminarDocInterno(string id)
         {
             if(usuario.Administrador)
@@ -338,6 +352,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminarDocRecibido(string id)
         {
             if (usuario.Administrador)

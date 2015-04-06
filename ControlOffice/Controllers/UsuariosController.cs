@@ -114,8 +114,7 @@ namespace ControlOffice.Controllers
         }
 
 
-        
-    
+        [ProtegidoVista]
         public JsonResult RegistrarUsuario(Usuarios model)
         {
             if (usuario.Administrador)

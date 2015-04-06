@@ -53,7 +53,7 @@
 				  </div>				  				  
 				  <div class="form-group">
                     <label for="FORM-mobiliario_LB-tipo" class="col-sm-3 control-label">Tipo</label>					    
-				    <div class="btn-group col-sm-9 has-success"   data-toggle="buttons">
+				    <div class="btn-group col-sm-5 has-success"  id="contenedorListaTipos" data-toggle="buttons">
 					  <select class="form-control" id="FORM-mobiliario_LB-tipo" name="tipo" style="border-color:white">
 					    <option value="0" >Seleccionar</option>							
 					   <!-- <option style="color:black"
@@ -75,7 +75,10 @@
 					    <option>Silla de trabajo</option>
 					    <option>Silla de direccion</option>-->
 					  </select>						  
-					</div>					
+					</div>	
+                      <button type="button" class="btn btn-success col-sm-3" style="border-color:white" data-target="#form-tipo" data-toggle="modal">
+					      <span class="glyphicon glyphicon-plus"></span> Agregar nuevo tipo
+                        </button>				
                   </div> <!--  -->				  
 				  <!-- Ventana colapsable para Tipo otro -->
 				  <div class="collapse" id="FORM-mobiliario_V-agregarTipo">					  
@@ -385,6 +388,30 @@
    </div>
 </div>
 
+<div id="form-tipo" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Registro de nuevo tipo de mobiliario</h4>
+        </div>       
+          <div class="modal-body">
+            @using(Html.BeginForm("RegistrarTipoMobiliario","mobiliario",FormMethod.Post))
+            {
+              <div class="form-group">                  
+                      <label for="nuevoTipo" class="control-label">Nombre del tipo de mobiliario</label>
+                      <input type="text" class="form-control" id="nuevoTipo" name="nuevoTipo" required />                          
+              </div>     
+                <hr />
+              <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button data-ajax="true"  type="submit" class="btn btn-primary">Registrar</button>          
+              </div>
+            }
+          </div>               
+    </div>
+   </div>
+</div>
+
 
 <!-- Declaracióin de script propios -->
 <script>
@@ -408,6 +435,27 @@
             }
         });
        
+    }
+
+    function actualizarTipos() {
+        $.ajax("/mobiliario/ObtenerTipos", {
+            async: true,
+            type: "post",
+            beforeSend: function () { $.notify("Actualizando la lista de tipos de mobiliarios", "info"); },
+            success: function (respuesta) {
+                if (respuesta.response == true) {
+                    $("#contenedorListaTipos").html(respuesta.mensaje);
+                    $("#nuevoTipo").val('');
+                }
+                else {
+                    alert("Error al actualizar los tipos de mobiliarios, presione F5");
+                }
+            },
+            error: function (a) {
+                alert("Error inesperado: No se ha logrado actualizar la lista de tipos de mobiliarios, presione F5. " + a);
+            }
+        });
+
     }
 
 </script>

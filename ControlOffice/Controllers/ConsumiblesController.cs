@@ -56,6 +56,7 @@ namespace ControlOffice.Controllers
             return PartialView();
         }
 
+        [ProtegidoVista]        
         public JsonResult RegistrarSolicitud(int envio, string destino = "", string descripcion = "", DateTime fechaEnvio = new DateTime(), string horaEnvio = "",
             string crearFolio = "", string folio = "", string imagen = "")
         {
@@ -108,7 +109,7 @@ namespace ControlOffice.Controllers
             }
         }
 
-        [Protegido]
+        [ProtegidoVista]
         public JsonResult RegistrarConsumible(string cantidad = "", int tipo = 0, string clave = "", int recibido = 0, DateTime fechaRecepcion = new DateTime(),
             string horaRecepcion = "00:00", string entregado = "", string archivo = "")
         {
@@ -165,7 +166,37 @@ namespace ControlOffice.Controllers
             }
 
         }
-    
+
+        [Protegido]
+        public JsonResult RegistrarTipoConsumible(string nuevoTipo = "")
+        {
+
+            if (nuevoTipo.Length <= 0)
+            {
+                return Json(new { Response = false, mensaje = "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'> </span> Ingresa el nombre del nuevo tipo de consumible que quieres registrar. <br />" });
+            }
+            else
+            {
+                RespuestaModel respuesta = cm.RegistrarTipoConsumible(nuevoTipo);
+                respuesta.funcion = "actualizarTipos()";
+                return Json(respuesta);
+            }
+        }
+
+        public JsonResult ObtenerTipos()
+        {
+            string opciones = "<option value='0'>Seleccionar</option>";
+            List<Tipo_consumible> tipos = cm.ObtenerTipos();
+            foreach (Tipo_consumible t in tipos)
+            {
+                opciones += "<option value='" + t.Id_tipo_consumible + "'>" + t.Nombre + "</option>";
+            }
+            opciones = "<select class='form-control' id='FORM-entrega_LB-tipo' name='tipo' style='border-color:white' required>" + opciones + "</select>";
+
+            return Json(new { response = true, mensaje = opciones });
+        }
+
+        [ProtegidoVista]        
         public JsonResult listaConsumibles(JqGrid jq)
         {
             try
@@ -177,12 +208,15 @@ namespace ControlOffice.Controllers
                 return Json(new { response = false, mensaje = "Error: " + ex.Message });
             }
         }
-    
+
+        [ProtegidoVista]        
         public JsonResult listaSolicitudConsumibles(JqGrid jq)
         {
             return Json(cm.ObtenerSolicitudesConsumibles(jq), JsonRequestBehavior.AllowGet);
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminarSolicitud(string id)
         {
             if(usuario.Administrador)
@@ -198,6 +232,8 @@ namespace ControlOffice.Controllers
             }
         }
 
+        [ProtegidoVista]
+        [SoloAdministrador]
         public JsonResult eliminar(string id)
         {
             if(usuario.Administrador)

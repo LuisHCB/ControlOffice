@@ -58,7 +58,7 @@
 				  <br/>
 				  <div class="form-group">
                     <label for="FORM-entrega_LB-tipo" class="col-sm-3 control-label">de</label>					    
-				    <div class="btn-group col-sm-9 has-success"   data-toggle="buttons">
+				    <div class="btn-group col-sm-5 has-success" id="contenedorListaTipos"  data-toggle="buttons">
 					  <select class="form-control" id="FORM-entrega_LB-tipo" name="tipo" style="border-color:white" required>
 					    <option value="0" style="color:white">Seleccionar:</option>
 					    <!--<option style="color:black"
@@ -72,7 +72,10 @@
                                <option value="@tipo.Id_tipo_consumible">@tipo.Nombre </option>
                            }  					    
 					  </select>
-					</div>					
+					</div>		
+                      <button type="button" class="btn btn-success col-sm-3" style="border-color:white" data-target="#form-tipo" data-toggle="modal">
+					      <span class="glyphicon glyphicon-plus"></span> Agregar nuevo tipo
+                        </button>			
                   </div> <!--  -->				  
 				  <!-- Ventana colapsable para Tipo otro -->
 				  <div class="collapse" id="FORM-entrega_V-agregarTipo">					  
@@ -344,3 +347,52 @@
         </div> <!-- Well -->
       </div> <!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::: Fin ventana_registrar colapsable -->
 
+<div id="form-tipo" class="modal fade ">
+   <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Registro de nuevo tipo de consumible</h4>
+        </div>       
+          <div class="modal-body">
+            @using(Html.BeginForm("RegistrarTipoConsumible","consumibles",FormMethod.Post))
+            {
+              <div class="form-group">                  
+                      <label for="nuevoTipo" class="control-label">Nombre del tipo de consumible</label>
+                      <input type="text" class="form-control" id="nuevoTipo" name="nuevoTipo" required />                          
+              </div>     
+                <hr />
+              <div class ="form-group">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button data-ajax="true"  type="submit" class="btn btn-primary">Registrar</button>          
+              </div>
+            }
+          </div>               
+    </div>
+   </div>
+</div>
+
+
+<script>
+
+    function actualizarTipos() {
+        $.ajax("/consumibles/ObtenerTipos", {
+            async: true,
+            type: "post",
+            beforeSend: function () { $.notify("Actualizando la lista de tipos de consumibles", "info"); },
+            success: function (respuesta) {
+                if (respuesta.response == true) {
+                    $("#contenedorListaTipos").html(respuesta.mensaje);
+                    $("#nuevoTipo").val('');
+                }
+                else {
+                    alert("Error al actualizar los tipos de consumibles, presione F5");
+                }
+            },
+            error: function (a) {
+                alert("Error inesperado: No se ha logrado actualizar la lista de tipos de consumibles, presione F5. " + a);
+            }
+        });
+
+    }
+
+</script>

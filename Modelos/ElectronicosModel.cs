@@ -142,6 +142,38 @@ namespace Modelos
             }
         }
 
+        public RespuestaModel RegistrarTipoElectronico(string tipo)
+        {
+            RespuestaModel respuesta = new RespuestaModel();
+            using (var contex = new DBControlOfficeContext())
+            {
+                if (!ExisteTipo(tipo))
+                {
+                  
+                    try
+                    {
+                        Tipo_electronico nuevoTipo = new Tipo_electronico();
+                        nuevoTipo.Nombre = tipo;
+                        contex.Tipo_electronico.Add(nuevoTipo);
+                        contex.SaveChanges();
+                        respuesta.SetRespuesta(true);
+                        respuesta.alerta = "El tipo de electrónico se ha registrado correctamente.";
+                        return respuesta;
+                    }
+                    catch
+                    {
+                        respuesta.SetRespuesta(false, "Error al ingresar el registro, verifique información o conexión");
+                        return respuesta;
+                    }
+                }
+                else
+                {
+                    respuesta.SetRespuesta(false, "La tipo de electrónico que ingresaste ya existe");
+                    return respuesta;
+                }
+            }
+        }
+
         /// <summary>
         /// Indica si la marca ya existe
         /// </summary>
@@ -165,11 +197,42 @@ namespace Modelos
             }
         }
 
+        /// <summary>
+        /// Indica si la el tipo de electronico ya existe
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public bool ExisteTipo(string tipo)
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                Tipo_electronico tipoE = context.Tipo_electronico.Where(x =>
+                                                x.Nombre == tipo
+                                                 ).FirstOrDefault();
+                if (tipoE == null)//no existe
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         public List<Marca_electronicos> ObtenerMarcas()
         {
             using (var context = new DBControlOfficeContext())
             {
                 return context.Marca_electronicos.ToList();
+            }
+        }
+
+        public List<Tipo_electronico> ObtenerTipos()
+        {
+            using (var context = new DBControlOfficeContext())
+            {
+                return context.Tipo_electronico.ToList();
             }
         }
 
